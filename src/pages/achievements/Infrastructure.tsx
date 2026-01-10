@@ -1,17 +1,52 @@
+import { motion } from 'framer-motion';
+
+const initiatives = [
+  {
+    title: "Operation Light Up",
+    info: "Installation of over 2,500 streetlights across the constituency to enhance security and night commerce.",
+    image: "https://i.imgur.com/AZqDymE.jpeg"
+  },
+  {
+    title: "Road Maintenance",
+    info: "Extensive road grading projects and secured allocation for 10km of asphalted roads in key areas.",
+    image: "https://i.imgur.com/AZqDymE.jpeg"
+  },
+  {
+    title: "Community Center",
+    info: "Full refurbishment and construction of the Ankaful Community Centre for public gatherings.",
+    image: "https://i.imgur.com/AZqDymE.jpeg"
+  },
+  {
+    title: "Rural Power Grid",
+    info: "Expansion of electricity infrastructure to underserved rural communities within the constituency.",
+    image: "https://i.imgur.com/AZqDymE.jpeg"
+  }
+];
+
 export function Infrastructure() {
   return (
-    <>
-      <p className="mb-6 text-lg font-medium italic text-slate-700">Building the foundation for a modern Cape Coast North.</p>
-      
-      <h3 className="text-2xl font-bold mt-8 mb-4">Operation Light Up</h3>
-      <p className="mb-4">Installation of over 2,500 high-efficiency streetlights across the constituency to improve night-time security and boost the local evening economy.</p>
-      
-      <h3 className="text-2xl font-bold mt-8 mb-4">Roads & Community Spaces</h3>
-      <ul className="space-y-3">
-        <li>• Major road grading projects in farming communities.</li>
-        <li>• Securement of an allocation for 10km of asphalted roads.</li>
-        <li>• Renovation and refurbishment of the Ankaful Community Centre.</li>
-      </ul>
-    </>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {initiatives.map((item, idx) => (
+        <motion.div 
+          key={idx}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: idx * 0.05 }}
+          className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-md flex flex-col hover:shadow-lg transition-shadow"
+        >
+          <div className="h-40 overflow-hidden shrink-0">
+            <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+          </div>
+          <div className="p-5 flex flex-col flex-1">
+            <h3 className="text-lg font-black text-slate-900 mb-2 leading-tight uppercase tracking-tight">
+              {item.title}
+            </h3>
+            <p className="text-slate-600 text-sm leading-relaxed font-medium">
+              {item.info}
+            </p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
   );
 }
