@@ -12,6 +12,6 @@ export function Agriculture() {
         <li>• Market linkage programs to connect farmers directly with major buyers in the city.</li>
         <li>• Agricultural training workshops on climate-resilient farming techniques.</li>
       </ul>
-    </> 
+    </>
   );
 }
