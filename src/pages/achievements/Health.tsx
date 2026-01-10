@@ -1,17 +1,42 @@
+import { motion } from 'framer-motion';
+
+const initiatives = [
+  {
+    title: "Health Center Support",
+    info: "Provision of critical medical supplies and infrastructure upgrades to health centers in Kwaprow and Dankwakrom.",
+    image: "https://i.imgur.com/XmWnKbH.jpeg"
+  },
+  {
+    title: "Public Sanitation",
+    info: "Construction of modern sanitation facilities in high-density areas to improve community health.",
+    image: "https://i.imgur.com/XmWnKbH.jpeg"
+  }
+];
+
 export function Health() {
   return (
-    <>
-      <p className="mb-6 text-lg font-medium italic text-green-700">Expanding access to quality healthcare and clean sanitation for all.</p>
-      
-      <h3 className="text-2xl font-bold mt-8 mb-4">Health Facility Support</h3>
-      <p className="mb-4">Hon. Ragga has provided critical medical supplies and infrastructure upgrades to the health centers in Kwaprow and Dankwakrom, ensuring constituents have reliable local medical care.</p>
-      
-      <h3 className="text-2xl font-bold mt-8 mb-4">Sanitation & Hygiene</h3>
-      <ul className="space-y-3">
-        <li>• Construction of modern public toilets in densely populated areas.</li>
-        <li>• Installation of manholes and improved drainage systems to prevent waterborne diseases.</li>
-        <li>• Regular community sanitation drives and equipment support.</li>
-      </ul>
-    </>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {initiatives.map((item, idx) => (
+        <motion.div 
+          key={idx}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: idx * 0.05 }}
+          className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-md flex flex-col hover:shadow-lg transition-shadow"
+        >
+          <div className="h-40 overflow-hidden shrink-0">
+            <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+          </div>
+          <div className="p-5 flex flex-col flex-1">
+            <h3 className="text-lg font-black text-slate-900 mb-2 leading-tight uppercase tracking-tight">
+              {item.title}
+            </h3>
+            <p className="text-slate-600 text-sm leading-relaxed font-medium">
+              {item.info}
+            </p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
   );
 }
