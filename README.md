@@ -1,25 +1,23 @@
-# Hon. Dr. Kwamena Minta Nyarku (Ragga) - Obiara Ka Ho
+# Jane Doe for Senate 2026
 
-A modern, full-featured political website for the Member of Parliament for Cape Coast North, built with React, TypeScript, Tailwind CSS, and Supabase.
+A modern, full-featured political campaign website built with React, TypeScript, Tailwind CSS, and Supabase.
 
 ## Features
 
 ### Public Pages
 - **Home**: Hero section with campaign slogan, core values, statistics, and call-to-action buttons
 - **About**: Biography, achievements, leadership principles, and personal story
-- **Achievements**: Verified accomplishments in Infrastructure, Education, Health, Employment, and Agriculture
-- **Events**: Community events calendar with RSVP functionality
-- **Assemblymen**: Directory of local representatives working with Hon. Ragga
-- **Volunteer & Issues**: Issue reporting form and volunteer opportunities
+- **Policies**: Collapsible policy cards organized by category (Economy, Healthcare, Education, etc.)
+- **Events**: Campaign events calendar with RSVP functionality
+- **News & Media**: Blog with articles, press releases, and video content
+- **Volunteer & Donate**: Volunteer signup form, donation interface, and contact form
 
 ### Features
 - **Dark Mode**: System-aware theme toggle with smooth transitions
 - **Responsive Design**: Mobile-first approach with breakpoints for all devices
 - **Newsletter Signup**: Integrated in footer with Supabase backend
-- **Issue Reporting**: Community members can report local issues
-- **Polls System**: Engage constituents with polls and surveys
-- **Appointment Booking**: Schedule meetings with the MP's office
-- **Ongoing Projects Tracker**: Real-time updates on infrastructure projects
+- **RSVP System**: Event registration with guest tracking
+- **Content Management**: Basic admin dashboard for managing events and blog posts
 - **SEO Optimized**: Meta tags, Open Graph, and Twitter Card support
 - **Accessible**: ARIA labels, keyboard navigation, and semantic HTML
 
@@ -99,15 +97,13 @@ The production build will be in the `dist/` directory.
 
 The application uses the following tables:
 
-- **achievements**: Verified accomplishments across various sectors
-- **events**: Community events with RSVP tracking
-- **issues**: Community-reported issues and concerns
-- **polls**: Public opinion surveys and voting
-- **appointments**: Meeting scheduling with the MP's office
-- **projects**: Ongoing infrastructure and development projects
+- **policies**: Campaign policy positions
+- **events**: Campaign events with RSVP tracking
+- **blog_posts**: News articles and press releases
+- **event_rsvps**: Event attendance registrations
 - **newsletter_signups**: Email subscribers
 - **volunteer_signups**: Volunteer applications
-- **assemblymen**: Local representatives directory
+- **contact_messages**: Contact form submissions
 
 All tables have Row Level Security (RLS) enabled:
 - Public read access for published content
@@ -119,30 +115,21 @@ All tables have Row Level Security (RLS) enabled:
 ```
 src/
 ├── components/          # Reusable UI components
-│   ├── AnimatedSection.tsx
 │   ├── Button.tsx
-│   ├── ErrorBoundary.tsx
 │   ├── Header.tsx
 │   └── Footer.tsx
 ├── contexts/           # React context providers
 │   └── ThemeContext.tsx
-├── data/              # Static data and configurations
-│   └── locations.ts
 ├── lib/               # Utilities and configurations
 │   ├── supabase.ts    # Supabase client
 │   └── database.types.ts
 ├── pages/             # Page components
 │   ├── Home.tsx
 │   ├── About.tsx
-│   ├── Achievements.tsx
-│   ├── Assemblymen.tsx
+│   ├── Policies.tsx
 │   ├── Events.tsx
-│   ├── Issues.tsx
-│   ├── Polls.tsx
-│   ├── Appointments.tsx
-│   ├── OngoingProjects.tsx
+│   ├── News.tsx
 │   ├── Volunteer.tsx
-│   ├── ReadStory.tsx
 │   └── Admin.tsx
 ├── App.tsx            # Main app component with routing
 ├── main.tsx           # Application entry point
@@ -162,16 +149,22 @@ Access the admin dashboard by navigating to the "admin" page (add `?page=admin` 
 ## Customization
 
 ### Branding
-- Update MP name and details in `Header.tsx` and `Footer.tsx`
-- Replace logo with official MP photo/constituency logo
+- Update candidate name and details in `Header.tsx` and `Footer.tsx`
+- Replace "JD" logo placeholder with actual candidate photo/logo
 - Modify color scheme in Tailwind config if needed
 
 ### Content
 - Sample data is included in `supabase-schema.sql`
-- Use the admin dashboard to add/edit events and projects
+- Use the admin dashboard to add/edit events and blog posts
 - Update biography and achievements in `About.tsx`
-- Add assemblymen details through the database
-- Update constituency-specific information
+- Modify policy positions in the database
+
+### Stripe Integration
+To enable donations:
+1. Create a Stripe account
+2. Get your API keys
+3. Implement Stripe Checkout or Payment Element
+4. Update the donate section in `Volunteer.tsx`
 
 ## Deployment
 
@@ -191,16 +184,16 @@ The app can be deployed to any static hosting service:
 
 ## Contributing
 
-This is a parliamentary website for Hon. Dr. Kwamena Minta Nyarku (Ragga), Member of Parliament for Cape Coast North.
+This is a campaign website template. Feel free to customize it for your needs.
 
 ## License
 
-All rights reserved. Official website of Hon. Dr. Kwamena Minta Nyarku (Ragga).
+All rights reserved. Paid for by Jane Doe for Senate Committee.
 
 ## Support
 
-For questions or issues, contact the MP's office through the website's contact form.
+For questions or issues, contact: info@janedoe2026.com
 
 ---
 
-**About**: This website serves the constituents of Cape Coast North, Ghana, providing transparency, accessibility, and community engagement with their elected representative.
+**Disclaimer**: This is a demo project. Federal election law requires proper disclosure statements, contribution limits, and reporting. Consult with legal counsel and the FEC before launching a real political campaign website.
