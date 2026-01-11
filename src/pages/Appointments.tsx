@@ -1,411 +1,162 @@
 // src/pages/Appointments.tsx
-import React, { useState } from 'react';
-import {
-  Calendar,
-  Clock,
-  User,
-  Briefcase,
-  FileText,
-  CheckCircle,
-  ArrowRight,
-  Info,
-  AlertTriangle,
-  CalendarDays
+import { 
+  Calendar, FileText, Clock, MapPin, 
+  CheckCircle2, ArrowRight, UserCheck, HelpCircle 
 } from 'lucide-react';
-
-// --- TYPES ---
-type Tab = 'appointment' | 'application';
-type TimeSlot = 'morning' | 'afternoon';
-
-// --- HON. AVAILABILITY SETUP ---
-const HON_AVAILABILITY: Record<string, TimeSlot[]> = {
-  // Weekday names must match Date.toLocaleDateString('en-US', { weekday: 'long' })
-  Monday: ['morning', 'afternoon'],
-  Wednesday: ['morning'],
-  Friday: ['afternoon'],
-};
-
-const TIME_SLOT_LABELS: Record<TimeSlot, string> = {
-  morning: 'Morning (9am - 12pm)',
-  afternoon: 'Afternoon (1pm - 4pm)',
-};
-
-function getWeekdayName(dateStr: string): string {
-  if (!dateStr) return '';
-  const d = new Date(dateStr + 'T00:00:00');
-  return d.toLocaleDateString('en-US', { weekday: 'long' });
-}
-
-function isHonAvailable(dateStr: string, slot: TimeSlot): boolean {
-  const weekday = getWeekdayName(dateStr);
-  if (!weekday) return false;
-  const daySlots = HON_AVAILABILITY[weekday];
-  if (!daySlots) return false;
-  return daySlots.includes(slot);
-}
-
-function findNextAvailableSlot(
-  fromDateStr: string,
-  preferredSlot: TimeSlot
-): { dateStr: string; weekday: string; slot: TimeSlot } | null {
-  if (!fromDateStr) return null;
-  const start = new Date(fromDateStr + 'T00:00:00');
-  const maxDaysAhead = 30;
-
-  for (let i = 0; i <= maxDaysAhead; i++) {
-    const d = new Date(start);
-    d.setDate(start.getDate() + i);
-    const weekday = d.toLocaleDateString('en-US', { weekday: 'long' });
-    const daySlots = HON_AVAILABILITY[weekday];
-
-    if (daySlots && daySlots.length > 0) {
-      // If preferred slot is available, use it, else fall back to first slot for that day
-      const slot = daySlots.includes(preferredSlot)
-        ? preferredSlot
-        : (daySlots[0] as TimeSlot);
-
-      const dateStr = d.toISOString().slice(0, 10);
-      return { dateStr, weekday, slot };
-    }
-  }
-  return null;
-}
+import { motion } from 'framer-motion';
+import { AnimatedSection } from '../components/AnimatedSection';
 
 export function Appointments() {
-  const [activeTab, setActiveTab] = useState<Tab>('appointment');
-  const [submitted, setSubmitted] = useState(false);
-
-  // Availability State
-  const [appointmentDate, setAppointmentDate] = useState('');
-  const [appointmentTimeSlot, setAppointmentTimeSlot] = useState<TimeSlot>('morning');
-  const [availabilityMessage, setAvailabilityMessage] = useState<string | null>(null);
-  const [availabilityStatus, setAvailabilityStatus] = useState<'idle' | 'available' | 'unavailable'>('idle');
-
-  const todayISO = new Date().toISOString().slice(0, 10);
-
-  const updateAvailability = (dateStr: string, slot: TimeSlot) => {
-    if (!dateStr) {
-      setAvailabilityStatus('idle');
-      setAvailabilityMessage(null);
-      return;
-    }
-
-    if (isHonAvailable(dateStr, slot)) {
-      const weekday = getWeekdayName(dateStr);
-      setAvailabilityStatus('available');
-      setAvailabilityMessage(
-        `Hon. is available on ${weekday}, ${dateStr} during ${TIME_SLOT_LABELS[slot]}.`
-      );
-    } else {
-      const weekday = getWeekdayName(dateStr);
-      const next = findNextAvailableSlot(dateStr, slot);
-      setAvailabilityStatus('unavailable');
-
-      if (next) {
-        setAvailabilityMessage(
-          `Hon. is not available on ${weekday || 'this day'}. Next available slot is ` +
-            `${next.weekday}, ${next.dateStr} – ${TIME_SLOT_LABELS[next.slot]}.`
-        );
-      } else {
-        setAvailabilityMessage(
-          `Hon. is not available on this day. No available slots found in the next 30 days.`
-        );
-      }
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (activeTab === 'appointment') {
-      if (!appointmentDate) {
-        setAvailabilityStatus('unavailable');
-        setAvailabilityMessage('Please select a date for your appointment.');
-        return;
-      }
-
-      if (!isHonAvailable(appointmentDate, appointmentTimeSlot)) {
-        const weekday = getWeekdayName(appointmentDate);
-        const next = findNextAvailableSlot(appointmentDate, appointmentTimeSlot);
-        setAvailabilityStatus('unavailable');
-
-        if (next) {
-          setAvailabilityMessage(
-            `Hon. is not available on ${weekday || 'this day'} for the selected period. ` +
-              `Next available slot is ${next.weekday}, ${next.dateStr} – ${TIME_SLOT_LABELS[next.slot]}. ` +
-              `Please adjust your date and time.`
-          );
-        } else {
-          setAvailabilityMessage(
-            `Hon. is not available on this day. Please pick another date.`
-          );
-        }
-        return;
-      }
-    }
-
-    setSubmitted(true);
-    setAvailabilityStatus('idle');
-    setAvailabilityMessage(null);
-
-    setTimeout(() => setSubmitted(false), 5000);
-  };
+  const requirements = [
+    "Valid National ID (Ghana Card)",
+    "Brief summary of the issue or proposal",
+    "Supporting documents (for applications)",
+    "Contact details for follow-up"
+  ];
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-28 pb-12">
-      <section className="px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          
-          {/* PREMIUM HEADER BLOCK */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 border border-blue-100 mb-4">
-              <CalendarDays className="w-3.5 h-3.5 text-blue-700" />
-              <span className="text-[10px] sm:text-xs font-semibold tracking-[0.22em] uppercase text-blue-700">
-                Official Requests
-              </span>
-            </div>
-
-            <div className="flex flex-col items-center justify-center group">
-              <h1 className="
-                text-3xl sm:text-4xl md:text-5xl 
-                font-extrabold leading-tight tracking-tight mb-2
-                text-slate-900
-              ">
-                Appointments & Applications
-              </h1>
-              <span className="
-                mt-4 h-[3px] w-20 rounded-full
-                bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-700
-                motion-safe:transition-all motion-safe:duration-500
-                group-hover:w-32
-              " />
-            </div>
-            
-            <p className="mt-6 text-slate-600 max-w-xl mx-auto text-base md:text-lg leading-relaxed">
-              Schedule a meeting with the MP's office or submit applications for grants, jobs, and support programs.
-            </p>
-          </div>
-
-          {/* TAB TOGGLE */}
-          <div className="flex justify-center mb-10">
-            <div className="bg-white p-1.5 rounded-full border border-slate-200 shadow-sm inline-flex">
-              <button
-                onClick={() => { setActiveTab('appointment'); setSubmitted(false); }}
-                className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
-                  activeTab === 'appointment' 
-                    ? 'bg-slate-900 text-white shadow-md' 
-                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                }`}
-              >
-                Book Appointment
-              </button>
-              <button
-                onClick={() => { setActiveTab('application'); setSubmitted(false); }}
-                className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
-                  activeTab === 'application' 
-                    ? 'bg-slate-900 text-white shadow-md' 
-                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                }`}
-              >
-                Applications
-              </button>
-            </div>
-          </div>
-
-          {/* FORM CARD */}
-          <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 p-6 md:p-12">
-            {submitted ? (
-              <div className="text-center py-16">
-                <div className="w-20 h-20 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
-                  <CheckCircle className="w-10 h-10" />
+    <div className="min-h-screen bg-[#FDFDFD] pt-12 pb-24 font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* --- STANDARD HEADING BLOCK --- */}
+        <div className="relative mb-20">
+          <AnimatedSection>
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-12 border-b border-slate-200 pb-16">
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 text-green-700 text-[11px] font-black uppercase tracking-widest mb-8 border border-green-100 shadow-sm">
+                  <UserCheck className="w-3 h-3" />
+                  Direct Access to Leadership
                 </div>
-                <h3 className="text-3xl font-bold text-slate-900 mb-3">Submission Received</h3>
-                <p className="text-slate-500 text-lg">
-                  We have received your request and will contact you shortly.
+                <h1 className="text-5xl md:text-8xl font-black text-slate-900 leading-none uppercase tracking-tighter mb-6">
+                  Appointments <br />
+                  <span className="text-green-700">& Applications.</span>
+                </h1>
+                <p className="text-slate-500 text-lg md:text-xl font-medium max-w-xl leading-relaxed">
+                  Our office is open to every constituent. Whether you need a formal meeting or support with an application, we are here to serve.
                 </p>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
-                
-                {/* APPOINTMENT TAB */}
-                {activeTab === 'appointment' && (
-                  <>
-                    {/* INFO BANNER */}
-                    <div className="rounded-2xl border border-blue-100 bg-blue-50/60 px-5 py-4 flex gap-4 items-start">
-                      <div className="p-2 bg-blue-100 rounded-full text-blue-700 mt-0.5">
-                        <Info className="w-5 h-5" />
-                      </div>
-                      <div className="text-sm text-blue-900/90 leading-relaxed">
-                        <p className="font-bold mb-1 text-blue-900">Hon. Appointment Availability</p>
-                        <ul className="space-y-1 list-disc list-inside opacity-90 mb-2">
-                          <li>Mondays – Morning & Afternoon</li>
-                          <li>Wednesdays – Morning only</li>
-                          <li>Fridays – Afternoon only</li>
-                        </ul>
-                        <p className="text-xs opacity-75">
-                          If you select a time outside these slots, we'll suggest the next available time.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="block text-sm font-bold text-slate-800">Full Name</label>
-                        <div className="relative">
-                          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                          <input 
-                            type="text" 
-                            required 
-                            className="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all" 
-                            placeholder="Enter your full name" 
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <label className="block text-sm font-bold text-slate-800">Contact Number</label>
-                        <div className="relative">
-                          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-black tracking-wide">GH</div>
-                          <input 
-                            type="tel" 
-                            required 
-                            className="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all" 
-                            placeholder="024 XXX XXXX" 
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="block text-sm font-bold text-slate-800">Preferred Date</label>
-                        <div className="relative">
-                          <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                          <input 
-                            type="date" 
-                            required 
-                            min={todayISO}
-                            value={appointmentDate}
-                            onChange={(e) => {
-                              setAppointmentDate(e.target.value);
-                              updateAvailability(e.target.value, appointmentTimeSlot);
-                            }}
-                            className="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all cursor-pointer" 
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <label className="block text-sm font-bold text-slate-800">Preferred Time</label>
-                        <div className="relative">
-                          <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                          <select 
-                            className="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none appearance-none transition-all cursor-pointer"
-                            value={appointmentTimeSlot}
-                            onChange={(e) => {
-                              const slot = e.target.value as TimeSlot;
-                              setAppointmentTimeSlot(slot);
-                              if (appointmentDate) updateAvailability(appointmentDate, slot);
-                            }}
-                          >
-                            <option value="morning">{TIME_SLOT_LABELS.morning}</option>
-                            <option value="afternoon">{TIME_SLOT_LABELS.afternoon}</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* AVAILABILITY ALERT */}
-                    {availabilityMessage && (
-                      <div className={`rounded-2xl p-4 flex gap-3 items-start ${
-                        availabilityStatus === 'available' 
-                          ? 'bg-green-50 border border-green-100 text-green-800' 
-                          : 'bg-amber-50 border border-amber-100 text-amber-900'
-                      }`}>
-                        {availabilityStatus === 'available' 
-                          ? <CheckCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                          : <AlertTriangle className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                        }
-                        <p className="text-sm font-medium leading-relaxed">{availabilityMessage}</p>
-                      </div>
-                    )}
-
-                    <div className="space-y-2">
-                      <label className="block text-sm font-bold text-slate-800">Purpose of Visit</label>
-                      <textarea 
-                        required 
-                        rows={4} 
-                        className="w-full p-5 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none" 
-                        placeholder="Please briefly explain the reason for the appointment..." 
-                      />
-                    </div>
-                  </>
-                )}
-
-                {/* APPLICATION TAB */}
-                {activeTab === 'application' && (
-                  <>
-                    <div className="space-y-3">
-                      <label className="block text-sm font-bold text-slate-800">Application Type</label>
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        {['Job Opportunity', 'Educational Grant', 'Business Support', 'Health Support', 'Other'].map((type) => (
-                          <label key={type} className="relative flex items-center gap-3 p-4 border border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-50 transition-all has-[:checked]:bg-blue-50 has-[:checked]:border-blue-200 has-[:checked]:shadow-sm">
-                            <input type="radio" name="appType" className="peer h-4 w-4 text-blue-600 focus:ring-blue-500" />
-                            <span className="text-sm font-semibold text-slate-700 peer-checked:text-blue-900">{type}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="block text-sm font-bold text-slate-800">Full Name</label>
-                        <div className="relative">
-                          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                          <input required className="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition-all" placeholder="Applicant name" />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <label className="block text-sm font-bold text-slate-800">Email Address</label>
-                        <div className="relative">
-                          <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                          <input type="email" required className="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition-all" placeholder="email@example.com" />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="block text-sm font-bold text-slate-800">Cover Letter / Details</label>
-                      <textarea required rows={5} className="w-full p-5 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none" placeholder="Tell us about your application..." />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="block text-sm font-bold text-slate-800">Upload Documents (CV/Proposal)</label>
-                      <div className="border-2 border-dashed border-slate-200 bg-slate-50/50 rounded-2xl p-10 text-center hover:bg-white hover:border-blue-300 transition-all cursor-pointer group">
-                        <div className="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-                           <FileText className="w-6 h-6 text-blue-500" />
-                        </div>
-                        <p className="text-sm text-slate-600 font-medium">Click to upload or drag and drop</p>
-                        <p className="text-xs text-slate-400 mt-1">PDF, DOCX up to 10MB</p>
-                      </div>
-                    </div>
-                  </>
-                )}
-
-                <div className="pt-6 border-t border-slate-100">
-                  <button 
-                    type="submit" 
-                    className="w-full py-4 bg-slate-900 hover:bg-slate-800 text-white text-lg font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-3"
-                  >
-                    {activeTab === 'appointment' ? 'Confirm Appointment' : 'Submit Application'}
-                    <ArrowRight className="w-5 h-5" />
-                  </button>
+              
+              {/* Quick Status Info */}
+              <div className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl lg:w-80 relative overflow-hidden group">
+                <Clock className="absolute -right-4 -top-4 w-24 h-24 text-white/5 group-hover:rotate-12 transition-transform duration-700" />
+                <p className="text-green-500 text-[10px] font-black uppercase tracking-[0.2em] mb-4">Office Hours</p>
+                <div className="space-y-2">
+                  <p className="text-white font-bold">Mon — Fri</p>
+                  <p className="text-slate-400 text-sm">9:00 AM — 5:00 PM</p>
                 </div>
-
-              </form>
-            )}
-          </div>
-
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
-      </section>
+
+        {/* --- MAIN ACTION CARDS --- */}
+        <div className="grid md:grid-cols-2 gap-8 mb-24">
+          
+          {/* Appointment Card */}
+          <AnimatedSection delay={100}>
+            <div className="group bg-white p-10 rounded-[3rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(22,163,74,0.1)] transition-all duration-500 h-full flex flex-col">
+              <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-200">
+                <Calendar className="w-8 h-8 text-white" />
+              </div>
+              <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight mb-4">Book an Appointment</h2>
+              <p className="text-slate-500 font-medium leading-relaxed mb-10">
+                Schedule a one-on-one session with the MP or the constituency executives to discuss community issues, personal concerns, or developmental ideas.
+              </p>
+              <div className="mt-auto">
+                <button className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-green-700 transition-all group/btn">
+                  Start Booking
+                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </div>
+          </AnimatedSection>
+
+          {/* Application Card */}
+          <AnimatedSection delay={200}>
+            <div className="group bg-white p-10 rounded-[3rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(22,163,74,0.1)] transition-all duration-500 h-full flex flex-col">
+              <div className="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-slate-200">
+                <FileText className="w-8 h-8 text-white" />
+              </div>
+              <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight mb-4">Submit Application</h2>
+              <p className="text-slate-500 font-medium leading-relaxed mb-10">
+                Submit requests for educational support, job recommendations, or community project funding. Track your application status in real-time.
+              </p>
+              <div className="mt-auto">
+                <button className="w-full py-5 border-2 border-slate-900 text-slate-900 rounded-2xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-slate-900 hover:text-white transition-all group/btn">
+                  Open Portal
+                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+
+        {/* --- REQUIREMENTS & LOCATIONS GRID --- */}
+        <div className="grid lg:grid-cols-3 gap-12 items-start">
+          
+          {/* Requirements List */}
+          <AnimatedSection delay={300} className="lg:col-span-2">
+            <div className="bg-slate-50 p-12 rounded-[3rem] border border-slate-100">
+              <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-8">Preparation Checklist</h3>
+              <div className="grid sm:grid-cols-2 gap-6">
+                {requirements.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                    <CheckCircle2 className="w-6 h-6 text-green-600 shrink-0" />
+                    <span className="text-sm font-bold text-slate-700">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimatedSection>
+
+          {/* Location Info */}
+          <AnimatedSection delay={400}>
+            <div className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm">
+              <div className="flex items-center gap-3 mb-8">
+                <MapPin className="w-5 h-5 text-green-700" />
+                <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight">Main Office</h3>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Address</p>
+                  <p className="text-sm font-bold text-slate-700 leading-relaxed">
+                    Constituency Secretariat, <br />
+                    Opposite UCC West Gate, <br />
+                    Cape Coast.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Contact</p>
+                  <p className="text-sm font-bold text-slate-700">024 XXX XXXX</p>
+                  <p className="text-sm font-bold text-slate-700">info@ccnorth.com</p>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+
+        {/* --- FAQ SECTION --- */}
+        <AnimatedSection delay={500}>
+          <div className="mt-24 text-center">
+            <div className="inline-flex items-center gap-2 mb-6">
+              <HelpCircle className="w-5 h-5 text-green-600" />
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Need Assistance?</span>
+            </div>
+            <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tighter mb-8">Frequently Asked Questions</h2>
+            <div className="max-w-2xl mx-auto space-y-4">
+              <button className="w-full p-6 bg-white border border-slate-100 rounded-2xl text-left flex items-center justify-between hover:border-green-200 transition-all group">
+                <span className="font-bold text-slate-700">How long does it take to process an application?</span>
+                <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-green-600 transition-colors" />
+              </button>
+              <button className="w-full p-6 bg-white border border-slate-100 rounded-2xl text-left flex items-center justify-between hover:border-green-200 transition-all group">
+                <span className="font-bold text-slate-700">Can I book an emergency meeting?</span>
+                <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-green-600 transition-colors" />
+              </button>
+            </div>
+          </div>
+        </AnimatedSection>
+
+      </div>
     </div>
   );
-} 
+}
