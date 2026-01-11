@@ -1,101 +1,180 @@
 // src/pages/Support.tsx
-import React from 'react';
-import { Heart, Share2, ShieldCheck, TrendingUp, Star } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { 
+  Camera, 
+  Filter,
+  Maximize2,
+  ExternalLink,
+  Search,
+  ChevronDown,
+  X,
+  Heart
+} from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 
 export function Support() {
+  const [filter, setFilter] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const categories = ['All', 'Education'];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Data restricted to only the Exercise Books project as requested
+  const photos = [
+    {
+      id: 1,
+      title: "RAISING 200,000 EXERCISE BOOKS PROJECT FOR STUDENTS IN CAPE COAST NORTH",
+      category: "Education",
+      image: "https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      desc: "We want to ensure that no one in Cape Coast North faces this, that is why I am doing this with you. Donate to support our students and write a better future together.",
+      isFeatured: true
+    }
+  ];
+
+  const filteredPhotos = photos.filter(photo => {
+    const matchesFilter = filter === 'All' || photo.category === filter;
+    const matchesSearch = photo.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         photo.desc.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
+
   return (
-    <div className="min-h-screen bg-white pt-24 pb-20 font-sans">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 pt-24 pb-24 font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* --- MAIN HEADING --- */}
-        <AnimatedSection>
-          <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 leading-tight uppercase text-center md:text-left">
-            RAISING 200,000 EXERCISE BOOKS PROJECT FOR STUDENTS IN CAPE COAST NORTH
-          </h1>
-          <p className="text-lg md:text-2xl font-medium text-slate-600 mb-12 max-w-4xl text-center md:text-left">
-            We want to ensure that no one in Cape Coast North faces this, that is why I am doing this with you. 
-            Donate to support our students and write a better future together.
-          </p>
+        {/* --- HEADING BLOCK --- */}
+        <div className="text-center mb-12">
+          <AnimatedSection>
+            <div className="flex flex-col items-center justify-center group">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
+                SUPPORT RAGGA
+              </h1>
+              <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
+                BUILDING WITH YOU OBIARA KA HO
+              </p>
+              <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
+            </div>
+          </AnimatedSection>
+        </div>
+
+        {/* --- SEARCH & FILTER BAR (RESTORED DESIGN) --- */}
+        <AnimatedSection delay={100}>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-12 bg-white p-4 rounded-3xl border border-slate-200 shadow-sm">
+            
+            <div className="relative w-full md:max-w-md group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-green-600 transition-colors" />
+              <input 
+                type="text"
+                placeholder="Search projects..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-12 py-3 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all text-sm font-medium"
+              />
+              {searchTerm && (
+                <button onClick={() => setSearchTerm('')} className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-200 rounded-full transition-colors">
+                  <X className="w-4 h-4 text-slate-500" />
+                </button>
+              )}
+            </div>
+
+            <div className="relative w-full md:w-64" ref={dropdownRef}>
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="w-full flex items-center justify-between px-6 py-3 bg-white border border-slate-200 rounded-2xl hover:border-green-500 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <Filter className="w-4 h-4 text-slate-400 group-hover:text-green-600" />
+                  <span className="text-sm font-bold text-slate-700 uppercase tracking-wider">{filter}</span>
+                </div>
+                <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {isDropdownOpen && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => {
+                        setFilter(cat);
+                        setIsDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-6 py-4 text-xs font-black uppercase tracking-widest transition-colors ${
+                        filter === cat ? 'bg-green-50 text-green-700' : 'text-slate-500 hover:bg-slate-50 hover:text-green-600'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </AnimatedSection>
 
-        <div className="flex flex-col lg:flex-row gap-8 md:gap-16">
-          
-          {/* --- LEFT SIDE: THE STORY & MEDIA --- */}
-          <div className="lg:w-[60%]">
-            <AnimatedSection delay={100}>
-              <div className="relative aspect-[16/10] w-full rounded-[2.5rem] overflow-hidden bg-slate-100 shadow-2xl mb-10">
-                <img 
-                  src="https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-                  alt="Students needing books" 
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-
-              <div className="prose prose-slate max-w-none text-slate-700 leading-relaxed text-lg">
-                <p className="mb-6 font-bold text-xl text-green-700">
-                  Every child deserves a blank page to start their story.
-                </p>
-                <p className="mb-6">
-                  In Cape Coast North, we are coming together to remove the basic barriers to education. 
-                  This project is a direct response to the needs of our students, ensuring that 
-                  financial constraints never stand in the way of a child's ability to take notes, 
-                  complete assignments, and dream big.
-                </p>
-                <blockquote className="border-l-8 border-green-600 pl-8 py-4 my-10 italic bg-slate-50 rounded-r-3xl text-2xl font-medium text-slate-800">
-                  "Education is the most powerful weapon which you can use to change the world."
-                </blockquote>
-              </div>
-            </AnimatedSection>
-          </div>
-
-          {/* --- RIGHT SIDE: DONATION CARD --- */}
-          <div className="lg:w-[40%]">
-            <AnimatedSection delay={200}>
-              <div className="sticky top-32 bg-white rounded-[3rem] border border-slate-200 shadow-[0_20px_50px_rgba(0,0,0,0.1)] p-8 md:p-10">
-                
-                {/* Progress Tracking */}
-                <div className="flex items-center gap-6 mb-8">
-                  <div className="relative w-20 h-20 flex-shrink-0">
-                     <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                       <path className="text-slate-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3" />
-                       <path className="text-green-600" strokeDasharray="45, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-                     </svg>
-                     <span className="absolute inset-0 flex items-center justify-center text-sm font-black text-slate-900">45%</span>
+        {/* --- GALLERY GRID (RESTORED DESIGN) --- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredPhotos.map((photo, index) => (
+            <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
+              <div className="group relative bg-white rounded-[2rem] overflow-hidden border border-green-500 ring-4 ring-green-500/10 shadow-sm hover:shadow-xl transition-all duration-500">
+                <div className="relative h-64 overflow-hidden">
+                  <img 
+                    src={photo.image} 
+                    alt={photo.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-4">
+                    <button className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-colors">
+                      <Maximize2 className="w-5 h-5" />
+                    </button>
+                    <button className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-colors">
+                      <ExternalLink className="w-5 h-5" />
+                    </button>
                   </div>
-                  <div>
-                    <div className="text-3xl font-black text-slate-900 tracking-tight">90,000 <span className="text-base font-bold text-slate-500 uppercase">books</span></div>
-                    <div className="text-xs font-black text-green-600 uppercase tracking-widest mt-1">Goal: 200,000 Books</div>
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white text-[9px] font-black uppercase rounded-full tracking-widest">
+                    Urgent Support
                   </div>
                 </div>
 
-                {/* Main Action */}
-                <div className="space-y-4 mb-8">
-                  <button className="w-full py-5 bg-green-700 hover:bg-green-800 text-white font-black rounded-2xl shadow-xl shadow-green-200 transition-all active:scale-95 flex items-center justify-center gap-3 text-lg uppercase tracking-widest">
-                    <Heart className="w-6 h-6 fill-current" />
-                    Donate Now
+                <div className="p-6">
+                  <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight mb-2 group-hover:text-green-700 transition-colors">
+                    {photo.title}
+                  </h3>
+                  <p className="text-sm text-slate-500 font-medium leading-relaxed mb-6">
+                    {photo.desc}
+                  </p>
+                  
+                  <button className="w-full py-3 bg-green-700 hover:bg-green-800 text-white rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all">
+                    <Heart className="w-4 h-4" />
+                    Support This Project
                   </button>
-                  <button className="w-full py-5 bg-white border-2 border-slate-200 text-slate-700 font-black rounded-2xl hover:bg-slate-50 transition-all flex items-center justify-center gap-3 text-lg uppercase tracking-widest">
-                    <Share2 className="w-6 h-6" />
-                    Share Project
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-3 mb-8 text-amber-700 bg-amber-50 p-4 rounded-2xl border border-amber-100 font-bold text-sm">
-                  <TrendingUp className="w-5 h-5" />
-                  <span>Recent surge: 112 donations today</span>
-                </div>
-
-                {/* Verified Badge */}
-                <div className="flex items-center gap-3 text-slate-500 font-bold text-xs uppercase tracking-widest justify-center">
-                  <ShieldCheck className="w-5 h-5 text-blue-600" />
-                  <span>Verified Project • Obiara Ka Ho</span>
                 </div>
               </div>
             </AnimatedSection>
-          </div>
-
+          ))}
         </div>
+
+        {/* --- EMPTY STATE --- */}
+        {filteredPhotos.length === 0 && (
+          <div className="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200">
+            <Camera className="w-12 h-12 text-slate-200 mx-auto mb-4" />
+            <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">
+              No matches found for "{searchTerm}"
+            </p>
+          </div>
+        )}
+
       </div>
     </div>
   );
