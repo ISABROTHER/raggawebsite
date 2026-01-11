@@ -36,7 +36,7 @@ export function Assemblymen() {
       (position) => {
         setTimeout(() => {
           setIsLocating(false);
-          // In a real app, logic would compare coordinates to zone data
+          // Simulation of zone detection
           const matchedZone = "Abura"; 
           setDetectedZone(matchedZone);
           setSearchQuery(matchedZone);
@@ -55,10 +55,12 @@ export function Assemblymen() {
         {/* --- STANDARD HEADING BLOCK --- */}
         <div className="text-center mb-6">
           <div className="flex flex-col items-center justify-center group">
+            {/* Main Heading */}
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
               Assemblymen
             </h1>
             
+            {/* Subtitle */}
             <p className="mt-2 text-xs md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
               Grassroots Leadership for Cape Coast North
             </p>
@@ -66,18 +68,18 @@ export function Assemblymen() {
             <span className="mt-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
           </div>
 
-          {/* PERSONAL NARRATIVE DESCRIPTION */}
+          {/* GENERAL NARRATIVE DESCRIPTION */}
           <div className="mt-6 max-w-4xl mx-auto">
             <div className="bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
               <Quote className="absolute -top-2 -left-2 w-12 h-12 text-slate-50 pointer-events-none" />
               <p className="text-sm md:text-base text-slate-700 leading-relaxed font-medium italic text-center relative z-10">
-                "To me, Assembly Members are the essential heartbeat of our local development. Under <span className="text-green-800 font-bold underline decoration-green-500/30 underline-offset-4">Local Governance Act, 2016 (Act 936)</span>, they act as your direct voice—ensuring your views shape assembly decisions and overseeing the projects that matter most to your daily life, from health to education. They are the facilitators of our democracy at the grassroots level."
+                Assembly Members are the essential heartbeat of local development. Under the <span className="text-green-800 font-bold underline decoration-green-500/30 underline-offset-4">Local Governance Act, 2016 (Act 936)</span>, they serve as the direct voice of the community—ensuring community views shape assembly decisions and overseeing the projects that impact daily life, from health to education. They are the facilitators of democracy at the grassroots level.
               </p>
             </div>
           </div>
         </div>
 
-        {/* --- COMPACT SEARCH & LIVE HUB --- */}
+        {/* --- COMPACT SEARCH & LIVE HUB (Pulls Grid Up) --- */}
         <div className="max-w-3xl mx-auto mb-8">
           <div className="flex flex-col md:flex-row items-center gap-3">
             <div className="relative w-full group">
@@ -167,14 +169,14 @@ export function Assemblymen() {
           ))}
         </div>
 
-        {/* Empty Search State */}
+        {/* Empty State */}
         {filteredMembers.length === 0 && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200 mt-8"
           >
-             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">No members found matching your search</p>
+             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">No members found</p>
              <button 
               onClick={() => setSearchQuery('')}
               className="mt-4 text-green-600 font-black text-xs uppercase underline underline-offset-4"
