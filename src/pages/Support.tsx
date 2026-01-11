@@ -160,7 +160,7 @@ export function Support() {
                   {/* Updated Button Text Below */}
                   <button className="w-full py-3 bg-green-700 hover:bg-green-800 text-white rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all">
                     <Heart className="w-4 h-4" />
-                    kindly support now, obiara ka ho
+                    kindly support, obiara ka ho
                   </button>
                 </div>
               </div>
