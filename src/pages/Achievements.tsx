@@ -1,6 +1,6 @@
 // src/pages/Achievements.tsx
 import { useState } from 'react';
-import { ArrowLeft, ChevronRight, Trophy } from 'lucide-react';
+import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedSection } from '../components/AnimatedSection';
 
@@ -32,22 +32,19 @@ export function Achievements() {
           {!selectedPolicy ? (
             <motion.div key="grid" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               
-              {/* Standard Heading Block */}
+              {/* Standard Heading Block with New Subtitle */}
               <div className="text-center mb-12 md:mb-16">
-                {/* Eyebrow Pill */}
-                <p className="inline-flex items-center gap-2 rounded-full bg-green-50 px-4 py-1.5 border border-green-100">
-                  <Trophy className="w-3.5 h-3.5 text-green-700" />
-                  <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-green-700">
-                    Proven Results
-                  </span>
-                </p>
-
-                {/* Main Heading */}
-                <div className="mt-4 flex flex-col items-center justify-center group">
+                <div className="flex flex-col items-center justify-center group">
                   <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent">
                     Our Achievements
                   </h1>
-                  <span className="mt-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
+                  
+                  {/* Subtitle phrase */}
+                  <p className="mt-2 text-lg md:text-2xl font-bold text-green-700/80 tracking-tight">
+                    What I have achieved so far
+                  </p>
+
+                  <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
                 </div>
 
                 <p className="mt-6 text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium">
