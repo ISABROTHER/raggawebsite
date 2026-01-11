@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { 
   X, Heart, ChevronRight, Wallet, CheckCircle2, 
-  User, Phone, ShieldCheck, CreditCard, Apple, Loader2, RefreshCw 
+  User, Phone, ShieldCheck, CreditCard, Apple, Loader2, RefreshCw, Edit3
 } from 'lucide-react';
 
 export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [step, setStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [selectedAmount, setSelectedAmount] = useState<number>(500);
+  const [selectedAmount, setSelectedAmount] = useState<number | string>(500);
   const [payMethod, setPayMethod] = useState<'LOCAL' | 'FOREIGN'>('LOCAL');
   
   // --- PRICE & RATE LOGIC ---
@@ -31,10 +31,13 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
   if (!isOpen) return null;
 
-  const totalGHS = selectedAmount * pricePerBookGHS;
+  // Handle calculation even if string is empty
+  const numericAmount = typeof selectedAmount === 'string' ? parseInt(selectedAmount) || 0 : selectedAmount;
+  const totalGHS = numericAmount * pricePerBookGHS;
   const totalUSD = totalGHS / exchangeRate;
 
   const handlePay = () => {
+    if (numericAmount <= 0) return;
     setIsProcessing(true);
     setTimeout(() => {
       setIsProcessing(false);
@@ -47,6 +50,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
     setTimeout(() => {
       setStep(1);
       setPayMethod('LOCAL');
+      setSelectedAmount(500);
       setIsProcessing(false);
     }, 300);
   };
@@ -74,7 +78,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
             </div>
           ) : (
             <>
-              {/* --- STEP 1: IMPACT SELECTION (CURRENCY SELECTOR REMOVED) --- */}
+              {/* --- STEP 1: IMPACT SELECTION WITH MANUAL OPTION --- */}
               {step === 1 && (
                 <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
                   <div className="flex items-center gap-3 mb-2">
@@ -82,17 +86,37 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     <h3 className="text-sm font-black uppercase tracking-widest text-slate-900">How many books?</h3>
                   </div>
 
+                  {/* Preset Buttons */}
                   <div className="grid grid-cols-2 gap-3">
                     {[100, 500, 1000, 5000].map((num) => (
-                      <button key={num} onClick={() => setSelectedAmount(num)} className={`py-5 rounded-2xl border-2 transition-all flex flex-col items-center justify-center ${selectedAmount === num ? 'border-green-600 bg-green-50' : 'border-slate-100 bg-white'}`}>
-                        <span className="text-xl font-black">{num.toLocaleString()}</span>
+                      <button 
+                        key={num} 
+                        onClick={() => setSelectedAmount(num)} 
+                        className={`py-4 rounded-2xl border-2 transition-all flex flex-col items-center justify-center ${selectedAmount === num ? 'border-green-600 bg-green-50 shadow-sm' : 'border-slate-100 bg-white hover:border-slate-200'}`}
+                      >
+                        <span className="text-lg font-black">{num.toLocaleString()}</span>
                         <span className="text-[9px] font-black uppercase text-slate-400">Books</span>
                       </button>
                     ))}
                   </div>
 
+                  {/* Manual Input Field */}
+                  <div className="relative group">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 text-slate-400 group-focus-within:text-red-800 transition-colors">
+                      <Edit3 className="w-4 h-4" />
+                      <span className="text-[10px] font-black uppercase tracking-widest">Custom:</span>
+                    </div>
+                    <input 
+                      type="number" 
+                      value={selectedAmount}
+                      onChange={(e) => setSelectedAmount(e.target.value)}
+                      placeholder="Enter number of books"
+                      className="w-full pl-24 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm focus:ring-2 focus:ring-red-800/20 outline-none transition-all"
+                    />
+                  </div>
+
                   {/* Dual Value Green Box */}
-                  <div className="bg-green-700 p-6 rounded-[2rem] text-center text-white shadow-lg relative group">
+                  <div className="bg-green-700 p-6 rounded-[2rem] text-center text-white shadow-lg relative group overflow-hidden">
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60 mb-2">Contribution Value</p>
                     <div className="flex flex-col items-center gap-1">
                        <p className="text-4xl font-black tracking-tighter">₵{totalGHS.toLocaleString()}</p>
@@ -105,7 +129,11 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     </div>
                   </div>
 
-                  <button onClick={() => setStep(2)} className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
+                  <button 
+                    onClick={() => numericAmount > 0 && setStep(2)} 
+                    disabled={numericAmount <= 0}
+                    className={`w-full py-5 rounded-2xl font-black uppercase tracking-widest text-sm transition-all flex items-center justify-center gap-2 ${numericAmount > 0 ? 'bg-slate-900 text-white shadow-xl hover:bg-slate-800' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}`}
+                  >
                     Next: Choose Payment Mode <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -119,7 +147,6 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     <h3 className="text-sm font-black uppercase tracking-widest text-slate-900">Payment Selection</h3>
                   </div>
 
-                  {/* Local vs Foreign Switcher */}
                   <div className="flex p-1 bg-slate-100 rounded-2xl">
                     <button 
                       onClick={() => setPayMethod('LOCAL')}
@@ -157,9 +184,9 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   </div>
 
                   <div className="pt-4 flex gap-3">
-                    <button onClick={() => setStep(1)} className="w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase text-[10px] hover:bg-slate-50">Back</button>
-                    <button onClick={handlePay} className="w-2/3 py-5 bg-red-800 text-white rounded-2xl font-black uppercase text-sm shadow-xl hover:shadow-red-200 active:scale-95 transition-all">
-                      Confirm {payMethod === 'LOCAL' ? `₵${totalGHS}` : `$${totalUSD.toFixed(2)}`}
+                    <button onClick={() => setStep(1)} className="w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase text-[10px] hover:bg-slate-50 transition-colors">Back</button>
+                    <button onClick={handlePay} className="w-2/3 py-5 bg-red-800 text-white rounded-2xl font-black uppercase text-sm shadow-xl hover:shadow-red-900 active:scale-95 transition-all">
+                      Confirm {payMethod === 'LOCAL' ? `₵${totalGHS.toLocaleString()}` : `$${totalUSD.toFixed(2)}`}
                     </button>
                   </div>
                 </div>
@@ -171,9 +198,9 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6"><CheckCircle2 className="w-12 h-12" /></div>
                   <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-2">THANK YOU!</h3>
                   <p className="text-sm text-slate-600 font-medium leading-relaxed max-w-xs mx-auto mb-8 italic">
-                    You have sponsored {selectedAmount.toLocaleString()} books for students in Cape Coast North. God bless you!
+                    You have sponsored {numericAmount.toLocaleString()} books for students in Cape Coast North. God bless you!
                   </p>
-                  <button onClick={handleClose} className="w-full py-4 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase text-xs hover:bg-slate-50">Close</button>
+                  <button onClick={handleClose} className="w-full py-4 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase text-xs hover:bg-slate-50">Close Window</button>
                 </div>
               )}
             </>
