@@ -1,3 +1,4 @@
+// src/pages/Appointments.tsx
 import { 
   Calendar, FileText, Clock, MapPin, 
   CheckCircle2, ArrowRight, UserCheck, HelpCircle 
@@ -7,10 +8,10 @@ import { AnimatedSection } from '../components/AnimatedSection';
 
 export function Appointments() {
   const requirements = [
-    "Valid Ghana Card",
-    "Clear explanation of your issue or request",
-    "Relevant documents (where applicable)",
-    "Active contact details"
+    "Valid National ID (Ghana Card)",
+    "Brief summary of the issue or proposal",
+    "Supporting documents (for applications)",
+    "Contact details for follow-up"
   ];
 
   return (
@@ -31,7 +32,7 @@ export function Appointments() {
                   <span className="text-green-700">& Applications.</span>
                 </h1>
                 <p className="text-slate-500 text-lg md:text-xl font-medium max-w-xl leading-relaxed">
-                  This office exists to listen and to act. Whether you are requesting a meeting or submitting an application, your concern matters and will be addressed.
+                  Our office is open to every constituent. Whether you need a formal meeting or support with an application, we are here to serve.
                 </p>
               </div>
               
@@ -57,11 +58,9 @@ export function Appointments() {
               <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-green-200">
                 <Calendar className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight mb-4">
-                Book an Appointment
-              </h2>
+              <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight mb-4">Book an Appointment</h2>
               <p className="text-slate-500 font-medium leading-relaxed mb-10">
-                Request a direct meeting with me or the constituency team to discuss community matters, urgent concerns, or practical development proposals.
+                Schedule a one-on-one session with the MP or the constituency executives to discuss community issues, personal concerns, or developmental ideas.
               </p>
               <div className="mt-auto">
                 <button className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-green-700 transition-all group/btn">
@@ -78,11 +77,9 @@ export function Appointments() {
               <div className="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-slate-200">
                 <FileText className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight mb-4">
-                Submit Application
-              </h2>
+              <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight mb-4">Submit Application</h2>
               <p className="text-slate-500 font-medium leading-relaxed mb-10">
-                Submit applications for educational support, employment recommendations, or community projects. Each submission is reviewed and followed up accordingly.
+                Submit requests for educational support, job recommendations, or community project funding. Track your application status in real-time.
               </p>
               <div className="mt-auto">
                 <button className="w-full py-5 border-2 border-slate-900 text-slate-900 rounded-2xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-slate-900 hover:text-white transition-all group/btn">
@@ -100,9 +97,7 @@ export function Appointments() {
           {/* Requirements List */}
           <AnimatedSection delay={300} className="lg:col-span-2">
             <div className="bg-slate-50 p-12 rounded-[3rem] border border-slate-100">
-              <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-8">
-                What You Need Before Applying
-              </h3>
+              <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-8">Preparation Checklist</h3>
               <div className="grid sm:grid-cols-2 gap-6">
                 {requirements.map((item, idx) => (
                   <div key={idx} className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
@@ -119,15 +114,11 @@ export function Appointments() {
             <div className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm">
               <div className="flex items-center gap-3 mb-8">
                 <MapPin className="w-5 h-5 text-green-700" />
-                <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight">
-                  Main Office
-                </h3>
+                <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight">Main Office</h3>
               </div>
               <div className="space-y-6">
                 <div>
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
-                    Address
-                  </p>
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Address</p>
                   <p className="text-sm font-bold text-slate-700 leading-relaxed">
                     Constituency Secretariat, <br />
                     Opposite UCC West Gate, <br />
@@ -135,9 +126,7 @@ export function Appointments() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
-                    Contact
-                  </p>
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Contact</p>
                   <p className="text-sm font-bold text-slate-700">024 XXX XXXX</p>
                   <p className="text-sm font-bold text-slate-700">info@ccnorth.com</p>
                 </div>
@@ -151,24 +140,16 @@ export function Appointments() {
           <div className="mt-24 text-center">
             <div className="inline-flex items-center gap-2 mb-6">
               <HelpCircle className="w-5 h-5 text-green-600" />
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
-                Need Assistance?
-              </span>
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Need Assistance?</span>
             </div>
-            <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tighter mb-8">
-              Common Questions
-            </h2>
+            <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tighter mb-8">Frequently Asked Questions</h2>
             <div className="max-w-2xl mx-auto space-y-4">
               <button className="w-full p-6 bg-white border border-slate-100 rounded-2xl text-left flex items-center justify-between hover:border-green-200 transition-all group">
-                <span className="font-bold text-slate-700">
-                  How long will it take to receive feedback on my application?
-                </span>
+                <span className="font-bold text-slate-700">How long does it take to process an application?</span>
                 <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-green-600 transition-colors" />
               </button>
               <button className="w-full p-6 bg-white border border-slate-100 rounded-2xl text-left flex items-center justify-between hover:border-green-200 transition-all group">
-                <span className="font-bold text-slate-700">
-                  What should I do if my issue is urgent?
-                </span>
+                <span className="font-bold text-slate-700">Can I book an emergency meeting?</span>
                 <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-green-600 transition-colors" />
               </button>
             </div>
@@ -179,4 +160,3 @@ export function Appointments() {
     </div>
   );
 }
- 
