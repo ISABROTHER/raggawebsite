@@ -7,7 +7,8 @@ import {
   ExternalLink,
   Search,
   ChevronDown,
-  X
+  X,
+  Heart
 } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 
@@ -17,7 +18,7 @@ export function Reports() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const categories = ['All', 'Education', 'Health', 'Infrastructure', 'Agriculture'];
+  const categories = ['All', 'Education', 'Agriculture'];
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -33,45 +34,25 @@ export function Reports() {
   const photos = [
     {
       id: 1,
-      title: "Operation 1000 Desks Distribution",
+      title: "RAISING 200,000 EXERCISE BOOKS PROJECT FOR STUDENTS IN CAPE COAST NORTH",
       category: "Education",
-      image: "https://i.imgur.com/Ozjnrli.jpeg",
-      desc: "Distributing dual desks to basic schools in Cape Coast North."
+      image: "https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      desc: "We want to ensure that no one in Cape Coast North faces this, that is why I am doing this with you. Donate to support our students and write a better future together.",
+      isFeatured: true
     },
     {
       id: 2,
-      title: "Health Screening Exercise",
-      category: "Health",
-      image: "https://i.imgur.com/XmWnKbH.jpeg",
-      desc: "Free medical outreach and screening for constituents."
+      title: "Operation 1000 Desks Distribution",
+      category: "Education",
+      image: "https://i.imgur.com/Ozjnrli.jpeg",
+      desc: "Distributing dual desks to basic schools in Cape Coast North to improve classroom comfort."
     },
     {
       id: 3,
-      title: "Road Rehabilitation Project",
-      category: "Infrastructure",
-      image: "https://i.imgur.com/AZqDymE.jpeg",
-      desc: "Ongoing asphaltic overlay on community roads."
-    },
-    {
-      id: 4,
       title: "Nkoko Nkitinkiti Poultry Support",
       category: "Agriculture",
       image: "https://i.imgur.com/TZ4jIJA.jpeg",
-      desc: "Supporting local poultry farmers with starter packs."
-    },
-    {
-      id: 5,
-      title: "Youth Skills Training Summit",
-      category: "Education",
-      image: "https://i.imgur.com/saQoFLV.png",
-      desc: "Digital skills and entrepreneurship workshop for the youth."
-    },
-    {
-      id: 6,
-      title: "St. Mary's School Visit",
-      category: "Education",
-      image: "https://i.imgur.com/Ozjnrli.jpeg",
-      desc: "Donating learning materials to support girl-child education."
+      desc: "Supporting local poultry farmers with starter packs and veterinary resources."
     }
   ];
 
@@ -110,7 +91,7 @@ export function Reports() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-green-600 transition-colors" />
               <input 
                 type="text"
-                placeholder="Search projects or locations..."
+                placeholder="Search projects..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-12 pr-12 py-3 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all text-sm font-medium"
@@ -139,7 +120,7 @@ export function Reports() {
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden">
                   {categories.map((cat) => (
                     <button
                       key={cat}
@@ -166,7 +147,7 @@ export function Reports() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPhotos.map((photo, index) => (
             <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
-              <div className="group relative bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500">
+              <div className={`group relative bg-white rounded-[2rem] overflow-hidden border ${photo.isFeatured ? 'border-green-500 ring-4 ring-green-500/10' : 'border-slate-100'} shadow-sm hover:shadow-xl transition-all duration-500`}>
                 <div className="relative h-64 overflow-hidden">
                   <img 
                     src={photo.image} 
@@ -181,8 +162,8 @@ export function Reports() {
                       <ExternalLink className="w-5 h-5" />
                     </button>
                   </div>
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-green-700 text-white text-[9px] font-black uppercase rounded-full tracking-widest">
-                    {photo.category}
+                  <div className={`absolute top-4 left-4 px-3 py-1 ${photo.isFeatured ? 'bg-amber-500' : 'bg-green-700'} text-white text-[9px] font-black uppercase rounded-full tracking-widest`}>
+                    {photo.isFeatured ? 'Urgent Support' : photo.category}
                   </div>
                 </div>
 
@@ -190,9 +171,15 @@ export function Reports() {
                   <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight mb-2 group-hover:text-green-700 transition-colors">
                     {photo.title}
                   </h3>
-                  <p className="text-sm text-slate-500 font-medium leading-relaxed">
+                  <p className="text-sm text-slate-500 font-medium leading-relaxed mb-6">
                     {photo.desc}
                   </p>
+                  
+                  {/* Donation Action for the Project Card */}
+                  <button className="w-full py-3 bg-green-700 hover:bg-green-800 text-white rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all group-hover:shadow-lg group-hover:shadow-green-200">
+                    <Heart className="w-4 h-4" />
+                    Support This Project
+                  </button>
                 </div>
               </div>
             </AnimatedSection>
@@ -204,14 +191,8 @@ export function Reports() {
           <div className="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200">
             <Camera className="w-12 h-12 text-slate-200 mx-auto mb-4" />
             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">
-              No matches found for "{searchTerm}" in {filter}
+              No matches found for "{searchTerm}"
             </p>
-            <button 
-              onClick={() => {setSearchTerm(''); setFilter('All');}}
-              className="mt-4 text-green-600 font-bold text-xs uppercase underline underline-offset-4"
-            >
-              Clear all filters
-            </button>
           </div>
         )}
 
