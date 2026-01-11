@@ -34,7 +34,7 @@ const priorities: Priority[] = [
     title: "Educational Support",
     subtitle: "Educational Support",
     desc: "Supporting quality education, digital literacy, and youth skills training.",
-    initiativesCount: "3 initiatives listed",
+    initiativesCount: "4 initiatives listed",
     icon: BookOpen,
     accentBg: "bg-blue-100",
     accentText: "text-blue-700",
@@ -55,10 +55,10 @@ const priorities: Priority[] = [
   },
   {
     id: "employment",
-    title: "Employment & Entrepreneurship",
-    subtitle: "Employment & Entrepreneurship",
+    title: "Job Creation",
+    subtitle: "Job Creation",
     desc: "Creating jobs and empowering local businesses.",
-    initiativesCount: "2 initiatives listed",
+    initiativesCount: "3 initiatives listed",
     icon: Briefcase,
     accentBg: "bg-amber-100",
     accentText: "text-amber-700",
@@ -67,10 +67,10 @@ const priorities: Priority[] = [
   },
   {
     id: "infrastructure",
-    title: "Infrastructure Development",
-    subtitle: "Infrastructure Development",
+    title: "Infrastructure",
+    subtitle: "Infrastructure",
     desc: "Improving roads, electrification, and connectivity.",
-    initiativesCount: "3 initiatives listed",
+    initiativesCount: "4 initiatives listed",
     icon: Construction,
     accentBg: "bg-slate-100",
     accentText: "text-slate-800",
@@ -79,10 +79,10 @@ const priorities: Priority[] = [
   },
   {
     id: "agriculture",
-    title: "Agricultural Support",
-    subtitle: "Agricultural Support",
+    title: "Agri-Development",
+    subtitle: "Agri-Development",
     desc: "Supporting farmers with tools, training, and market access.",
-    initiativesCount: "1 initiative listed",
+    initiativesCount: "4 initiatives listed",
     icon: Sprout,
     accentBg: "bg-emerald-100",
     accentText: "text-emerald-700",
@@ -210,7 +210,7 @@ export function PrioritiesSection({ onNavigate }: PrioritiesSectionProps) {
                       {priority.desc}
                     </p>
                     <button
-                      onClick={() => onNavigate("policies")}
+                      onClick={() => onNavigate("achievements")}
                       className="inline-flex items-center text-sm font-semibold text-emerald-700"
                     >
                       View Details
@@ -225,7 +225,7 @@ export function PrioritiesSection({ onNavigate }: PrioritiesSectionProps) {
               <button
                 key={priority.id}
                 type="button"
-                onClick={() => onNavigate("policies")}
+                onClick={() => onNavigate("achievements")}
                 className={`
                   w-full flex items-stretch gap-4 rounded-2xl border ${priority.accentBorder}
                   bg-white overflow-hidden shadow-sm
@@ -351,7 +351,7 @@ export function PrioritiesSection({ onNavigate }: PrioritiesSectionProps) {
                     {priority.desc}
                   </p>
                   <button
-                    onClick={() => onNavigate("policies")}
+                    onClick={() => onNavigate("achievements")}
                     className={`
                       font-bold inline-flex items-center text-base
                       text-emerald-700 group-hover:underline decoration-2 underline-offset-4
