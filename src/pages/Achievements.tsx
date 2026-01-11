@@ -35,13 +35,14 @@ export function Achievements() {
               {/* Standard Heading Block */}
               <div className="text-center mb-12 md:mb-16">
                 <div className="flex flex-col items-center justify-center group">
-                  <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent">
-                    Our Achievements
+                  {/* Main Heading: PROJECTS AND INITIATIVES */}
+                  <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
+                    PROJECTS AND INITIATIVES
                   </h1>
                   
-                  {/* Updated Subtitle: PROJECTS AND INITIATIVES */}
+                  {/* Mini/Subtitle: WHAT I HAVE ACHIEVED SO FAR */}
                   <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
-                    PROJECTS AND INITIATIVES
+                    WHAT I HAVE ACHIEVED SO FAR
                   </p>
 
                   <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
