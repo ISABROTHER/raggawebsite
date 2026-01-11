@@ -71,53 +71,70 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   const totalUSD = totalGHS / (exchangeRate || 15.20);
 
   const handlePay = () => {
-    if (selectedAmount < 1 || !firstName || !lastName || !contactInfo) return;
+    if (selectedAmount < 1 || !firstName || !lastName || !contactInfo) {
+      alert('Please fill in all required fields');
+      return;
+    }
 
-    const amountInKobo = Math.round(totalGHS * 100);
-
-    const handler = window.PaystackPop.setup({
-      key: 'pk_test_0384219b0cda58507d42d42605bf6844211579cb',
-      email: payMethod === 'FOREIGN' ? contactInfo : `${contactInfo}@placeholder.com`,
-      amount: amountInKobo,
-      currency: 'GHS',
-      ref: 'BOOK_' + Math.floor((Math.random() * 1000000000) + 1),
-      metadata: {
-        custom_fields: [
-          {
-            display_name: "Donor Name",
-            variable_name: "donor_name",
-            value: `${firstName} ${lastName}`
-          },
-          {
-            display_name: "Books Sponsored",
-            variable_name: "books_count",
-            value: selectedAmount.toString()
-          },
-          {
-            display_name: "Payment Method",
-            variable_name: "payment_method",
-            value: payMethod
-          },
-          {
-            display_name: "Contact",
-            variable_name: "contact",
-            value: contactInfo
-          }
-        ]
-      },
-      onClose: function() {
-        setIsProcessing(false);
-      },
-      callback: function(response: any) {
-        setIsProcessing(false);
-        if (response.status === 'success') {
-          setStep(3);
-        }
-      }
-    });
+    if (!window.PaystackPop) {
+      alert('Payment system is loading. Please try again in a moment.');
+      return;
+    }
 
     setIsProcessing(true);
-    handler.openIframe();
+
+    try {
+      const amountInPesewas = Math.round(totalGHS * 100);
+
+      const handler = window.PaystackPop.setup({
+        key: 'pk_test_0384219b0cda58507d42d42605bf6844211579cb',
+        email: payMethod === 'FOREIGN' ? contactInfo : `${contactInfo.replace(/[^0-9]/g, '')}@momo.placeholder`,
+        amount: amountInPesewas,
+        currency: 'GHS',
+        ref: 'BOOK_' + Date.now() + Math.floor(Math.random() * 1000000),
+        metadata: {
+          custom_fields: [
+            {
+              display_name: "Donor Name",
+              variable_name: "donor_name",
+              value: `${firstName} ${lastName}`
+            },
+            {
+              display_name: "Books Sponsored",
+              variable_name: "books_count",
+              value: selectedAmount.toString()
+            },
+            {
+              display_name: "Payment Method",
+              variable_name: "payment_method",
+              value: payMethod
+            },
+            {
+              display_name: "Contact",
+              variable_name: "contact",
+              value: contactInfo
+            }
+          ]
+        },
+        onClose: function() {
+          setIsProcessing(false);
+        },
+        callback: function(response: any) {
+          setIsProcessing(false);
+          if (response.status === 'success') {
+            setStep(3);
+          } else {
+            alert('Payment was not successful. Please try again.');
+          }
+        }
+      });
+
+      handler.openIframe();
+    } catch (error) {
+      setIsProcessing(false);
+      console.error('Payment error:', error);
+      alert('There was an error initializing payment. Please try again.');
+    }
   };
 
   const handleClose = () => {
