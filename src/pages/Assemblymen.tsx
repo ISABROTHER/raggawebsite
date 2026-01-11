@@ -60,7 +60,7 @@ export function Assemblymen() {
               Assemblymen
             </h1>
             
-            {/* Standard Subtitle: IN CAPE COAST NORTH */}
+            {/* Subtitle: IN CAPE COAST NORTH */}
             <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
               IN CAPE COAST NORTH
             </p>
@@ -116,7 +116,7 @@ export function Assemblymen() {
           </div>
         </div>
         
-        {/* --- ASSEMBLY MEMBERS GRID (ANIMATED ON SCROLL) --- */}
+        {/* --- ASSEMBLY MEMBERS GRID (TOWN NAME AS PRIMARY) --- */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
           {filteredMembers.map((member, index) => (
             <AnimatedSection key={member.zone} delay={(index % 5) * 50}>
@@ -149,11 +149,14 @@ export function Assemblymen() {
                 </div>
                 
                 <div className="w-full flex flex-col flex-1">
+                  {/* Assemblyman name as small secondary text */}
                   <p className="text-[9px] font-black tracking-widest text-green-700 uppercase mb-1">
-                    {member.zone}
-                  </p>
-                  <p className="text-sm font-black text-slate-900 leading-tight uppercase line-clamp-2 mb-3">
                     {member.assemblyman}
+                  </p>
+                  
+                  {/* Town (Zone) as big primary text */}
+                  <p className="text-sm font-black text-slate-900 leading-tight uppercase line-clamp-2 mb-3">
+                    {member.zone}
                   </p>
                   
                   <div className="mt-auto">
