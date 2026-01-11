@@ -12,7 +12,7 @@ import { Polls } from './pages/Polls';
 import { Admin } from './pages/Admin';
 import { Volunteer } from './pages/Volunteer';
 import { ReadStory } from './pages/ReadStory';
-import { Support } from './pages/Support'; // New Import
+import { Support } from './pages/Support'; // Updated Import
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 
@@ -51,7 +51,7 @@ function App() {
           <Route path="/" element={<Home onNavigate={handleNavigate} />} />
           <Route path="/about" element={<About />} />
           <Route path="/achievements" element={<Achievements />} />
-          <Route path="/support" element={<Support />} /> {/* Updated Route */}
+          <Route path="/support" element={<Support />} />
           <Route path="/assemblymen" element={<Assemblymen />} />
           <Route path="/ongoing-projects" element={<OngoingProjects />} />
           <Route path="/events" element={<Events />} />
