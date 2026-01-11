@@ -50,13 +50,13 @@ const quickLinks: QuickLink[] = [
     route: "achievements"
   },
   {
-    title: "Support", // Home Page Button
+    title: "Support",
     mobileDesc: "Donate Books",
     desc: "Help us raise 200,000 exercise books for our students.",
     icon: Heart,
     bgClass: "from-rose-50 to-pink-50/50 border-rose-100",
     iconColor: "text-rose-600",
-    route: "support" // Wired to the new support page
+    route: "support"
   },
   {
     title: "Appointments",
