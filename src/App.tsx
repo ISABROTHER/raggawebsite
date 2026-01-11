@@ -5,7 +5,6 @@ import { About } from './pages/About';
 import { Assemblymen } from './pages/Assemblymen';
 import { OngoingProjects } from './pages/OngoingProjects';
 import { Appointments } from './pages/Appointments';
-import { Reports } from './pages/Reports';
 import { Achievements } from './pages/Achievements';
 import { Issues } from './pages/Issues';
 import { Events } from './pages/Events';
@@ -13,10 +12,10 @@ import { Polls } from './pages/Polls';
 import { Admin } from './pages/Admin';
 import { Volunteer } from './pages/Volunteer';
 import { ReadStory } from './pages/ReadStory';
+import { Support } from './pages/Support'; // New Import
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 
-// Wrapper for the ReadStory page to handle URL parameters
 function ReadStoryPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -27,7 +26,6 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Determine current page from URL path
   const getCurrentPage = () => {
     const path = location.pathname;
     if (path === '/') return 'home';
@@ -35,7 +33,6 @@ function App() {
     return page || 'home';
   };
 
-  // This function makes your "onNavigate" buttons work with the router
   const handleNavigate = (page: string, param?: string) => {
     if (page === 'home') {
       navigate('/');
@@ -54,7 +51,7 @@ function App() {
           <Route path="/" element={<Home onNavigate={handleNavigate} />} />
           <Route path="/about" element={<About />} />
           <Route path="/achievements" element={<Achievements />} />
-          <Route path="/gallery" element={<Reports />} />
+          <Route path="/support" element={<Support />} /> {/* Updated Route */}
           <Route path="/assemblymen" element={<Assemblymen />} />
           <Route path="/ongoing-projects" element={<OngoingProjects />} />
           <Route path="/events" element={<Events />} />
@@ -63,7 +60,6 @@ function App() {
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/issues" element={<Issues />} />
           <Route path="/volunteer" element={<Volunteer />} />
-          <Route path="/reports" element={<Reports />} />
           <Route path="/read-story/:id" element={<ReadStoryPage />} />
         </Routes>
       </main>
