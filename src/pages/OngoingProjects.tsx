@@ -1,5 +1,6 @@
 // src/pages/OngoingProjects.tsx
 import { HardHat, MapPin, Calendar } from 'lucide-react';
+import { AnimatedSection } from '../components/AnimatedSection';
 
 const projects = [
   {
@@ -36,83 +37,93 @@ const projects = [
 
 export function OngoingProjects() {
   return (
-    <div className="min-h-screen bg-slate-50 pt-24 pb-12">
-      <section className="px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full bg-amber-50 px-3 py-1 border border-amber-100 mb-4">
-              <HardHat className="w-3.5 h-3.5 text-amber-600" />
-              <span className="text-[10px] sm:text-xs font-semibold tracking-[0.22em] uppercase text-amber-600">
-                Development Tracker
-              </span>
-            </div>
-            <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4">
+    <div className="min-h-screen bg-slate-50 pt-16 pb-20 font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* --- STANDARD HEADING BLOCK --- */}
+        <div className="text-center mb-12 md:mb-16">
+          <div className="flex flex-col items-center justify-center group">
+            {/* Main Heading */}
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
               Ongoing Projects
             </h1>
-            <p className="text-slate-600 max-w-2xl mx-auto text-lg">
-              Tracking the progress of infrastructure and development initiatives across Cape Coast North.
+            
+            {/* Subtitle */}
+            <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
+              Development Tracker
             </p>
-          </div>
 
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-            {projects.map((project) => (
-              <div key={project.id} className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-lg hover:shadow-xl transition-shadow duration-300 group flex flex-col relative">
+            <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
+          </div>
+          
+          <p className="mt-6 text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium">
+            Tracking the progress of infrastructure and development initiatives across Cape Coast North Constituency.
+          </p>
+        </div>
+
+        {/* --- PROJECTS GRID (ANIMATED ON SCROLL) --- */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <AnimatedSection key={project.id} delay={index * 100}>
+              <div className="bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl hover:shadow-2xl transition-all duration-300 group flex flex-col h-full">
                 
                 {/* Image Section */}
-                <div className="relative h-56 overflow-hidden bg-slate-100 flex items-center justify-center">
+                <div className="relative h-60 overflow-hidden bg-slate-100">
                   <img 
                     src={project.image} 
                     alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   
-                  {/* Status Badge (Bottom Left) */}
-                  <div className="absolute bottom-4 left-4">
-                    <span className="bg-white/95 text-slate-900 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                  {/* Status Badge */}
+                  <div className="absolute top-4 right-4">
+                    <span className="bg-white/95 backdrop-blur text-slate-900 text-[10px] font-black px-3 py-1.5 rounded-lg uppercase tracking-widest shadow-lg border border-white">
                       {project.status}
                     </span>
+                  </div>
+
+                  {/* Icon Badge */}
+                  <div className="absolute bottom-4 left-4 bg-green-600 p-2 rounded-xl shadow-lg">
+                    <HardHat className="w-5 h-5 text-white" />
                   </div>
                 </div>
 
                 {/* Content Section */}
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors">
+                <div className="p-8 flex flex-col flex-1">
+                  <h3 className="text-2xl font-black text-slate-900 mb-3 leading-tight group-hover:text-green-700 transition-colors">
                     {project.title}
                   </h3>
                   
                   {/* Meta Details */}
-                  <div className="flex flex-wrap gap-4 text-xs text-slate-500 mb-4">
-                    <div className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5" /> {project.location}
+                  <div className="flex flex-wrap gap-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-6">
+                    <div className="flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-green-600" /> {project.location}
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5" /> {project.date}
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-green-600" /> {project.date}
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-slate-600 mb-6 text-sm leading-relaxed flex-grow">
+                  <p className="text-slate-600 mb-8 text-sm leading-relaxed font-medium flex-1">
                     {project.description}
                   </p>
 
-                  {/* Segmented Progress Visualization */}
-                  <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 mt-auto">
-                    <div className="flex justify-between items-end mb-2">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Completion</span>
-                      <span className="text-xl font-black text-blue-700">{project.progress}%</span>
+                  {/* Standard Segmented Progress UI */}
+                  <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+                    <div className="flex justify-between items-end mb-3">
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Completion</span>
+                      <span className="text-2xl font-black text-green-700 tracking-tighter">{project.progress}%</span>
                     </div>
-                    <div className="flex gap-1 h-2.5">
+                    <div className="flex gap-1.5 h-3">
                       {[...Array(10)].map((_, i) => (
                         <div
                           key={i}
-                          className={`flex-1 rounded-sm transition-all duration-500 ${
+                          className={`flex-1 rounded-sm transition-all duration-700 delay-${i * 50} ${
                             i < Math.round(project.progress / 10)
-                              ? 'bg-blue-600 shadow-sm'
-                              : 'bg-blue-100/50'
+                              ? 'bg-gradient-to-b from-green-500 to-green-600 shadow-sm'
+                              : 'bg-slate-200'
                           }`}
                         />
                       ))}
@@ -120,11 +131,11 @@ export function OngoingProjects() {
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-
+            </AnimatedSection>
+          ))}
         </div>
-      </section>
+
+      </div>
     </div>
   );
 }
