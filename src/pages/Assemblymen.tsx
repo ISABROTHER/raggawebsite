@@ -55,12 +55,10 @@ export function Assemblymen() {
         {/* --- STANDARD HEADING BLOCK --- */}
         <div className="text-center mb-6">
           <div className="flex flex-col items-center justify-center group">
-            {/* Main Heading */}
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
               Assemblymen
             </h1>
             
-            {/* Subtitle */}
             <p className="mt-2 text-xs md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
               Grassroots Leadership for Cape Coast North
             </p>
@@ -68,18 +66,18 @@ export function Assemblymen() {
             <span className="mt-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
           </div>
 
-          {/* PERSONAL NARRATIVE DESCRIPTION */}
+          {/* PERSONAL NARRATIVE DESCRIPTION (NORMAL FONT) */}
           <div className="mt-6 max-w-4xl mx-auto">
             <div className="bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
               <Quote className="absolute -top-2 -left-2 w-12 h-12 text-slate-50 pointer-events-none" />
-              <p className="text-sm md:text-base text-slate-700 leading-relaxed font-medium italic text-center relative z-10">
+              <p className="text-sm md:text-base text-slate-700 leading-relaxed font-medium text-center relative z-10">
                 "As your MP, I work directly with our Assembly Members. They are on the ground every day, listening to the people, following up on projects, and making sure community issues are raised. That is why their role matters to our development."
               </p>
             </div>
           </div>
         </div>
 
-        {/* --- COMPACT SEARCH & LIVE HUB (Pulls Grid Up) --- */}
+        {/* --- COMPACT SEARCH & LIVE HUB --- */}
         <div className="max-w-3xl mx-auto mb-8">
           <div className="flex flex-col md:flex-row items-center gap-3">
             <div className="relative w-full group">
