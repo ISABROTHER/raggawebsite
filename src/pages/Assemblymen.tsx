@@ -48,84 +48,119 @@ export function Assemblymen() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-4 pb-20 font-sans"> 
+    <div className="min-h-screen bg-slate-50 pt-16 pb-20 font-sans"> 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* --- COMPACT HEADER & CONTROLS --- */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-slate-200 pb-6">
-          <div>
-            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tight">
+        {/* --- STANDARD HEADING BLOCK --- */}
+        <div className="text-center mb-10 md:mb-14">
+          <div className="flex flex-col items-center justify-center group">
+            {/* Main Heading */}
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
               Assemblymen
             </h1>
-            <p className="text-[10px] font-bold text-green-700 uppercase tracking-widest">
-              Cape Coast North Representatives
+            
+            {/* Subtitle */}
+            <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
+              Grassroots Leadership for Cape Coast North
             </p>
-          </div>
 
-          <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
-            {/* Search */}
-            <div className="relative flex-1 sm:w-64">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input 
-                type="text"
-                placeholder="Search name or town..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none transition-all"
-              />
-            </div>
-
-            {/* Live Location */}
-            <button 
-              onClick={handleLiveLocation}
-              disabled={isLocating}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-900 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all disabled:opacity-80 shadow-md"
-            >
-              {isLocating ? <Loader2 className="w-3 h-3 animate-spin text-green-400" /> : <Crosshair className="w-3 h-3" />}
-              <span>{isLocating ? "Finding..." : "Live Location"}</span>
-            </button>
+            <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
           </div>
         </div>
+
+        {/* --- SEARCH & LIVE HUB --- */}
+        <AnimatedSection delay={100}>
+          <div className="max-w-3xl mx-auto mb-10">
+            <div className="flex flex-col md:flex-row items-center gap-3">
+              
+              {/* Search Field */}
+              <div className="relative w-full group">
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300 group-focus-within:text-green-600 transition-colors" />
+                <input 
+                  type="text"
+                  placeholder="Find by town or name..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-14 pr-6 py-4 bg-white border border-slate-200 rounded-2xl shadow-sm focus:ring-4 focus:ring-green-500/5 focus:border-green-600 transition-all outline-none font-bold text-slate-900 text-lg"
+                />
+              </div>
+
+              {/* Live Button */}
+              <button 
+                onClick={handleLiveLocation}
+                disabled={isLocating}
+                className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all active:scale-95 disabled:opacity-80 whitespace-nowrap shadow-xl"
+              >
+                {isLocating ? (
+                  <Loader2 className="w-4 h-4 animate-spin text-green-400" />
+                ) : (
+                  <Crosshair className="w-4 h-4" />
+                )}
+                <span>{isLocating ? "Scanning..." : "Live Location"}</span>
+              </button>
+            </div>
+
+            {/* Status Metadata */}
+            <div className="mt-4 flex flex-wrap justify-center gap-4 border-b border-slate-200 pb-4">
+               <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                 {filteredMembers.length} Representatives Found
+               </span>
+               <AnimatePresence>
+                {detectedZone && (
+                  <motion.span 
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex items-center gap-1.5 text-green-600 text-[10px] font-black uppercase tracking-widest"
+                  >
+                    <MapPin className="w-3 h-3" />
+                    Matched: {detectedZone}
+                  </motion.span>
+                )}
+               </AnimatePresence>
+            </div>
+          </div>
+        </AnimatedSection>
         
-        {/* --- ASSEMBLY MEMBERS GRID (VISIBLE IMMEDIATELY) --- */}
-        <AnimatedSection>
+        {/* --- ASSEMBLY MEMBERS GRID --- */}
+        <AnimatedSection delay={150}>
           {filteredMembers.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               {filteredMembers.map((member) => (
                 <div
                   key={member.zone}
-                  className={`flex flex-col items-center text-center group bg-white border rounded-2xl p-3 transition-all duration-300 ${
+                  className={`flex flex-col items-center text-center group bg-white border rounded-xl p-3 transition-all duration-300 ${
                     detectedZone === member.zone 
-                    ? 'border-green-500 shadow-xl ring-2 ring-green-500/10' 
-                    : 'border-slate-100 hover:shadow-lg hover:border-green-200'
+                    ? 'border-green-500 shadow-xl ring-4 ring-green-50' 
+                    : 'border-gray-100 hover:shadow-lg hover:border-green-200'
                   }`}
                 >
-                  <div className="w-full aspect-[4/5] bg-slate-100 overflow-hidden rounded-xl mb-3 relative">
+                  <div className="w-full aspect-[3/4] bg-slate-100 overflow-hidden rounded-lg mb-3 relative">
                     <img 
                       src={member.photoUrl} 
                       alt={member.assemblyman}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
+                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/50 to-transparent h-1/3"></div>
                     {detectedZone === member.zone && (
-                      <div className="absolute top-2 right-2 bg-green-600 text-white p-1.5 rounded-lg shadow-lg animate-bounce">
-                        <MapPin className="w-3 h-3" />
+                      <div className="absolute top-2 right-2 bg-green-600 text-white p-1 rounded-md animate-bounce">
+                        <MapPin className="w-4 h-4" />
                       </div>
                     )}
                   </div>
                   
                   <div className="w-full">
-                    <p className="text-[9px] font-black tracking-widest text-green-700 uppercase mb-1 truncate">
+                    <p className="text-[10px] font-extrabold tracking-widest text-green-700 uppercase mb-1">
                       {member.zone}
                     </p>
-                    <p className="text-sm font-black text-slate-900 leading-tight uppercase line-clamp-1 mb-2">
+                    <p className="text-sm sm:text-base font-black text-slate-900 leading-tight uppercase line-clamp-2 mb-2">
                       {member.assemblyman}
                     </p>
                     <a 
                       href={`tel:${member.phone}`}
-                      className="inline-flex items-center justify-center gap-2 w-full py-2 bg-slate-50 rounded-lg text-xs font-bold text-slate-700 hover:bg-green-50 hover:text-green-700 transition-colors"
+                      className="text-sm text-slate-800 flex items-center justify-center gap-2 font-bold hover:text-green-700 transition-colors"
                     >
-                      <Phone className="w-3 h-3" />
-                      {formatPhoneNumber(member.phone)}
+                      <Phone className="w-4 h-4 text-green-600" />
+                      <span>{formatPhoneNumber(member.phone)}</span>
                     </a>
                   </div>
                 </div>
@@ -133,8 +168,8 @@ export function Assemblymen() {
             </div>
           ) : (
             <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200">
-              <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">No members found matching your search</p>
-              <button 
+               <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">No results found</p>
+               <button 
                 onClick={() => setSearchQuery('')}
                 className="mt-4 text-green-600 font-black text-xs uppercase underline underline-offset-4"
               >
@@ -147,4 +182,4 @@ export function Assemblymen() {
       </div>
     </div>
   );
-} 
+}
