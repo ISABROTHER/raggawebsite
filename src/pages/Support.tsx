@@ -22,10 +22,10 @@ export function Support() {
 
   const categories = ['All', 'Education'];
 
-  // Tracking Data constants
-  const RAISED = "45,000";
+  // Tracking Data constants - RESET TO ZERO
+  const RAISED = "0";
   const TARGET = "200,000";
-  const PERCENT = 22.5;
+  const PERCENT = 0;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -40,7 +40,7 @@ export function Support() {
   const photos = [
     {
       id: 1,
-      title: "200000 exercise book project", // Strictly updated title
+      title: "obiara ka ho 200,000 book project", // Updated Title
       category: "Education",
       image: "https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=1200",
       desc: "This project aims to raise 200,000 exercise books for OVER 30,000 students in Cape Coast North to support teaching and learning in our schools and reduce the cost burden on parents.",
@@ -118,7 +118,7 @@ export function Support() {
             <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
               <div className="group relative bg-white rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border border-green-500 ring-2 md:ring-4 ring-green-500/10 shadow-sm hover:shadow-xl transition-all duration-500">
                 
-                {/* Image Area (Reduced height on phone) */}
+                {/* Image Area */}
                 <div className="relative h-48 md:h-64 overflow-hidden">
                   <img src={photo.image} alt={photo.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   
@@ -132,7 +132,7 @@ export function Support() {
                   <div className="absolute top-3 left-3 md:top-4 md:left-4 px-2 py-0.5 md:px-3 md:py-1 bg-amber-500 text-white text-[8px] md:text-[9px] font-black uppercase rounded-full tracking-widest shadow-sm">Urgent Support</div>
                 </div>
 
-                {/* --- TRACKING SECTION (REDUCED GAPS) --- */}
+                {/* --- TRACKING SECTION (RESET TO 0) --- */}
                 <div className="bg-red-800 p-3 md:p-5 text-white shadow-inner">
                   <div className="flex justify-between items-end mb-2 md:mb-3">
                     <div className="flex flex-col">
@@ -156,7 +156,7 @@ export function Support() {
                   </div>
                 </div>
 
-                {/* Content Area (Reduced padding and gaps) */}
+                {/* Content Area */}
                 <div className="p-4 md:p-6">
                   <h3 className="text-base md:text-lg font-black text-slate-900 uppercase tracking-tight mb-1 md:mb-2 group-hover:text-green-700 transition-colors">
                     {photo.title}
