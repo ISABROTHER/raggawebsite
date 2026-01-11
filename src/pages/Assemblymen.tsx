@@ -59,15 +59,11 @@ export function Assemblymen() {
               Assemblymen
             </h1>
             
-            <p className="mt-2 text-xs md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
-              Grassroots Leadership for Cape Coast North
-            </p>
-
-            <span className="mt-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
+            <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
           </div>
 
           {/* PERSONAL NARRATIVE DESCRIPTION (NORMAL FONT) */}
-          <div className="mt-6 max-w-4xl mx-auto">
+          <div className="mt-8 max-w-4xl mx-auto">
             <div className="bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
               <Quote className="absolute -top-2 -left-2 w-12 h-12 text-slate-50 pointer-events-none" />
               <p className="text-sm md:text-base text-slate-700 leading-relaxed font-medium text-center relative z-10">
@@ -81,7 +77,9 @@ export function Assemblymen() {
         <div className="max-w-3xl mx-auto mb-8">
           <div className="flex flex-col md:flex-row items-center gap-3">
             <div className="relative w-full group">
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-green-600 transition-colors" />
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-green-600 transition-colors">
+                <Search className="w-full h-full" />
+              </div>
               <input 
                 type="text"
                 placeholder="Search by name or town..."
