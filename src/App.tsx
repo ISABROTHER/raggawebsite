@@ -1,10 +1,12 @@
 // src/App.tsx
+import { useEffect } from 'react';
 import { Routes, Route, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { Assemblymen } from './pages/Assemblymen';
 import { OngoingProjects } from './pages/OngoingProjects';
 import { Appointments } from './pages/Appointments';
+import { Support } from './pages/Support';
 import { Achievements } from './pages/Achievements';
 import { Issues } from './pages/Issues';
 import { Events } from './pages/Events';
@@ -12,7 +14,6 @@ import { Polls } from './pages/Polls';
 import { Admin } from './pages/Admin';
 import { Volunteer } from './pages/Volunteer';
 import { ReadStory } from './pages/ReadStory';
-import { Support } from './pages/Support'; // Updated Import
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 
@@ -25,6 +26,11 @@ function ReadStoryPage() {
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  // RESET SCROLL TO TOP ON EVERY NAVIGATION
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const getCurrentPage = () => {
     const path = location.pathname;
