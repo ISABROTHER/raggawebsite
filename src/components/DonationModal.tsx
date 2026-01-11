@@ -36,7 +36,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   const totalGHS = selectedAmount * pricePerBookGHS;
   const totalUSD = totalGHS / exchangeRate;
 
-  // --- LONG PRESS LOGIC ---
+  // --- LONG PRESS ADJUSTING ---
   const startAdjusting = (direction: 'up' | 'down') => {
     if (intervalRef.current) return;
     const adjust = () => {
@@ -75,7 +75,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm">
-      <div className="bg-white w-full max-w-lg rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in zoom-in-95 duration-300 max-h-[95vh] flex flex-col">
+      <div className="bg-white w-full max-w-lg rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in zoom-in-95 duration-300 max-h-[95vh] flex flex-col">
         
         {/* --- HEADER --- */}
         <div className="bg-red-800 p-4 md:p-6 text-white flex justify-between items-center shrink-0">
@@ -102,7 +102,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
             <>
               {step === 1 && (
                 <div className="space-y-4 md:space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-2">
                     <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-800 text-white font-black text-[10px]">1</span>
                     <h3 className="text-[11px] md:text-xs font-black uppercase tracking-widest text-slate-900">Select Number of Books</h3>
                   </div>
@@ -120,39 +120,39 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     ))}
                   </div>
 
-                  {/* --- FAR APART ADJUSTMENT AREA --- */}
+                  {/* --- GROUPED TOGETHER ADJUSTMENT AREA --- */}
                   <div className="space-y-4 px-4 py-6 bg-slate-50 rounded-2xl border border-slate-100">
                     <div className="flex justify-between items-center w-full">
-                      {/* Left Side: Number Input */}
-                      <input 
-                        type="text"
-                        value={selectedAmount === 0 ? "" : selectedAmount.toLocaleString()}
-                        onChange={handleInputChange}
-                        className="bg-transparent text-xl md:text-2xl font-black text-slate-900 outline-none w-28 md:w-32"
-                        placeholder="0"
-                      />
-
-                      {/* Right Side: Books Label and Buttons (Far Apart) */}
-                      <div className="flex items-center gap-4">
+                      {/* Left Side: Number + Label Grouped Together */}
+                      <div className="flex items-baseline gap-2 overflow-hidden">
+                        <input 
+                          type="text"
+                          value={selectedAmount === 0 ? "" : selectedAmount.toLocaleString()}
+                          onChange={handleInputChange}
+                          className="bg-transparent text-xl md:text-2xl font-black text-slate-900 outline-none w-24 md:w-28 p-0"
+                          placeholder="0"
+                        />
                         <span className="text-xl md:text-2xl font-black text-slate-900 uppercase">
                           {selectedAmount === 1 ? 'BOOK' : 'BOOKS'}
                         </span>
-                        <div className="flex items-center gap-1.5">
-                          <button 
-                            onMouseDown={() => startAdjusting('down')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting}
-                            onTouchStart={() => startAdjusting('down')} onTouchEnd={stopAdjusting}
-                            className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90 select-none"
-                          >
-                            <Minus className="w-4 h-4 md:w-5 md:h-5" />
-                          </button>
-                          <button 
-                            onMouseDown={() => startAdjusting('up')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting}
-                            onTouchStart={() => startAdjusting('up')} onTouchEnd={stopAdjusting}
-                            className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90 select-none"
-                          >
-                            <Plus className="w-4 h-4 md:w-5 md:h-5" />
-                          </button>
-                        </div>
+                      </div>
+
+                      {/* Right Side: Adjustment Buttons */}
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <button 
+                          onMouseDown={() => startAdjusting('down')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting}
+                          onTouchStart={() => startAdjusting('down')} onTouchEnd={stopAdjusting}
+                          className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90 select-none"
+                        >
+                          <Minus className="w-4 h-4 md:w-5 md:h-5" />
+                        </button>
+                        <button 
+                          onMouseDown={() => startAdjusting('up')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting}
+                          onTouchStart={() => startAdjusting('up')} onTouchEnd={stopAdjusting}
+                          className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90 select-none"
+                        >
+                          <Plus className="w-4 h-4 md:w-5 md:h-5" />
+                        </button>
                       </div>
                     </div>
                     
