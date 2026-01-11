@@ -36,7 +36,7 @@ export function Assemblymen() {
       (position) => {
         setTimeout(() => {
           setIsLocating(false);
-          // Simulation of zone detection
+          // Simulation of zone detection logic
           const matchedZone = "Abura"; 
           setDetectedZone(matchedZone);
           setSearchQuery(matchedZone);
@@ -68,12 +68,12 @@ export function Assemblymen() {
             <span className="mt-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
           </div>
 
-          {/* GENERAL NARRATIVE DESCRIPTION */}
+          {/* PERSONAL NARRATIVE DESCRIPTION */}
           <div className="mt-6 max-w-4xl mx-auto">
             <div className="bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
               <Quote className="absolute -top-2 -left-2 w-12 h-12 text-slate-50 pointer-events-none" />
               <p className="text-sm md:text-base text-slate-700 leading-relaxed font-medium italic text-center relative z-10">
-                Assembly Members are the essential heartbeat of local development. Under the <span className="text-green-800 font-bold underline decoration-green-500/30 underline-offset-4">Local Governance Act, 2016 (Act 936)</span>, they serve as the direct voice of the community—ensuring community views shape assembly decisions and overseeing the projects that impact daily life, from health to education. They are the facilitators of democracy at the grassroots level.
+                "As your MP, I work directly with our Assembly Members. They are on the ground every day, listening to the people, following up on projects, and making sure community issues are raised. That is why their role matters to our development."
               </p>
             </div>
           </div>
