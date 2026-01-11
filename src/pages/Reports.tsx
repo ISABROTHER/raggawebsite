@@ -71,10 +71,10 @@ export function Reports() {
           <AnimatedSection>
             <div className="flex flex-col items-center justify-center group">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
-                Project Photo Gallery
+                SUPPORT RAGGA
               </h1>
               <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
-                Visualizing Impact in Cape Coast North
+                BUILDING WITH YOU OBIARA KA HO
               </p>
               <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
             </div>
