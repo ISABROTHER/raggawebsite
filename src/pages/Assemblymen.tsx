@@ -1,7 +1,7 @@
 // src/pages/Assemblymen.tsx
 import { useState, useMemo } from 'react';
 import { Phone, Search, Crosshair, MapPin, Loader2, Quote } from 'lucide-react';
-import { motion, AnimatePresence } from 'ate-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedSection } from '../components/AnimatedSection';
 import { LOCATIONS } from '../data/locations';
 
@@ -36,6 +36,7 @@ export function Assemblymen() {
       (position) => {
         setTimeout(() => {
           setIsLocating(false);
+          // In a real app, logic would compare coordinates to zone data
           const matchedZone = "Abura"; 
           setDetectedZone(matchedZone);
           setSearchQuery(matchedZone);
@@ -65,12 +66,12 @@ export function Assemblymen() {
             <span className="mt-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
           </div>
 
-          {/* PERSONAL NARRATIVE DESCRIPTION (ESSENTIALS) */}
+          {/* PERSONAL NARRATIVE DESCRIPTION */}
           <div className="mt-6 max-w-4xl mx-auto">
-            <div className="bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm relative">
-              <Quote className="absolute top-4 left-4 w-8 h-8 text-slate-50 pointer-events-none" />
+            <div className="bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm relative overflow-hidden">
+              <Quote className="absolute -top-2 -left-2 w-12 h-12 text-slate-50 pointer-events-none" />
               <p className="text-sm md:text-base text-slate-700 leading-relaxed font-medium italic text-center relative z-10">
-                "To me, Assembly Members are the essential heartbeat of our local development. Under <span className="text-green-800 font-bold">Act 936</span>, they act as your direct voice—ensuring your views shape assembly decisions and overseeing the projects that matter most to your daily life, from health to education. They are the facilitators of our democracy at the grassroots level."
+                "To me, Assembly Members are the essential heartbeat of our local development. Under <span className="text-green-800 font-bold underline decoration-green-500/30 underline-offset-4">Local Governance Act, 2016 (Act 936)</span>, they act as your direct voice—ensuring your views shape assembly decisions and overseeing the projects that matter most to your daily life, from health to education. They are the facilitators of our democracy at the grassroots level."
               </p>
             </div>
           </div>
@@ -83,7 +84,7 @@ export function Assemblymen() {
               <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-green-600 transition-colors" />
               <input 
                 type="text"
-                placeholder="Find by town or name..."
+                placeholder="Search by name or town..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-6 py-3.5 bg-white border border-slate-200 rounded-xl shadow-sm focus:ring-4 focus:ring-green-500/5 focus:border-green-600 transition-all outline-none font-bold text-slate-900 text-base"
@@ -105,13 +106,13 @@ export function Assemblymen() {
           </div>
           
           <div className="mt-3 flex justify-center">
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 bg-slate-100 rounded-full">
-              {filteredMembers.length} Representatives Found
+            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 bg-slate-100 rounded-full border border-slate-200/50">
+              {filteredMembers.length} Representatives Active
             </span>
           </div>
         </div>
         
-        {/* --- ASSEMBLY MEMBERS GRID (ANIMATED ON SCROLL) --- */}
+        {/* --- ASSEMBLY MEMBERS GRID (ANIMATED) --- */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
           {filteredMembers.map((member, index) => (
             <AnimatedSection key={member.zone} delay={(index % 5) * 50}>
@@ -122,13 +123,13 @@ export function Assemblymen() {
                   : 'border-slate-100 hover:shadow-lg hover:border-green-200'
                 }`}
               >
-                <div className="w-full aspect-[3/4] bg-slate-100 overflow-hidden rounded-xl mb-3 relative">
+                <div className="w-full aspect-[3/4] bg-slate-50 overflow-hidden rounded-xl mb-3 relative">
                   <img 
                     src={member.photoUrl} 
                     alt={member.assemblyman}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent h-1/2"></div>
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent h-1/2"></div>
                   
                   <AnimatePresence>
                     {detectedZone === member.zone && (
@@ -166,18 +167,19 @@ export function Assemblymen() {
           ))}
         </div>
 
+        {/* Empty Search State */}
         {filteredMembers.length === 0 && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200"
+            className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200 mt-8"
           >
-             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">No results match your search</p>
+             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">No members found matching your search</p>
              <button 
               onClick={() => setSearchQuery('')}
               className="mt-4 text-green-600 font-black text-xs uppercase underline underline-offset-4"
             >
-              Reset Search
+              Show all members
             </button>
           </motion.div>
         )}
