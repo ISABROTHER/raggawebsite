@@ -211,61 +211,41 @@ export function AboutFullProfile() {
                 </div>
             </AnimatedSection>
 
-            {/* Redesigned Vision Section */}
+            {/* Clean & Professional Vision Section */}
             <AnimatedSection delay={340}>
-              <div className="text-center mb-10 md:mb-14">
+              <div className="text-center mb-12">
                 <div className="flex flex-col items-center justify-center group">
-                  {/* Standard Main Heading Style */}
-                  <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
                     My Vision
                   </h2>
-                  
-                  {/* Standard Subtitle Style */}
-                  <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
-                    Leadership for the Future
-                  </p>
-
                   <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
                 </div>
               </div>
 
-              {/* Vision Content Card */}
-              <div className="relative group/vision">
-                <div className="absolute -inset-1 bg-gradient-to-r from-green-600 to-emerald-600 rounded-[2.5rem] blur opacity-10 group-hover:opacity-20 transition duration-1000 group-hover:duration-200"></div>
-                <div className="relative bg-white rounded-[2.5rem] p-8 md:p-16 border border-slate-100 shadow-xl overflow-hidden">
+              <div className="max-w-3xl mx-auto">
+                <div className="bg-white rounded-3xl p-8 md:p-12 border border-slate-200 shadow-sm relative">
+                  <Quote className="absolute top-6 left-6 w-12 h-12 text-slate-50 pointer-events-none" />
                   
-                  {/* Decorative Background Icon */}
-                  <Quote className="absolute -top-6 -left-6 w-32 h-32 text-slate-50 opacity-50 -rotate-12 pointer-events-none" />
-                  
-                  <div className="relative z-10 space-y-10">
-                    <div className="space-y-6">
-                      <p className="text-lg md:text-2xl font-bold text-slate-800 leading-relaxed italic text-center">
-                        "For me, leadership is not about titles or recognition. It is about what endures 
-                        after one’s service, the systems, opportunities and hope that remain."
-                      </p>
-                      
-                      <div className="flex justify-center">
-                        <div className="w-12 h-1 bg-slate-100 rounded-full" />
-                      </div>
-
-                      <p className="text-lg md:text-2xl font-bold text-slate-800 leading-relaxed italic text-center">
-                        "My vision is to help build a Cape Coast North where fairness, opportunity and 
-                        respect are shared by all, where everyone feels they belong and every young person 
-                        knows their dream matters."
-                      </p>
-                    </div>
+                  <div className="relative z-10 space-y-8">
+                    <p className="text-lg md:text-xl font-medium text-slate-700 leading-relaxed italic border-l-4 border-green-600 pl-6">
+                      "For me, leadership is not about titles or recognition. It is about what endures 
+                      after one’s service, the systems, opportunities and hope that remain."
+                    </p>
                     
-                    <div className="flex flex-col items-center pt-8 border-t border-slate-50">
-                      <div className="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center mb-4">
-                        <Quote className="w-6 h-6 text-green-700 fill-green-700" />
-                      </div>
-                      <footer className="text-xl font-black text-slate-900 tracking-tight">
-                        Hon. Dr. Kwamena Minta Nyarku (Ragga)
-                      </footer>
-                      <p className="text-xs font-bold text-green-700 uppercase tracking-widest mt-1">
-                        Member of Parliament, Cape Coast North
-                      </p>
-                    </div>
+                    <p className="text-lg md:text-xl font-medium text-slate-700 leading-relaxed italic border-l-4 border-green-600 pl-6">
+                      "My vision is to help build a Cape Coast North where fairness, opportunity and 
+                      respect are shared by all, where everyone feels they belong and every young person 
+                      knows their dream matters."
+                    </p>
+                  </div>
+                  
+                  <div className="mt-10 pt-8 border-t border-slate-100">
+                    <footer className="text-lg font-bold text-slate-900">
+                      Hon. Dr. Kwamena Minta Nyarku (Ragga)
+                    </footer>
+                    <p className="text-sm font-semibold text-green-700 uppercase tracking-widest mt-1">
+                      Member of Parliament, Cape Coast North
+                    </p>
                   </div>
                 </div>
               </div>
