@@ -10,7 +10,7 @@ import {
   Heart,
   SlidersHorizontal,
   TrendingUp,
-  BarChart3 // Added for clearer tracking icon
+  BarChart3
 } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 
@@ -22,13 +22,10 @@ export function Support() {
 
   const categories = ['All', 'Education'];
 
-  // Data for the 200,000 Books Project
-  const campaignData = {
-    raised: "45,000",
-    target: "200,000",
-    progress: 22.5,
-    donors: "1,102"
-  };
+  // Tracking Data constants
+  const RAISED = "45,000";
+  const TARGET = "200,000";
+  const PERCENT = 22.5;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -64,7 +61,7 @@ export function Support() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* --- 1. HEADING BLOCK --- */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-12">
           <AnimatedSection>
             <div className="flex flex-col items-center justify-center group">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
@@ -78,53 +75,7 @@ export function Support() {
           </AnimatedSection>
         </div>
 
-        {/* --- 2. UNMISSABLE CAMPAIGN DASHBOARD (NEW) --- */}
-        <AnimatedSection delay={50}>
-          <div className="max-w-3xl mx-auto mb-12 bg-white rounded-[2.5rem] border-2 border-green-100 p-6 md:p-8 shadow-xl shadow-green-100/50">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-              {/* Stats Block */}
-              <div className="flex gap-10">
-                <div className="text-center md:text-left">
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Books Raised</p>
-                  <p className="text-3xl font-black text-green-700 tracking-tighter">{campaignData.raised}</p>
-                </div>
-                <div className="text-center md:text-left">
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Goal</p>
-                  <p className="text-3xl font-black text-slate-900 tracking-tighter">{campaignData.target}</p>
-                </div>
-              </div>
-
-              {/* Progress Circle & Text */}
-              <div className="flex items-center gap-6 bg-slate-50 px-6 py-4 rounded-3xl border border-slate-100">
-                <div className="relative w-14 h-14">
-                  <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                    <circle cx="18" cy="18" r="16" fill="none" className="stroke-slate-200" strokeWidth="4" />
-                    <circle cx="18" cy="18" r="16" fill="none" className="stroke-green-600" strokeWidth="4" strokeDasharray={`${campaignData.progress}, 100`} strokeLinecap="round" />
-                  </svg>
-                  <span className="absolute inset-0 flex items-center justify-center text-[10px] font-black text-green-700">{campaignData.progress}%</span>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 text-green-700 font-black text-xs uppercase tracking-widest">
-                    <TrendingUp className="w-3.5 h-3.5" /> Live Tracking
-                  </div>
-                  <p className="text-[10px] font-bold text-slate-500 mt-1 uppercase tracking-wider">{campaignData.donors} People have supported</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Proper Tracking Bar (Unmissable) */}
-            <div className="mt-8">
-              <div className="h-4 w-full bg-slate-100 rounded-full overflow-hidden p-1 shadow-inner">
-                <div 
-                  className="h-full bg-gradient-to-r from-green-500 via-green-600 to-emerald-500 rounded-full transition-all duration-1000 shadow-sm" 
-                  style={{ width: `${campaignData.progress}%` }} 
-                />
-              </div>
-            </div>
-          </div>
-        </AnimatedSection>
-
-        {/* --- 3. INTEGRATED SEARCH & FILTER BAR --- */}
+        {/* --- 2. INTEGRATED SEARCH & FILTER BAR --- */}
         <AnimatedSection delay={100}>
           <div className="max-w-2xl mx-auto mb-16 relative" ref={dropdownRef}>
             <div className="relative flex items-center bg-white rounded-3xl border border-slate-200 shadow-sm focus-within:shadow-md focus-within:border-green-500 transition-all p-1.5">
@@ -163,32 +114,55 @@ export function Support() {
           </div>
         </AnimatedSection>
 
-        {/* --- 4. PROJECT GRID --- */}
+        {/* --- 3. PROJECT GRID --- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
           {filteredPhotos.map((photo, index) => (
             <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
               <div className="group relative bg-white rounded-[2rem] overflow-hidden border border-green-500 ring-4 ring-green-500/10 shadow-sm hover:shadow-xl transition-all duration-500">
+                
+                {/* Image Area */}
                 <div className="relative h-64 overflow-hidden">
                   <img src={photo.image} alt={photo.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   
-                  {/* High-Visibility Label Strip */}
-                  <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-slate-100 p-3">
-                    <div className="flex justify-between items-center px-1">
-                      <div className="flex items-center gap-2">
-                        <BarChart3 className="w-4 h-4 text-green-600" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-900">{campaignData.raised} Books Donated</span>
-                      </div>
-                      <span className="text-[10px] font-black text-green-700 uppercase tracking-widest bg-green-50 px-2 py-0.5 rounded-md">Goal: {campaignData.target}</span>
+                  {/* Action Overlay */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-4">
+                    <button className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-colors"><Maximize2 className="w-5 h-5" /></button>
+                    <button className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-colors"><ExternalLink className="w-5 h-5" /></button>
+                  </div>
+                  
+                  {/* Status Badge */}
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white text-[9px] font-black uppercase rounded-full tracking-widest">Urgent Support</div>
+                </div>
+
+                {/* --- PROPER TRACKING SECTION (ON CARD) --- */}
+                <div className="bg-slate-900 p-5 text-white">
+                  <div className="flex justify-between items-center mb-3">
+                    <div className="flex items-center gap-2">
+                      <BarChart3 className="w-4 h-4 text-green-400" />
+                      <span className="text-[11px] font-black uppercase tracking-widest">{RAISED} Books Donated</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-green-400">
+                      <TrendingUp className="w-3.5 h-3.5" />
+                      <span className="text-[11px] font-black">{PERCENT}%</span>
                     </div>
                   </div>
-
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white text-[9px] font-black uppercase rounded-full tracking-widest">Urgent Support</div>
+                  {/* Progress Bar */}
+                  <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden p-0.5">
+                    <div 
+                      className="h-full bg-gradient-to-r from-green-400 to-emerald-400 rounded-full transition-all duration-1000" 
+                      style={{ width: `${PERCENT}%` }} 
+                    />
+                  </div>
+                  <div className="mt-2 text-right">
+                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Goal: {TARGET}</span>
+                  </div>
                 </div>
 
                 <div className="p-6">
                   <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight mb-2 group-hover:text-green-700 transition-colors">{photo.title}</h3>
                   <p className="text-sm text-slate-600 font-medium leading-relaxed mb-4">{photo.desc}</p>
                   <p className="text-xs font-bold text-green-700 uppercase tracking-wide mb-6">{photo.callToAction}</p>
+                  
                   <button className="w-full py-3 bg-green-700 hover:bg-green-800 text-white rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all">
                     <Heart className="w-4 h-4" /> kindly support, obiara ka ho
                   </button>
@@ -198,7 +172,7 @@ export function Support() {
           ))}
         </div>
 
-        {/* --- 5. EMPTY STATE --- */}
+        {/* --- 4. EMPTY STATE --- */}
         {filteredPhotos.length === 0 && (
           <div className="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200 max-w-2xl mx-auto">
             <Camera className="w-12 h-12 text-slate-200 mx-auto mb-4" />
