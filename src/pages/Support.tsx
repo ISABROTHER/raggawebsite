@@ -9,7 +9,7 @@ import {
   X, 
   Heart,
   SlidersHorizontal,
-  TrendingUp // Added for the tracking "vibe"
+  TrendingUp 
 } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 
@@ -21,7 +21,6 @@ export function Support() {
 
   const categories = ['All', 'Education'];
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -40,6 +39,9 @@ export function Support() {
       image: "https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=1200",
       desc: "This project aims to raise 200,000 exercise books for OVER 30,000 students in Cape Coast North to support teaching and learning in our schools and reduce the cost burden on parents.",
       callToAction: "Support this project and help strengthen education in Cape Coast North",
+      raised: "45,000", // Current tracking data
+      target: "200k",
+      progress: 22.5,
       isFeatured: true
     }
   ];
@@ -55,8 +57,8 @@ export function Support() {
     <div className="min-h-screen bg-slate-50 pt-24 pb-24 font-sans text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* --- 1. HEADING BLOCK --- */}
-        <div className="text-center mb-10">
+        {/* --- HEADING BLOCK --- */}
+        <div className="text-center mb-12">
           <AnimatedSection>
             <div className="flex flex-col items-center justify-center group">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
@@ -70,42 +72,7 @@ export function Support() {
           </AnimatedSection>
         </div>
 
-        {/* --- 2. LIVE DONATION TRACKING STRIP (NEW ADDITION) --- */}
-        {/* This sits above the search bar so it doesn't affect card size */}
-        <AnimatedSection delay={50}>
-          <div className="max-w-2xl mx-auto mb-8 bg-white border border-slate-200 rounded-[2rem] p-5 shadow-sm flex flex-col sm:flex-row items-center gap-6">
-            <div className="flex-1 w-full">
-              <div className="flex justify-between items-center mb-2.5 px-1">
-                <div className="flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-green-600" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Campaign Progress</span>
-                </div>
-                <span className="text-xs font-black text-green-700 bg-green-50 px-2 py-0.5 rounded-md">22.5% Raised</span>
-              </div>
-              <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-gradient-to-r from-green-500 to-green-600 rounded-full transition-all duration-1000" 
-                  style={{ width: '22.5%' }} 
-                />
-              </div>
-            </div>
-            
-            <div className="hidden sm:block w-px h-10 bg-slate-100" />
-            
-            <div className="flex items-center gap-8 text-center sm:text-left">
-              <div>
-                <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Books Raised</p>
-                <p className="text-lg font-black text-slate-900 tabular-nums">45,000</p>
-              </div>
-              <div>
-                <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Target</p>
-                <p className="text-lg font-black text-slate-300 tabular-nums">200k</p>
-              </div>
-            </div>
-          </div>
-        </AnimatedSection>
-
-        {/* --- 3. INTEGRATED SEARCH & FILTER BAR --- */}
+        {/* --- INTEGRATED SEARCH & FILTER BAR --- */}
         <AnimatedSection delay={100}>
           <div className="max-w-2xl mx-auto mb-16 relative" ref={dropdownRef}>
             <div className="relative flex items-center bg-white rounded-3xl border border-slate-200 shadow-sm focus-within:shadow-md focus-within:border-green-500 transition-all p-1.5">
@@ -122,10 +89,7 @@ export function Support() {
               />
 
               {searchTerm && (
-                <button 
-                  onClick={() => setSearchTerm('')} 
-                  className="p-1 hover:bg-slate-100 rounded-full transition-colors mr-1"
-                >
+                <button onClick={() => setSearchTerm('')} className="p-1 hover:bg-slate-100 rounded-full transition-colors mr-1">
                   <X className="w-4 h-4 text-slate-400" />
                 </button>
               )}
@@ -154,10 +118,7 @@ export function Support() {
                 {categories.map((cat) => (
                   <button
                     key={cat}
-                    onClick={() => {
-                      setFilter(cat);
-                      setIsDropdownOpen(false);
-                    }}
+                    onClick={() => { setFilter(cat); setIsDropdownOpen(false); }}
                     className={`w-full text-left px-5 py-3.5 text-xs font-bold uppercase tracking-widest transition-colors ${
                       filter === cat ? 'text-green-700 bg-green-50' : 'text-slate-500 hover:bg-slate-50 hover:text-green-600'
                     }`}
@@ -170,27 +131,49 @@ export function Support() {
           </div>
         </AnimatedSection>
 
-        {/* --- 4. PROJECT GRID (ITEM REMAINS SAME SIZE) --- */}
+        {/* --- PROJECT GRID --- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
           {filteredPhotos.map((photo, index) => (
             <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
               <div className="group relative bg-white rounded-[2rem] overflow-hidden border border-green-500 ring-4 ring-green-500/10 shadow-sm hover:shadow-xl transition-all duration-500">
+                
+                {/* --- Image Area with Tracking Overlay --- */}
                 <div className="relative h-64 overflow-hidden">
                   <img 
                     src={photo.image} 
                     alt={photo.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-4">
+                  
+                  {/* Subtle Tracking Overlay (Top) */}
+                  <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/60 to-transparent">
+                    <div className="flex justify-between items-end">
+                      <div>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-white/70 mb-0.5">Books Donated</p>
+                        <p className="text-xl font-black text-white leading-none">{photo.raised}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[10px] font-black uppercase tracking-widest text-white/70 mb-0.5">Progress</p>
+                        <p className="text-sm font-black text-green-400 leading-none">{photo.progress}%</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Slim Progress Bar Overlay (Bottom of Image) */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-black/20 backdrop-blur-sm">
+                    <div 
+                      className="h-full bg-gradient-to-r from-green-500 to-emerald-400 transition-all duration-1000"
+                      style={{ width: `${photo.progress}%` }}
+                    />
+                  </div>
+
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-4">
                     <button className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-colors">
                       <Maximize2 className="w-5 h-5" />
                     </button>
                     <button className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-colors">
                       <ExternalLink className="w-5 h-5" />
                     </button>
-                  </div>
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white text-[9px] font-black uppercase rounded-full tracking-widest">
-                    Urgent Support
                   </div>
                 </div>
 
@@ -215,7 +198,7 @@ export function Support() {
           ))}
         </div>
 
-        {/* --- 5. EMPTY STATE --- */}
+        {/* --- EMPTY STATE --- */}
         {filteredPhotos.length === 0 && (
           <div className="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200 max-w-2xl mx-auto">
             <Camera className="w-12 h-12 text-slate-200 mx-auto mb-4" />
