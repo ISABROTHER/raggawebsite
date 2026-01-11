@@ -9,7 +9,7 @@ import { AnimatedSection } from '../../components/AnimatedSection';
 // Helper component for Profile items
 const ProfileItem = ({ icon: Icon, label, value }: { icon: React.ElementType, label: string, value: string }) => (
     <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start space-x-3">
-        <Icon className="w-5 h-5 text-blue-700 mt-1 flex-shrink-0"/>
+        <Icon className="w-5 h-5 text-green-700 mt-1 flex-shrink-0"/>
         <div>
             <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{label}</h4>
             <p className="text-sm font-medium text-gray-800">{value}</p>
@@ -44,15 +44,17 @@ export function AboutFullProfile() {
   }
 
   return (
-    <div className="bg-gray-50 py-12">
+    <div className="bg-gray-50 py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="space-y-16">
+        <div className="space-y-20">
             {/* FULL MP INFORMATION SECTION */}
             <AnimatedSection>
-                <h2 className="text-3xl font-bold text-green-800 mb-6 border-b-2 border-amber-500 pb-2 inline-block">
-                    Profile
-                </h2>
+                <div className="mb-8">
+                  <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight border-l-4 border-green-600 pl-4">
+                      Personal Profile
+                  </h2>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                     <ProfileItem icon={User} label="Full Name" value="Hon. Dr. Kwamena Minta Nyarku, PhD" />
                     <ProfileItem icon={Smile} label="Nickname" value="Ragga" />
@@ -65,28 +67,33 @@ export function AboutFullProfile() {
 
             {/* Educational Qualifications */}
             <AnimatedSection delay={220}>
-                <h3 className="text-2xl font-semibold text-blue-900 mb-4">Educational Qualifications</h3>
-                <div className="overflow-x-auto bg-white rounded-lg shadow-md border border-gray-200">
+                <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
+                    <Landmark className="w-4 h-4 text-green-700" />
+                  </div>
+                  Educational Qualifications
+                </h3>
+                <div className="overflow-hidden bg-white rounded-2xl shadow-sm border border-gray-200">
                     <table className="w-full text-sm text-left text-gray-700">
-                    <thead className="text-xs text-gray-500 uppercase bg-blue-100">
+                    <thead className="text-xs text-gray-500 uppercase bg-slate-50 border-b border-gray-100">
                         <tr>
-                        <th scope="col" className="px-6 py-3">Institution & Details</th>
+                        <th scope="col" className="px-6 py-4">Institution & Details</th>
                         </tr>
                     </thead>
                     <tbody>
                         {educationData.map((edu, index) => (
                         <tr
                             key={edu.institution}
-                            className={`${index % 2 === 0 ? 'bg-white' : 'bg-blue-50'} border-b border-gray-100 last:border-b-0 hover:bg-gray-50`}
+                            className={`${index % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'} border-b border-gray-100 last:border-b-0 hover:bg-green-50/30 transition-colors`}
                         >
-                            <td className="px-6 py-3">
-                            <span className="font-medium text-gray-900 block">{edu.institution}</span>
-                            <div className="mt-1 text-gray-600">
+                            <td className="px-6 py-4">
+                            <span className="font-bold text-slate-900 block text-base">{edu.institution}</span>
+                            <div className="mt-1 text-slate-500 font-medium">
                                 <span className="mr-4">
-                                Qualification: <span className="font-medium">{edu.qualification}</span>
+                                Qualification: <span className="text-slate-700">{edu.qualification}</span>
                                 </span>
                                 <span>
-                                Year: <span className="font-medium">{getYear(edu.completed)}</span>
+                                Year: <span className="text-slate-700">{getYear(edu.completed)}</span>
                                 </span>
                             </div>
                             </td>
@@ -99,25 +106,30 @@ export function AboutFullProfile() {
 
             {/* Employment History */}
             <AnimatedSection delay={260}>
-                <h3 className="text-2xl font-semibold text-blue-900 mb-4">Employment History</h3>
-                <div className="overflow-x-auto bg-white rounded-lg shadow-md border border-gray-200">
+                 <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
+                    <DesignationIcon className="w-4 h-4 text-green-700" />
+                  </div>
+                  Employment History
+                </h3>
+                <div className="overflow-hidden bg-white rounded-2xl shadow-sm border border-gray-200">
                     <table className="w-full text-sm text-left text-gray-700">
-                    <thead className="text-xs text-gray-500 uppercase bg-blue-100">
+                    <thead className="text-xs text-gray-500 uppercase bg-slate-50 border-b border-gray-100">
                         <tr>
-                        <th scope="col" className="px-6 py-3">Institution</th>
-                        <th scope="col" className="px-6 py-3">Position</th>
+                        <th scope="col" className="px-6 py-4">Institution</th>
+                        <th scope="col" className="px-6 py-4">Position</th>
                         </tr>
                     </thead>
                     <tbody>
                         {employmentData.map((job, index) => (
                         <tr
                             key={job.institution}
-                            className={`${index % 2 === 0 ? 'bg-white' : 'bg-blue-50'} border-b border-gray-100 last:border-b-0 hover:bg-gray-50`}
+                            className={`${index % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'} border-b border-gray-100 last:border-b-0 hover:bg-green-50/30 transition-colors`}
                         >
-                            <td className="px-6 py-3 font-medium text-gray-900">
+                            <td className="px-6 py-4 font-bold text-slate-900">
                             {job.institution}
                             </td>
-                            <td className="px-6 py-3">{job.position}</td>
+                            <td className="px-6 py-4 font-medium text-slate-600">{job.position}</td>
                         </tr>
                         ))}
                     </tbody>
@@ -127,31 +139,33 @@ export function AboutFullProfile() {
 
             {/* Service in Parliament */}
             <AnimatedSection delay={300}>
-                <h2 className="text-3xl font-bold text-green-800 mb-6 border-b-2 border-amber-500 pb-2 inline-block">
-                    Service in Parliament
-                </h2>
+                <div className="mb-8">
+                  <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight border-l-4 border-green-600 pl-4">
+                      Service in Parliament
+                  </h2>
+                </div>
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Elected MP */}
-                    <div className="bg-white p-4 rounded-lg border border-gray-200 flex items-start shadow-sm">
-                        <CheckSquare className="w-6 h-6 text-blue-700 mr-3 mt-1 flex-shrink-0" />
+                    <div className="bg-white p-6 rounded-2xl border border-gray-200 flex items-start shadow-sm">
+                        <CheckSquare className="w-6 h-6 text-green-700 mr-4 mt-1 flex-shrink-0" />
                         <div>
-                        <h4 className="font-semibold text-blue-900 mb-1">
+                        <h4 className="font-bold text-slate-900 mb-2 text-lg">
                             Elected MP (Cape Coast North)
                         </h4>
-                        <ul className="list-none space-y-1 mb-3">
+                        <ul className="space-y-2">
                             {electionResults.map((result) => (
                             <li
                                 key={result.year}
-                                className="text-sm text-gray-600 flex items-center flex-wrap"
+                                className="text-sm font-medium text-slate-600 flex items-center"
                             >
-                                <span className="font-semibold text-gray-800 mr-2">
-                                {result.year}:
+                                <span className="bg-slate-100 text-slate-800 px-2 py-0.5 rounded mr-2 font-bold text-xs">
+                                {result.year}
                                 </span>
-                                <span className="text-green-700 font-medium mr-2">
-                                {result.nyarkuVotes} votes ({result.nyarkuPercent})
+                                <span className="text-green-700 font-bold mr-2">
+                                {result.nyarkuVotes} votes
                                 </span>
-                                <span className="text-blue-800">
+                                <span className="text-slate-400">
                                 (Margin: {result.margin})
                                 </span>
                             </li>
@@ -161,36 +175,35 @@ export function AboutFullProfile() {
                     </div>
 
                     {/* Party Affiliation */}
-                    <div className="bg-white p-4 rounded-lg border border-gray-200 flex items-start shadow-sm">
-                        <Users className="w-6 h-6 text-blue-700 mr-3 mt-1 flex-shrink-0" />
+                    <div className="bg-white p-6 rounded-2xl border border-gray-200 flex items-start shadow-sm">
+                        <Users className="w-6 h-6 text-green-700 mr-4 mt-1 flex-shrink-0" />
                         <div>
-                        <h4 className="font-semibold text-blue-900">Party Affiliation</h4>
-                        <p className="text-sm text-gray-600">
+                        <h4 className="font-bold text-slate-900 mb-1 text-lg">Party Affiliation</h4>
+                        <p className="text-sm font-bold text-green-800 uppercase tracking-wide">
                             National Democratic Congress (NDC)
                         </p>
                         </div>
                     </div>
 
                     {/* Parliamentary Committees */}
-                    <div className="bg-white p-4 rounded-lg border border-gray-200 flex items-start shadow-sm md:col-span-2">
-                        <Landmark className="w-6 h-6 text-blue-700 mr-3 mt-1 flex-shrink-0" />
-                        <div>
-                        <h4 className="font-semibold text-blue-900 mb-2">
+                    <div className="bg-white p-6 rounded-2xl border border-gray-200 flex items-start shadow-sm md:col-span-2">
+                        <Landmark className="w-6 h-6 text-green-700 mr-4 mt-1 flex-shrink-0" />
+                        <div className="w-full">
+                        <h4 className="font-bold text-slate-900 mb-4 text-lg">
                             Parliamentary Committees
                         </h4>
-                        <div className="space-y-1.5">
-                            <p className="text-sm text-gray-700">
-                            Member, Committee on Defence & Interior.
-                            </p>
-                            <p className="text-sm text-gray-700">
-                            Member, Committee on Environment, Science & Technology.
-                            </p>
-                            <p className="text-sm text-gray-700">
-                            Member, Committee on Ways & Means.
-                            </p>
-                            <p className="text-sm text-gray-700">
-                            Vice-Chairman, Committee of Petitions.
-                            </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-8">
+                            {[
+                              "Committee on Defence & Interior",
+                              "Committee on Environment, Science & Technology",
+                              "Committee on Ways & Means",
+                              "Vice-Chairman, Committee of Petitions"
+                            ].map((committee, i) => (
+                              <div key={i} className="flex items-center gap-3 text-sm text-slate-600 font-medium group">
+                                <div className="w-1.5 h-1.5 rounded-full bg-green-500 group-hover:scale-150 transition-transform" />
+                                {committee}
+                              </div>
+                            ))}
                         </div>
                         </div>
                     </div>
@@ -198,44 +211,61 @@ export function AboutFullProfile() {
                 </div>
             </AnimatedSection>
 
-            {/* Vision / Welcome Philosophy - Redesigned */}
+            {/* Redesigned Vision Section */}
             <AnimatedSection delay={340}>
-              <div className="relative mt-20 mb-10">
-                {/* Floating Icon Decor */}
-                <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 bg-green-700 rounded-full flex items-center justify-center shadow-xl border-4 border-white z-10">
-                  <Quote className="w-8 h-8 text-white fill-white" />
-                </div>
-                
-                <div className="bg-white rounded-[2.5rem] p-10 md:p-16 shadow-2xl border border-slate-100 text-center relative overflow-hidden">
-                  {/* Subtle Brand Color Blurs */}
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-green-50 rounded-full -translate-y-32 translate-x-32 blur-3xl opacity-60" />
-                  <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-50 rounded-full translate-y-32 -translate-x-32 blur-3xl opacity-60" />
-                  
-                  <h2 className="text-sm font-black text-green-700 uppercase tracking-[0.3em] mb-8 relative z-20">
+              <div className="text-center mb-10 md:mb-14">
+                <div className="flex flex-col items-center justify-center group">
+                  {/* Standard Main Heading Style */}
+                  <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
                     My Vision
                   </h2>
                   
-                  <div className="space-y-8 relative z-20">
-                    <p className="text-xl md:text-2xl font-bold text-slate-800 leading-relaxed italic">
-                      "For me, leadership is not about titles or recognition. It is about what endures 
-                      after one’s service, the systems, opportunities and hope that remain."
-                    </p>
-                    
-                    <p className="text-xl md:text-2xl font-bold text-slate-800 leading-relaxed italic">
-                      "My vision is to help build a Cape Coast North where fairness, opportunity and 
-                      respect are shared by all, where everyone feels they belong and every young person 
-                      knows their dream matters."
-                    </p>
-                  </div>
+                  {/* Standard Subtitle Style */}
+                  <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
+                    Leadership for the Future
+                  </p>
+
+                  <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
+                </div>
+              </div>
+
+              {/* Vision Content Card */}
+              <div className="relative group/vision">
+                <div className="absolute -inset-1 bg-gradient-to-r from-green-600 to-emerald-600 rounded-[2.5rem] blur opacity-10 group-hover:opacity-20 transition duration-1000 group-hover:duration-200"></div>
+                <div className="relative bg-white rounded-[2.5rem] p-8 md:p-16 border border-slate-100 shadow-xl overflow-hidden">
                   
-                  <div className="mt-10 pt-8 border-t border-slate-100 flex flex-col items-center relative z-20">
-                    <span className="h-1 w-12 bg-amber-500 rounded-full mb-4" />
-                    <footer className="text-lg font-black text-slate-900 tracking-tight">
-                      Hon. Dr. Kwamena Minta Nyarku (Ragga)
-                    </footer>
-                    <p className="text-xs font-bold text-green-700 uppercase tracking-widest mt-1">
-                      Member of Parliament, Cape Coast North
-                    </p>
+                  {/* Decorative Background Icon */}
+                  <Quote className="absolute -top-6 -left-6 w-32 h-32 text-slate-50 opacity-50 -rotate-12 pointer-events-none" />
+                  
+                  <div className="relative z-10 space-y-10">
+                    <div className="space-y-6">
+                      <p className="text-lg md:text-2xl font-bold text-slate-800 leading-relaxed italic text-center">
+                        "For me, leadership is not about titles or recognition. It is about what endures 
+                        after one’s service, the systems, opportunities and hope that remain."
+                      </p>
+                      
+                      <div className="flex justify-center">
+                        <div className="w-12 h-1 bg-slate-100 rounded-full" />
+                      </div>
+
+                      <p className="text-lg md:text-2xl font-bold text-slate-800 leading-relaxed italic text-center">
+                        "My vision is to help build a Cape Coast North where fairness, opportunity and 
+                        respect are shared by all, where everyone feels they belong and every young person 
+                        knows their dream matters."
+                      </p>
+                    </div>
+                    
+                    <div className="flex flex-col items-center pt-8 border-t border-slate-50">
+                      <div className="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+                        <Quote className="w-6 h-6 text-green-700 fill-green-700" />
+                      </div>
+                      <footer className="text-xl font-black text-slate-900 tracking-tight">
+                        Hon. Dr. Kwamena Minta Nyarku (Ragga)
+                      </footer>
+                      <p className="text-xs font-bold text-green-700 uppercase tracking-widest mt-1">
+                        Member of Parliament, Cape Coast North
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
