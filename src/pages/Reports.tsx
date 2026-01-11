@@ -1,17 +1,34 @@
 // src/pages/Reports.tsx
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   Camera, 
   Filter,
   Maximize2,
-  ExternalLink
+  ExternalLink,
+  Search,
+  ChevronDown,
+  X
 } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 
 export function Reports() {
   const [filter, setFilter] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const categories = ['All', 'Education', 'Health', 'Infrastructure', 'Agriculture'];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const photos = [
     {
@@ -58,9 +75,12 @@ export function Reports() {
     }
   ];
 
-  const filteredPhotos = filter === 'All' 
-    ? photos 
-    : photos.filter(p => p.category === filter);
+  const filteredPhotos = photos.filter(photo => {
+    const matchesFilter = filter === 'All' || photo.category === filter;
+    const matchesSearch = photo.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         photo.desc.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
 
   return (
     <div className="min-h-screen bg-slate-50 pt-24 pb-24 font-sans">
@@ -81,25 +101,64 @@ export function Reports() {
           </AnimatedSection>
         </div>
 
-        {/* --- FILTER BAR --- */}
+        {/* --- MODERN SEARCH & FILTER BAR --- */}
         <AnimatedSection delay={100}>
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-            <div className="flex items-center gap-2 mr-4 text-slate-400 font-bold text-xs uppercase tracking-widest">
-              <Filter className="w-4 h-4" /> Filter By:
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-12 bg-white p-4 rounded-3xl border border-slate-200 shadow-sm">
+            
+            {/* Search Input */}
+            <div className="relative w-full md:max-w-md group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-green-600 transition-colors" />
+              <input 
+                type="text"
+                placeholder="Search projects or locations..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-12 py-3 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all text-sm font-medium"
+              />
+              {searchTerm && (
+                <button 
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-200 rounded-full transition-colors"
+                >
+                  <X className="w-4 h-4 text-slate-500" />
+                </button>
+              )}
             </div>
-            {categories.map((cat) => (
+
+            {/* Custom Modern Dropdown */}
+            <div className="relative w-full md:w-64" ref={dropdownRef}>
               <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all ${
-                  filter === cat 
-                    ? 'bg-green-700 text-white shadow-lg shadow-green-200 scale-105' 
-                    : 'bg-white text-slate-500 hover:bg-slate-100 border border-slate-200'
-                }`}
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="w-full flex items-center justify-between px-6 py-3 bg-white border border-slate-200 rounded-2xl hover:border-green-500 hover:shadow-md transition-all group"
               >
-                {cat}
+                <div className="flex items-center gap-3">
+                  <Filter className="w-4 h-4 text-slate-400 group-hover:text-green-600" />
+                  <span className="text-sm font-bold text-slate-700 uppercase tracking-wider">{filter}</span>
+                </div>
+                <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
-            ))}
+
+              {isDropdownOpen && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => {
+                        setFilter(cat);
+                        setIsDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-6 py-4 text-xs font-black uppercase tracking-widest transition-colors ${
+                        filter === cat 
+                          ? 'bg-green-50 text-green-700' 
+                          : 'text-slate-500 hover:bg-slate-50 hover:text-green-600'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </AnimatedSection>
 
@@ -108,7 +167,6 @@ export function Reports() {
           {filteredPhotos.map((photo, index) => (
             <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
               <div className="group relative bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500">
-                {/* Image Container */}
                 <div className="relative h-64 overflow-hidden">
                   <img 
                     src={photo.image} 
@@ -128,7 +186,6 @@ export function Reports() {
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="p-6">
                   <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight mb-2 group-hover:text-green-700 transition-colors">
                     {photo.title}
@@ -144,11 +201,17 @@ export function Reports() {
 
         {/* --- EMPTY STATE --- */}
         {filteredPhotos.length === 0 && (
-          <div className="text-center py-20">
+          <div className="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200">
             <Camera className="w-12 h-12 text-slate-200 mx-auto mb-4" />
             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">
-              No photos found in this category.
+              No matches found for "{searchTerm}" in {filter}
             </p>
+            <button 
+              onClick={() => {setSearchTerm(''); setFilter('All');}}
+              className="mt-4 text-green-600 font-bold text-xs uppercase underline underline-offset-4"
+            >
+              Clear all filters
+            </button>
           </div>
         )}
 
