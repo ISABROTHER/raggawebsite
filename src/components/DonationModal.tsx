@@ -4,12 +4,7 @@ import {
   X, Heart, ChevronRight, CheckCircle2,
   User, Phone, CreditCard, Loader2, RefreshCw, Minus, Plus
 } from 'lucide-react';
-
-declare global {
-  interface Window {
-    PaystackPop: any;
-  }
-}
+import Paystack from '@paystack/inline-js';
 
 export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   // --- STATE ---
@@ -71,19 +66,8 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   const totalUSD = totalGHS / (exchangeRate || 15.20);
 
   const handlePay = () => {
-    console.log('Payment button clicked');
-    console.log('Form data:', { selectedAmount, firstName, lastName, contactInfo, payMethod });
-
     if (selectedAmount < 1 || !firstName || !lastName || !contactInfo) {
       alert('Please fill in all required fields');
-      return;
-    }
-
-    console.log('Checking PaystackPop:', window.PaystackPop);
-
-    if (!window.PaystackPop) {
-      alert('Payment system is loading. Please try again in a moment.');
-      console.error('PaystackPop not found on window object');
       return;
     }
 
@@ -93,19 +77,15 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
       const amountInPesewas = Math.round(totalGHS * 100);
       const email = payMethod === 'FOREIGN' ? contactInfo : `${contactInfo.replace(/[^0-9]/g, '')}@momo.placeholder`;
 
-      console.log('Initializing payment with:', {
-        amount: amountInPesewas,
-        email,
-        currency: 'GHS'
-      });
+      const popup = new Paystack();
 
-      const handler = window.PaystackPop.setup({
+      popup.newTransaction({
         key: 'pk_test_0384219b0cda58507d42d42605bf6844211579cb',
         email,
         amount: amountInPesewas,
         currency: 'GHS',
-        ref: 'BOOK_' + Date.now() + Math.floor(Math.random() * 1000000),
-        channels: ['card', 'mobile_money'],
+        reference: 'BOOK_' + Date.now() + Math.floor(Math.random() * 1000000),
+        channels: ['card', 'mobile_money', 'bank_transfer'],
         metadata: {
           custom_fields: [
             {
@@ -130,27 +110,24 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
             }
           ]
         },
-        onClose: function() {
-          console.log('Payment popup closed');
+        onSuccess: (transaction) => {
+          console.log('Payment successful:', transaction);
+          setIsProcessing(false);
+          setStep(3);
+        },
+        onCancel: () => {
+          console.log('Payment cancelled');
           setIsProcessing(false);
         },
-        callback: function(response: any) {
-          console.log('Payment callback:', response);
+        onError: (error) => {
+          console.error('Payment error:', error);
           setIsProcessing(false);
-          if (response.status === 'success') {
-            console.log('Payment successful!');
-            setStep(3);
-          } else {
-            alert('Payment was not successful. Please try again.');
-          }
+          alert('There was an error processing your payment. Please try again.');
         }
       });
-
-      console.log('Opening payment popup...');
-      handler.openIframe();
     } catch (error) {
       setIsProcessing(false);
-      console.error('Payment error:', error);
+      console.error('Payment initialization error:', error);
       alert('There was an error initializing payment. Please try again.');
     }
   };
