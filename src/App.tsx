@@ -1,12 +1,17 @@
 // src/App.tsx
-import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import { Routes, Route, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Home } from './pages/Home';
+import { About } from './pages/About';
 import { Assemblymen } from './pages/Assemblymen';
 import { OngoingProjects } from './pages/OngoingProjects';
 import { Appointments } from './pages/Appointments';
 import { Reports } from './pages/Reports';
 import { Achievements } from './pages/Achievements';
 import { Issues } from './pages/Issues';
+import { Events } from './pages/Events';
+import { Polls } from './pages/Polls';
+import { Admin } from './pages/Admin';
+import { Volunteer } from './pages/Volunteer';
 import { ReadStory } from './pages/ReadStory';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -20,10 +25,21 @@ function ReadStoryPage() {
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Determine current page from URL path
+  const getCurrentPage = () => {
+    const path = location.pathname;
+    if (path === '/') return 'home';
+    const page = path.substring(1).split('/')[0];
+    return page || 'home';
+  };
 
   // This function makes your "onNavigate" buttons work with the router
   const handleNavigate = (page: string, param?: string) => {
-    if (param) {
+    if (page === 'home') {
+      navigate('/');
+    } else if (param) {
       navigate(`/${page}/${param}`);
     } else {
       navigate(`/${page}`);
@@ -32,16 +48,22 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header /> 
+      <Header currentPage={getCurrentPage()} onNavigate={handleNavigate} />
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home onNavigate={handleNavigate} />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/achievements" element={<Achievements />} />
+          <Route path="/gallery" element={<Reports />} />
           <Route path="/assemblymen" element={<Assemblymen />} />
           <Route path="/ongoing-projects" element={<OngoingProjects />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/polls" element={<Polls />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/appointments" element={<Appointments />} />
-          <Route path="/reports" element={<Reports />} /> 
-          <Route path="/achievements" element={<Achievements />} />
           <Route path="/issues" element={<Issues />} />
+          <Route path="/volunteer" element={<Volunteer />} />
+          <Route path="/reports" element={<Reports />} />
           <Route path="/read-story/:id" element={<ReadStoryPage />} />
         </Routes>
       </main>

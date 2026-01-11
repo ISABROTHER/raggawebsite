@@ -73,8 +73,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
 
   const handleNavClick = (pageId: string) => {
     setMobileMenuOpen(false);
-    if (pageId === 'admin') return; 
-    onNavigate(pageId); // This correctly triggers the page change logic
+    onNavigate(pageId);
   };
 
   const menuVariants = {
@@ -145,7 +144,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
                     currentPage === item.id
                       ? 'bg-blue-900 text-white shadow-lg shadow-blue-500/50'
                       : 'text-gray-700 hover:bg-gray-100 hover:text-blue-700'
-                  } ${item.id === 'admin' ? 'border-2 border-red-100 text-red-700 cursor-default' : ''}`} 
+                  } ${item.id === 'admin' ? 'border-2 border-red-100 text-red-700' : ''}`} 
                   style={{
                     padding: `${desktopNavPaddingY}px ${desktopNavPaddingX}px`,
                     fontSize: `${desktopNavFontSize}px`,
@@ -174,7 +173,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
               >
                 <div className="relative bg-[#CE1126] pt-24 pb-6 px-6 shadow-2xl h-full w-full overflow-hidden border-4 border-white/20 rounded-[40px] max-h-[85vh] overflow-y-auto">
                   <motion.div variants={itemVariants} className="mb-6 relative z-10">
-                    <button className="w-full bg-white text-[#CE1126] rounded-2xl p-4 flex items-center justify-between cursor-default">
+                    <button onClick={() => handleNavClick('admin')} className="w-full bg-white text-[#CE1126] rounded-2xl p-4 flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <LayoutDashboard className="w-5 h-5" />
                         <span className="font-black text-xl">MY PAGE</span>
