@@ -1,9 +1,7 @@
+// src/components/Footer.tsx
 import { Facebook, Twitter, Instagram } from 'lucide-react';
-// Removed useState, supabase, and unused icons
 
 export function Footer() {
-  // Removed useState hooks and handleNewsletterSubmit function
-
   const socialLinks = [
     { icon: Facebook, href: '#', label: 'Facebook' },
     { icon: Twitter, href: '#', label: 'Twitter' },
@@ -21,16 +19,14 @@ export function Footer() {
     >
       {/* Added flex container to center content vertically */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center">
-        {/* The grid with Logo, Quick Links, Contact, and Newsletter has been removed */}
-
-        {/* Adjusted padding (py-8) and removed border-t */}
+        
         <div className="pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-gray-400">
-              &copy; {new Date().getFullYear()} Jane Doe for Senate. All rights reserved.
+              &copy; {new Date().getFullYear()} Hon. Dr. Kwamena Minta Nyarku. All rights reserved.
               <br className="md:hidden" />
               <span className="hidden md:inline"> | </span>
-              Paid for by Jane Doe for Senate Committee.
+              Member of Parliament for Cape Coast North.
             </div>
             <div className="flex space-x-4">
               {socialLinks.map(({ icon: Icon, href, label }) => (
