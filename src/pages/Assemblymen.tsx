@@ -55,10 +55,16 @@ export function Assemblymen() {
         {/* --- STANDARD HEADING BLOCK --- */}
         <div className="text-center mb-6">
           <div className="flex flex-col items-center justify-center group">
+            {/* Main Heading */}
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
               Assemblymen
             </h1>
             
+            {/* Standard Subtitle: IN CAPE COAST NORTH */}
+            <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
+              IN CAPE COAST NORTH
+            </p>
+
             <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
           </div>
 
@@ -110,7 +116,7 @@ export function Assemblymen() {
           </div>
         </div>
         
-        {/* --- ASSEMBLY MEMBERS GRID (ANIMATED) --- */}
+        {/* --- ASSEMBLY MEMBERS GRID (ANIMATED ON SCROLL) --- */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
           {filteredMembers.map((member, index) => (
             <AnimatedSection key={member.zone} delay={(index % 5) * 50}>
