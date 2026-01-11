@@ -23,6 +23,26 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   // Ref for the long-press interval
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // --- BUTTON LOGIC ---
+  const stopAdjusting = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  const startAdjusting = (direction: 'up' | 'down') => {
+    stopAdjusting();
+    const adjust = () => {
+      setSelectedAmount((prev) => {
+        if (direction === 'up') return Math.min(200000, prev + 1);
+        return Math.max(1, prev - 1);
+      });
+    };
+    adjust();
+    intervalRef.current = setInterval(adjust, 70);
+  };
+
   // Fetch Rate & Cleanup Interval
   useEffect(() => {
     if (isOpen) {
@@ -43,26 +63,6 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   // Constants for display
   const totalGHS = selectedAmount * pricePerBookGHS;
   const totalUSD = totalGHS / (exchangeRate || 15.20);
-
-  // --- BUTTON LOGIC ---
-  const startAdjusting = (direction: 'up' | 'down') => {
-    stopAdjusting();
-    const adjust = () => {
-      setSelectedAmount((prev) => {
-        if (direction === 'up') return Math.min(200000, prev + 1);
-        return Math.max(1, prev - 1);
-      });
-    };
-    adjust();
-    intervalRef.current = setInterval(adjust, 70);
-  };
-
-  const stopAdjusting = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  };
 
   const handlePay = () => {
     if (selectedAmount < 1) return;
