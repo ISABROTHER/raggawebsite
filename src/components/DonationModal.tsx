@@ -1,6 +1,6 @@
 // src/components/DonationModal.tsx
 import React, { useState } from 'react';
-import { X, Heart, ChevronRight, Wallet, CheckCircle2, BarChart3 } from 'lucide-react';
+import { X, Heart, ChevronRight, Wallet, CheckCircle2, User } from 'lucide-react';
 
 // --- Sub-Component 1: Select Number of Books ---
 function AmountStep({ 
@@ -8,6 +8,11 @@ function AmountStep({
 }: any) {
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+      <div className="flex items-center gap-3 mb-2">
+        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-red-800 text-white font-black text-sm">1</span>
+        <h3 className="text-sm font-black uppercase tracking-widest text-slate-900">Select Amount</h3>
+      </div>
+
       <div className="flex justify-center p-1 bg-slate-100 rounded-2xl">
         <button 
           onClick={() => setCurrency('GHS')}
@@ -23,7 +28,6 @@ function AmountStep({
         </button>
       </div>
 
-      <p className="text-sm font-bold text-slate-500 uppercase tracking-wider text-center mb-2 italic">Select Number of Books</p>
       <div className="grid grid-cols-2 gap-3">
         {[10, 50, 100, 200].map((num) => (
           <button
@@ -48,9 +52,9 @@ function AmountStep({
 
       <button 
         onClick={onNext}
-        className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
+        className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-slate-200"
       >
-        Proceed to Details <ChevronRight className="w-4 h-4" />
+        Next: Your Details <ChevronRight className="w-4 h-4" />
       </button>
     </div>
   );
@@ -62,10 +66,15 @@ function PaymentDetailsStep({
 }: any) {
   return (
     <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-300">
+      <div className="flex items-center gap-3 mb-2">
+        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-red-800 text-white font-black text-sm">2</span>
+        <h3 className="text-sm font-black uppercase tracking-widest text-slate-900">Payment Details</h3>
+      </div>
+
       <div className="bg-slate-50 border-2 border-dashed border-slate-200 p-5 rounded-3xl mb-4">
         <div className="flex items-center gap-3 mb-4">
           <Wallet className="w-5 h-5 text-green-600" />
-          <span className="text-xs font-black uppercase tracking-widest text-slate-400">Payment Summary</span>
+          <span className="text-xs font-black uppercase tracking-widest text-slate-400">Summary</span>
         </div>
         <div className="space-y-2">
           <div className="flex justify-between items-center text-sm">
@@ -73,15 +82,21 @@ function PaymentDetailsStep({
             <span className="font-black text-slate-900 uppercase tracking-tight">{selectedAmount} Books</span>
           </div>
           <div className="flex justify-between items-center pt-2 border-t border-slate-100">
-            <span className="font-black text-green-700 uppercase text-[11px] tracking-widest">Total to Pay</span>
+            <span className="font-black text-green-700 uppercase text-[11px] tracking-widest">Total</span>
             <span className="text-xl font-black text-green-700">{currency === 'GHS' ? '₵' : '$'}{totalCost.toLocaleString()}</span>
           </div>
         </div>
       </div>
 
       <div className="space-y-4">
-        <input type="text" placeholder="Full Name" className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 font-bold text-sm" />
-        <input type="text" placeholder="Phone Number / Email" className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 font-bold text-sm" />
+        <div className="relative">
+          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <input type="text" placeholder="Full Name" className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 font-bold text-sm" />
+        </div>
+        <div className="relative">
+          <Wallet className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <input type="text" placeholder="Phone Number / Email" className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 font-bold text-sm" />
+        </div>
       </div>
 
       <div className="pt-4 flex gap-3">
@@ -106,16 +121,19 @@ function ConfirmationStep({
       <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
         <CheckCircle2 className="w-12 h-12" />
       </div>
+      <div className="flex items-center justify-center gap-3 mb-2">
+        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-green-600 text-white font-black text-sm">3</span>
+        <h3 className="text-sm font-black uppercase tracking-widest text-slate-900">Success</h3>
+      </div>
       <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-2">THANK YOU!</h3>
       <p className="text-sm text-slate-600 font-medium leading-relaxed max-w-xs mx-auto mb-8">
         Your contribution of <span className="font-black text-green-700">{currency === 'GHS' ? '₵' : '$'}{totalCost}</span> for {selectedAmount} books has been recorded.
       </p>
-      <button onClick={onClose} className="w-full py-4 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-50">Close</button>
+      <button onClick={onClose} className="w-full py-4 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-50">Close Window</button>
     </div>
   );
 }
 
-// --- Main Modal Orchestrator ---
 export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [step, setStep] = useState(1);
   const [selectedAmount, setSelectedAmount] = useState<number>(50);
@@ -143,7 +161,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
         <div className="bg-red-800 p-6 text-white flex justify-between items-center">
           <div>
             <h2 className="text-xl font-black uppercase tracking-tight text-white">Support The Project</h2>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-white/70">Building with you • Obiara Ka Ho</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-white/70">Step {step} of 3 • Building with you</p>
           </div>
           <button onClick={handleClose} className="p-2 hover:bg-white/10 rounded-full transition-colors text-white">
             <X className="w-6 h-6" />
