@@ -1,8 +1,8 @@
 // src/components/DonationModal.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, Heart, ChevronRight, Wallet, CheckCircle2, 
-  User, Phone, ShieldCheck, CreditCard, Apple, Loader2 
+  User, Phone, ShieldCheck, CreditCard, Apple, Loader2, RefreshCw 
 } from 'lucide-react';
 
 export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
@@ -10,11 +10,32 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   const [isProcessing, setIsProcessing] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<number>(50);
   const [currency, setCurrency] = useState<'GHS' | 'USD'>('GHS');
-
-  // --- PRICING LOGIC ---
-  const pricePerBookGHS = 1.35; // ₵1.35 per book
-  const exchangeRate = 14.50;   // 1 USD = 14.50 GHS
   
+  // --- LIVE CURRENCY STATE ---
+  const pricePerBookGHS = 1.00; // ₵1.00 per book
+  const [exchangeRate, setExchangeRate] = useState(15.20); // Default/Fallback rate
+  const [isFetchingRate, setIsFetchingRate] = useState(false);
+
+  // Fetch Current Rate on Modal Open
+  useEffect(() => {
+    if (isOpen) {
+      setIsFetchingRate(true);
+      // Simulate/Implement Live Fetch
+      // In a production environment, you would call: https://api.exchangerate-api.com/v4/latest/USD
+      fetch('https://open.er-api.com/v6/latest/USD')
+        .then(res => res.json())
+        .then(data => {
+          if (data.rates && data.rates.GHS) {
+            setExchangeRate(data.rates.GHS);
+          }
+          setIsFetchingRate(false);
+        })
+        .catch(() => {
+          setIsFetchingRate(false); // Fallback to manual rate if API fails
+        });
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const totalGHS = selectedAmount * pricePerBookGHS;
@@ -95,26 +116,34 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
-                    {[50, 100, 500, 1000].map((num) => (
+                    {[100, 500, 1000, 5000].map((num) => (
                       <button 
                         key={num} 
                         onClick={() => setSelectedAmount(num)} 
-                        className={`py-5 rounded-2xl border-2 transition-all flex flex-col items-center justify-center ${selectedAmount === num ? 'border-green-600 bg-green-50' : 'border-slate-100 bg-slate-50'}`}
+                        className={`py-5 rounded-2xl border-2 transition-all flex flex-col items-center justify-center ${selectedAmount === num ? 'border-green-600 bg-green-50' : 'border-slate-100 bg-white hover:border-green-200'}`}
                       >
-                        <span className="text-xl font-black">{num}</span>
+                        <span className="text-xl font-black">{num.toLocaleString()}</span>
                         <span className="text-[9px] font-black uppercase text-slate-400">Books</span>
                       </button>
                     ))}
                   </div>
 
-                  <div className="bg-green-700 p-5 rounded-2xl text-center text-white shadow-lg">
+                  <div className="bg-green-700 p-5 rounded-2xl text-center text-white shadow-lg relative">
                     <p className="text-[10px] font-black uppercase tracking-widest text-white/70 mb-1">Contribution Total</p>
-                    <p className="text-3xl font-black">{displayTotal}</p>
+                    <div className="flex items-center justify-center gap-2">
+                       <p className="text-3xl font-black">{displayTotal}</p>
+                       {isFetchingRate && <RefreshCw className="w-4 h-4 animate-spin text-white/50" />}
+                    </div>
+                    {currency === 'USD' && (
+                       <p className="text-[8px] font-bold mt-2 text-white/50 uppercase tracking-tighter italic">
+                         Live Rate: 1 USD = {exchangeRate.toFixed(2)} GHS
+                       </p>
+                    )}
                   </div>
 
                   <button 
                     onClick={() => setStep(2)} 
-                    className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm"
+                    className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:opacity-90"
                   >
                     Next Step <ChevronRight className="w-4 h-4 ml-2 inline"/>
                   </button>
@@ -139,7 +168,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                         <button className="py-3 rounded-xl border-2 border-red-800 bg-red-50 flex flex-col items-center">
                           <CreditCard className="w-4 h-4"/><span className="text-[8px] font-black uppercase">Card</span>
                         </button>
-                        <button className="py-3 rounded-xl border-2 border-slate-100 flex flex-col items-center">
+                        <button className="py-3 rounded-xl border-2 border-slate-100 flex flex-col items-center opacity-50">
                           <Apple className="w-4 h-4"/><span className="text-[8px] font-black uppercase">Apple Pay</span>
                         </button>
                       </>
@@ -149,7 +178,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   <div className="space-y-3">
                     <div className="relative">
                       <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                      <input type="text" placeholder="Full Name" className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm" />
+                      <input type="text" placeholder="Full Name" className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-red-800/20" />
                     </div>
                     <div className="relative">
                       {currency === 'GHS' ? (
@@ -159,15 +188,15 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                       )}
                       <input 
                         type="text" 
-                        placeholder={currency === 'GHS' ? "MoMo Number" : "Card No. / Email"} 
-                        className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm" 
+                        placeholder={currency === 'GHS' ? "MoMo Number" : "Email Address"} 
+                        className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm focus:outline-none focus:ring-2 focus:ring-red-800/20" 
                       />
                     </div>
                   </div>
 
                   <div className="pt-4 flex gap-3">
                     <button onClick={() => setStep(1)} className="w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase text-[10px]">Back</button>
-                    <button onClick={handlePay} className="w-2/3 py-5 bg-red-800 text-white rounded-2xl font-black uppercase text-sm shadow-xl hover:bg-red-900">Confirm {displayTotal}</button>
+                    <button onClick={handlePay} className="w-2/3 py-5 bg-red-800 text-white rounded-2xl font-black uppercase text-sm shadow-xl active:scale-95 transition-transform">Confirm {displayTotal}</button>
                   </div>
                 </div>
               )}
@@ -180,7 +209,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-2">THANK YOU!</h3>
                   <p className="text-sm text-slate-600 font-medium leading-relaxed max-w-xs mx-auto mb-8">
-                    Your sponsorship of {selectedAmount} books for {displayTotal} has been recorded.
+                    Your sponsorship of {selectedAmount.toLocaleString()} books for {displayTotal} has been recorded. God bless you!
                   </p>
                   <button onClick={handleClose} className="w-full py-4 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase text-xs">Close Window</button>
                 </div>
