@@ -1,5 +1,6 @@
+// src/pages/Achievements.tsx
 import { useState } from 'react';
-import { ArrowLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Trophy } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedSection } from '../components/AnimatedSection';
 
@@ -30,11 +31,26 @@ export function Achievements() {
         <AnimatePresence mode="wait">
           {!selectedPolicy ? (
             <motion.div key="grid" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <div className="text-center mb-16">
-                <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight mb-4">
-                  Our <span className="text-blue-700">Achievements</span>
-                </h1>
-                <p className="max-w-2xl mx-auto text-slate-600 text-lg font-medium leading-relaxed mt-6">
+              
+              {/* Standard Heading Block */}
+              <div className="text-center mb-12 md:mb-16">
+                {/* Eyebrow Pill */}
+                <p className="inline-flex items-center gap-2 rounded-full bg-green-50 px-4 py-1.5 border border-green-100">
+                  <Trophy className="w-3.5 h-3.5 text-green-700" />
+                  <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-green-700">
+                    Proven Results
+                  </span>
+                </p>
+
+                {/* Main Heading */}
+                <div className="mt-4 flex flex-col items-center justify-center group">
+                  <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent">
+                    Our Achievements
+                  </h1>
+                  <span className="mt-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
+                </div>
+
+                <p className="mt-6 text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium">
                   A comprehensive record of verifiable progress made across Cape Coast North Constituency.
                 </p>
               </div>
@@ -54,10 +70,10 @@ export function Achievements() {
                         <h3 className="text-xl font-black text-slate-900 leading-tight mb-2">{policy.title}</h3>
                         <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6">{policy.desc}</p>
                         <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between gap-4">
-                          <div className="bg-blue-50 text-blue-700 text-[10px] font-black px-2 py-1 rounded-lg border border-blue-100 uppercase tracking-widest">
+                          <div className="bg-green-50 text-green-700 text-[10px] font-black px-2 py-1 rounded-lg border border-green-100 uppercase tracking-widest">
                             {policy.count} Key Projects
                           </div>
-                          <div className="flex items-center gap-1 text-blue-600 font-black text-xs uppercase group-hover:gap-2 transition-all">
+                          <div className="flex items-center gap-1 text-green-600 font-black text-xs uppercase group-hover:gap-2 transition-all">
                             <span>Details</span>
                             <ChevronRight className="w-4 h-4" />
                           </div>
@@ -72,7 +88,7 @@ export function Achievements() {
             <motion.div key="detail" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
               <button 
                 onClick={() => setSelectedId(null)} 
-                className="flex items-center gap-2 text-slate-600 hover:text-blue-700 mb-8 font-black transition-colors group"
+                className="flex items-center gap-2 text-slate-600 hover:text-green-700 mb-8 font-black transition-colors group"
               >
                 <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" /> 
                 <span className="font-black">Back to Overview</span>
