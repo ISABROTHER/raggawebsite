@@ -1,141 +1,221 @@
 // src/components/Header.tsx
-import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Phone, Mail, MapPin } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { 
+  Menu, 
+  X, 
+  Home, 
+  User, 
+  Users, 
+  HardHat, 
+  Award, 
+  Calendar, 
+  MessageSquareWarning, 
+  HandHeart, 
+  LayoutDashboard, 
+  LogIn, 
+  ChevronRight,
+  Vote,
+  UserCircle,
+  Camera // Added for Gallery
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
+interface HeaderProps {
+  currentPage: string;
+  onNavigate: (page: string) => void;
+}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+export function Header({ currentPage, onNavigate }: HeaderProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Achievements', href: '/achievements' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Contact', href: '/contact' },
+  // === NUMERIC CONTROLS ===
+  const headerHeightBase = 90; 
+  const headerScale = 1.1; 
+  const headerHeight = headerHeightBase * headerScale;
+
+  const logoScale = 1.2; 
+  const logoTopOffset = 8; 
+  const logoBottomOffset = 2; 
+  const logoVerticalAdjust = -1; 
+  const logoLeftAdjust = 15; 
+
+  const desktopNavGap = 12; // Adjusted to fit more items
+  const desktopNavPaddingY = 8; 
+  const desktopNavPaddingX = 12; 
+  const desktopNavFontSize = 14; 
+
+  // === NAVIGATION ITEMS ===
+  const navItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'achievements', label: 'Impact' }, 
+    { id: 'gallery', label: 'Gallery' }, // Added to Header
+    { id: 'assemblymen', label: 'Assemblymen' },
+    { id: 'ongoing-projects', label: 'Projects' },
+    { id: 'events', label: 'Events' },
+    { id: 'polls', label: 'Polls' },
+    { id: 'admin', label: 'My Page' }, 
   ];
 
+  const mobileNavItems = [
+    { id: 'home', label: 'Home', icon: Home },
+    { id: 'about', label: 'About Profile', icon: User },
+    { id: 'achievements', label: 'Achievements', icon: Award }, 
+    { id: 'gallery', label: 'Project Gallery', icon: Camera }, // Added to Mobile
+    { id: 'assemblymen', label: 'Assemblymen', icon: Users },
+    { id: 'ongoing-projects', label: 'Projects', icon: HardHat },
+    { id: 'events', label: 'Events', icon: Calendar },
+    { id: 'polls', label: 'Polls & Tracker', icon: Vote },
+    { id: 'issues', label: 'Report Issue', icon: MessageSquareWarning },
+    { id: 'appointments', label: 'Book Appointment', icon: UserCircle },
+    { id: 'volunteer', label: 'Get Involved', icon: HandHeart },
+  ];
+
+  const handleNavClick = (pageId: string) => {
+    setMobileMenuOpen(false);
+    if (pageId === 'admin') return; 
+    onNavigate(pageId);
+  };
+
+  const menuVariants = {
+    closed: {
+      scale: 0.9,
+      opacity: 0,
+      borderBottomLeftRadius: "100%",
+      borderTopLeftRadius: "100%",
+      borderBottomRightRadius: "100%",
+      transition: { type: "spring", stiffness: 300, damping: 35 }
+    },
+    open: {
+      scale: 1,
+      opacity: 1,
+      borderBottomLeftRadius: "40px",
+      borderTopLeftRadius: "40px",
+      borderBottomRightRadius: "40px",
+      transition: { 
+        type: "spring", stiffness: 200, damping: 25,
+        staggerChildren: 0.05, 
+        delayChildren: 0.1 
+      }
+    }
+  };
+
+  const itemVariants = {
+    closed: { opacity: 0, x: -20 },
+    open: { opacity: 1, x: 0 }
+  };
+
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' 
-          : 'bg-transparent py-4'
-      }`}
-    >
-      {/* Top Bar - Hidden on scroll for cleaner look */}
-      {!isScrolled && (
-        <div className="hidden lg:block border-b border-white/10 pb-4 mb-4">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs font-bold text-white/80 uppercase tracking-widest">
-            <div className="flex gap-6">
-              <span className="flex items-center gap-2"><Phone className="w-3 h-3 text-amber-400" /> +233 (0) 244 123 456</span>
-              <span className="flex items-center gap-2"><Mail className="w-3 h-3 text-amber-400" /> office@ragga.com</span>
+    <div className="relative w-full">
+      <header
+        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-xl"
+        style={{ height: `${headerHeight}px` }}
+      >
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full relative">
+          <div className="flex justify-between items-center h-full">
+            
+            <button
+              onClick={() => handleNavClick('home')}
+              className="flex items-center space-x-3 group transition-transform hover:scale-[1.01] focus:outline-none"
+              style={{
+                position: 'relative',
+                top: `${logoTopOffset + logoVerticalAdjust}px`,
+                left: `${logoLeftAdjust}px`,
+                bottom: `${logoBottomOffset}px`,
+              }}
+            >
+              <img
+                src="https://i.imgur.com/1GfnCQc.png"
+                alt="Logo"
+                className="object-contain"
+                style={{
+                  height: `${headerHeight * 0.8 * logoScale}px`,
+                  width: 'auto',
+                  transform: `scale(${logoScale})`,
+                }}
+              />
+            </button>
+
+            <div className="hidden md:flex items-center" style={{ gap: `${desktopNavGap}px` }}>
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => handleNavClick(item.id)}
+                  className={`rounded-full font-semibold transition-all duration-300 whitespace-nowrap ${
+                    currentPage === item.id
+                      ? 'bg-blue-900 text-white shadow-lg shadow-blue-500/50'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-700'
+                  } ${item.id === 'admin' ? 'border-2 border-red-100 text-red-700 cursor-default' : ''}`} 
+                  style={{
+                    padding: `${desktopNavPaddingY}px ${desktopNavPaddingX}px`,
+                    fontSize: `${desktopNavFontSize}px`,
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
             </div>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-3 h-3 text-amber-400" /> Cape Coast North Constituency
+
+            <div className="md:hidden relative z-50">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className={`w-14 h-14 rounded-full flex items-center justify-center bg-[#CE1126] text-white shadow-xl border-4 border-white ${mobileMenuOpen ? 'rotate-90' : ''}`}
+              >
+                {mobileMenuOpen ? <X className="w-7 h-7" strokeWidth={3} /> : <Menu className="w-7 h-7" strokeWidth={3} />}
+              </button>
             </div>
           </div>
-        </div>
-      )}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          
-          {/* Logo Section - Now clickable and leads home */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative">
-              <div className="w-12 h-12 md:w-14 md:h-14 bg-green-700 rounded-xl flex items-center justify-center shadow-xl group-hover:rotate-6 transition-transform duration-300">
-                <span className="text-white font-black text-xl md:text-2xl">R</span>
-              </div>
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-amber-500 rounded-lg border-2 border-white flex items-center justify-center">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className={`font-black text-lg md:text-xl leading-none tracking-tighter transition-colors ${isScrolled ? 'text-slate-900' : 'text-white'}`}>
-                HON. RAGGA
-              </span>
-              <span className={`text-[10px] font-bold uppercase tracking-[0.2em] mt-1 transition-colors ${isScrolled ? 'text-green-700' : 'text-amber-400'}`}>
-                Cape Coast North
-              </span>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.href}
-                className={`px-5 py-2.5 rounded-full text-sm font-bold uppercase tracking-widest transition-all ${
-                  location.pathname === link.href
-                    ? 'bg-green-700 text-white shadow-lg'
-                    : isScrolled
-                      ? 'text-slate-600 hover:text-green-700 hover:bg-slate-100'
-                      : 'text-white/90 hover:text-white hover:bg-white/10'
-                }`}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div 
+                initial="closed" animate="open" exit="closed" variants={menuVariants}
+                className="md:hidden absolute top-[10px] right-[10px] w-[300px] origin-top-right"
               >
-                {link.name}
-              </Link>
-            ))}
-            
-            <div className="ml-4 pl-4 border-l border-white/20">
-              <Link 
-                to="/appointments"
-                className="bg-amber-500 hover:bg-amber-400 text-slate-900 px-6 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-lg active:scale-95"
-              >
-                Book Appointment
-              </Link>
-            </div>
-          </nav>
+                <div className="relative bg-[#CE1126] pt-24 pb-6 px-6 shadow-2xl h-full w-full overflow-hidden border-4 border-white/20 rounded-[40px] max-h-[85vh] overflow-y-auto">
+                  <motion.div variants={itemVariants} className="mb-6 relative z-10">
+                    <button className="w-full bg-white text-[#CE1126] rounded-2xl p-4 flex items-center justify-between cursor-default">
+                      <div className="flex items-center gap-2">
+                        <LayoutDashboard className="w-5 h-5" />
+                        <span className="font-black text-xl">MY PAGE</span>
+                      </div>
+                      <LogIn className="w-5 h-5" />
+                    </button>
+                  </motion.div>
 
-          {/* Mobile Menu Button */}
-          <button 
-            className={`lg:hidden p-2 rounded-xl transition-colors ${isScrolled ? 'text-slate-900 hover:bg-slate-100' : 'text-white hover:bg-white/10'}`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
-          </button>
+                  <div className="flex flex-col space-y-2.5 relative z-10 pb-4">
+                    {mobileNavItems.map((item) => {
+                      const Icon = item.icon;
+                      const isActive = currentPage === item.id;
+                      return (
+                        <motion.button
+                          key={item.id}
+                          variants={itemVariants}
+                          onClick={() => handleNavClick(item.id)}
+                          className={`flex items-center justify-between px-5 py-3.5 rounded-xl w-full text-left transition-all ${isActive ? 'bg-white text-[#CE1126] font-extrabold translate-x-2' : 'bg-white/90 text-slate-800 font-semibold'}`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <Icon className={`w-5 h-5 ${isActive ? 'text-[#CE1126]' : 'text-slate-400'}`} />
+                            <span className="text-sm">{item.label}</span>
+                          </div>
+                          {isActive && <ChevronRight className="w-4 h-4" />}
+                        </motion.button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </nav>
+      </header>
+
+      <div className="bg-red-600 h-5 overflow-hidden relative flex items-center" style={{ marginTop: `${headerHeight}px` }}>
+        <div className="marquee-track absolute top-0 left-0 h-full flex items-center whitespace-nowrap font-bold text-white text-[0.65rem] tracking-widest uppercase">
+          <span>SUPPORT HON. RAGGA’S OPERATION 1000 DESKS FOR STUDENTS 'II' OBIARA KA HO 'II'</span>
         </div>
       </div>
-
-      {/* Mobile Navigation Overlay */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[72px] bg-white z-40 p-6 animate-in slide-in-from-top duration-300">
-          <nav className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`p-4 rounded-2xl text-lg font-black uppercase tracking-widest transition-all ${
-                  location.pathname === link.href
-                    ? 'bg-green-50 text-green-700 border-2 border-green-100'
-                    : 'text-slate-600 hover:bg-slate-50'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <Link 
-              to="/appointments"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="mt-4 bg-green-700 text-white p-5 rounded-2xl font-black text-center uppercase tracking-widest shadow-xl"
-            >
-              Book Appointment
-            </Link>
-          </nav>
-        </div>
-      )}
-    </header>
-  );
+      <style>{`.marquee-track { animation: marquee 42s linear infinite; } @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }`}</style>
+    </div>
+  ); 
 }
