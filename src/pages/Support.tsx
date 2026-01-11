@@ -8,7 +8,8 @@ import {
   ChevronDown, 
   X, 
   Heart,
-  SlidersHorizontal // "Builder" / Adjustment icon
+  SlidersHorizontal,
+  TrendingUp // Added for the tracking "vibe"
 } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 
@@ -54,8 +55,8 @@ export function Support() {
     <div className="min-h-screen bg-slate-50 pt-24 pb-24 font-sans text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* --- HEADING BLOCK --- */}
-        <div className="text-center mb-12">
+        {/* --- 1. HEADING BLOCK --- */}
+        <div className="text-center mb-10">
           <AnimatedSection>
             <div className="flex flex-col items-center justify-center group">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
@@ -69,7 +70,42 @@ export function Support() {
           </AnimatedSection>
         </div>
 
-        {/* --- INTEGRATED SEARCH & FILTER BAR --- */}
+        {/* --- 2. LIVE DONATION TRACKING STRIP (NEW ADDITION) --- */}
+        {/* This sits above the search bar so it doesn't affect card size */}
+        <AnimatedSection delay={50}>
+          <div className="max-w-2xl mx-auto mb-8 bg-white border border-slate-200 rounded-[2rem] p-5 shadow-sm flex flex-col sm:flex-row items-center gap-6">
+            <div className="flex-1 w-full">
+              <div className="flex justify-between items-center mb-2.5 px-1">
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-green-600" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Campaign Progress</span>
+                </div>
+                <span className="text-xs font-black text-green-700 bg-green-50 px-2 py-0.5 rounded-md">22.5% Raised</span>
+              </div>
+              <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-green-500 to-green-600 rounded-full transition-all duration-1000" 
+                  style={{ width: '22.5%' }} 
+                />
+              </div>
+            </div>
+            
+            <div className="hidden sm:block w-px h-10 bg-slate-100" />
+            
+            <div className="flex items-center gap-8 text-center sm:text-left">
+              <div>
+                <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Books Raised</p>
+                <p className="text-lg font-black text-slate-900 tabular-nums">45,000</p>
+              </div>
+              <div>
+                <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Target</p>
+                <p className="text-lg font-black text-slate-300 tabular-nums">200k</p>
+              </div>
+            </div>
+          </div>
+        </AnimatedSection>
+
+        {/* --- 3. INTEGRATED SEARCH & FILTER BAR --- */}
         <AnimatedSection delay={100}>
           <div className="max-w-2xl mx-auto mb-16 relative" ref={dropdownRef}>
             <div className="relative flex items-center bg-white rounded-3xl border border-slate-200 shadow-sm focus-within:shadow-md focus-within:border-green-500 transition-all p-1.5">
@@ -94,7 +130,6 @@ export function Support() {
                 </button>
               )}
 
-              {/* Filter "Builder" Icon Button */}
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all ${
@@ -111,7 +146,6 @@ export function Support() {
               </button>
             </div>
 
-            {/* Filter Dropdown Menu */}
             {isDropdownOpen && (
               <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                 <div className="p-2 border-b border-slate-50 bg-slate-50/50 text-[10px] font-black uppercase tracking-widest text-slate-400 px-4 py-2">
@@ -136,7 +170,7 @@ export function Support() {
           </div>
         </AnimatedSection>
 
-        {/* --- PROJECT GRID --- */}
+        {/* --- 4. PROJECT GRID (ITEM REMAINS SAME SIZE) --- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
           {filteredPhotos.map((photo, index) => (
             <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
@@ -181,7 +215,7 @@ export function Support() {
           ))}
         </div>
 
-        {/* --- EMPTY STATE --- */}
+        {/* --- 5. EMPTY STATE --- */}
         {filteredPhotos.length === 0 && (
           <div className="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200 max-w-2xl mx-auto">
             <Camera className="w-12 h-12 text-slate-200 mx-auto mb-4" />
