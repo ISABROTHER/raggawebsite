@@ -4,11 +4,8 @@ import { QuickAccessGrid } from "./home/QuickAccessGrid";
 import { StatsStrip } from "./home/StatsStrip";
 import { LatestUpdatesSection } from "./home/LatestUpdatesSection";
 import { PrioritiesSection } from "./home/PrioritiesSection";
-import { BottomCTASection } from "./home/BottomCTASection";
-import { NewsletterSection } from "./home/NewsletterSection";
 
 interface HomeProps {
-  // Updated type to support the (page, param) pattern used by stories
   onNavigate: (page: string, param?: string) => void;
 }
 
@@ -29,12 +26,6 @@ export function Home({ onNavigate }: HomeProps) {
       
       {/* 5. Constituency Priorities & Vision */}
       <PrioritiesSection onNavigate={onNavigate} />
-
-      {/* 6. Featured Campaign (Operation 500,000) */}
-      <BottomCTASection onNavigate={onNavigate} />
-
-      {/* 7. Stay Connected / Subscription */}
-      <NewsletterSection />
     </div>
   );
 }
