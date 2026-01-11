@@ -16,8 +16,6 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   const pricePerBookGHS = 1.00; 
   const [exchangeRate, setExchangeRate] = useState(15.20); 
   const [isFetchingRate, setIsFetchingRate] = useState(false);
-
-  // Interval Ref for long-press functionality
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -38,19 +36,17 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   const totalGHS = selectedAmount * pricePerBookGHS;
   const totalUSD = totalGHS / exchangeRate;
 
-  // --- LONG PRESS LOGIC ---
+  // --- LONG PRESS ADJUSTING ---
   const startAdjusting = (direction: 'up' | 'down') => {
     if (intervalRef.current) return;
-    
     const adjust = () => {
       setSelectedAmount((prev) => {
         if (direction === 'up') return Math.min(200000, prev + 1);
         return Math.max(1, prev - 1);
       });
     };
-
-    adjust(); // Initial click
-    intervalRef.current = setInterval(adjust, 80); // Fast repeat
+    adjust();
+    intervalRef.current = setInterval(adjust, 70);
   };
 
   const stopAdjusting = () => {
@@ -85,8 +81,8 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
         <div className="bg-red-800 p-4 md:p-6 text-white flex justify-between items-center shrink-0">
           <div className="pr-4">
             <h2 className="text-lg md:text-xl font-black uppercase tracking-tight">Support Project</h2>
-            <p className="text-[8px] md:text-[9px] font-bold uppercase tracking-wider text-white/80 mt-0.5">
-              A generational impact on our children's future
+            <p className="text-[8px] md:text-[9px] font-bold uppercase tracking-wider text-white/80 mt-0.5 leading-tight">
+              You are about to make a generational impact on our children's future
             </p>
           </div>
           {!isProcessing && (
@@ -108,7 +104,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                 <div className="space-y-4 md:space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
                   <div className="flex items-center gap-2">
                     <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-800 text-white font-black text-[10px]">1</span>
-                    <h3 className="text-[11px] md:text-xs font-black uppercase tracking-widest text-slate-900">How many books?</h3>
+                    <h3 className="text-[11px] md:text-xs font-black uppercase tracking-widest text-slate-900 text-left">How many books?</h3>
                   </div>
 
                   <div className="grid grid-cols-4 gap-2">
@@ -123,44 +119,40 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     ))}
                   </div>
 
-                  {/* ADJUSTMENT AREA WITH LONG-PRESS BUTTONS */}
-                  <div className="space-y-3 px-4 py-4 bg-slate-50 rounded-2xl border border-slate-100">
+                  {/* --- SAME LEVEL ADJUSTMENT AREA --- */}
+                  <div className="space-y-3 px-4 py-5 bg-slate-50 rounded-2xl border border-slate-100">
                     <div className="flex justify-between items-center">
-                      <div className="flex flex-col flex-1">
+                      <div className="flex items-baseline gap-1.5 flex-1 overflow-hidden">
                         <input 
                           type="text"
                           value={selectedAmount === 0 ? "" : selectedAmount.toLocaleString()}
                           onChange={handleInputChange}
-                          className="bg-transparent text-xl md:text-2xl font-black text-slate-900 outline-none w-full"
+                          className="bg-transparent text-xl md:text-2xl font-black text-slate-900 outline-none w-[45%] shrink-0 p-0 m-0"
                           placeholder="0"
                         />
-                        <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-1">
-                          {selectedAmount === 1 ? '1 BOOK' : 'BOOKS'}
+                        <span className="text-xl md:text-2xl font-black text-slate-900 uppercase truncate">
+                          {selectedAmount === 1 ? 'BOOK' : 'BOOKS'}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      
+                      <div className="flex items-center gap-1.5 shrink-0">
                         <button 
-                          onMouseDown={() => startAdjusting('down')}
-                          onMouseUp={stopAdjusting}
-                          onMouseLeave={stopAdjusting}
-                          onTouchStart={() => startAdjusting('down')}
-                          onTouchEnd={stopAdjusting}
-                          className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90 transition-transform select-none"
+                          onMouseDown={() => startAdjusting('down')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting}
+                          onTouchStart={() => startAdjusting('down')} onTouchEnd={stopAdjusting}
+                          className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90 transition-transform select-none"
                         >
-                          <Minus className="w-4 h-4" />
+                          <Minus className="w-5 h-5" />
                         </button>
                         <button 
-                          onMouseDown={() => startAdjusting('up')}
-                          onMouseUp={stopAdjusting}
-                          onMouseLeave={stopAdjusting}
-                          onTouchStart={() => startAdjusting('up')}
-                          onTouchEnd={stopAdjusting}
-                          className="w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90 transition-transform select-none"
+                          onMouseDown={() => startAdjusting('up')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting}
+                          onTouchStart={() => startAdjusting('up')} onTouchEnd={stopAdjusting}
+                          className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90 transition-transform select-none"
                         >
-                          <Plus className="w-4 h-4" />
+                          <Plus className="w-5 h-5" />
                         </button>
                       </div>
                     </div>
+                    
                     <input 
                       type="range" min="1" max="200000" step="1"
                       value={selectedAmount}
@@ -195,7 +187,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
               {/* --- STEP 2: DETAILS --- */}
               {step === 2 && (
                 <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-2">
                     <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-800 text-white font-black text-[10px]">2</span>
                     <h3 className="text-[11px] md:text-xs font-black uppercase tracking-widest text-slate-900">Sponsor Info</h3>
                   </div>
@@ -210,15 +202,15 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                       <input 
                         type="text" placeholder="First Name" value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl font-bold text-xs outline-none" 
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl font-bold text-xs outline-none focus:ring-1 focus:ring-red-800/20" 
                       />
                       <input 
                         type="text" placeholder="Surname" value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl font-bold text-xs outline-none" 
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl font-bold text-xs outline-none focus:ring-1 focus:ring-red-800/20" 
                       />
                     </div>
-                    <input type="text" placeholder={payMethod === 'LOCAL' ? "MoMo Number" : "Email Address"} className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl font-bold text-xs outline-none" />
+                    <input type="text" placeholder={payMethod === 'LOCAL' ? "MoMo Number" : "Email Address"} className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl font-bold text-xs outline-none focus:ring-1 focus:ring-red-800/20 text-left" />
                   </div>
 
                   <div className="pt-2 flex gap-2">
@@ -241,12 +233,12 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     <CheckCircle2 className="w-10 h-10" />
                   </div>
                   <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight mb-2">
-                    THANK YOU,<br/>{firstName}!
+                    THANK YOU,<br/>{firstName} {lastName}!
                   </h3>
-                  <p className="text-xs text-slate-600 font-medium leading-relaxed max-w-xs mx-auto mb-6 italic">
-                    Your sponsorship of {selectedAmount.toLocaleString()} {selectedAmount === 1 ? 'book' : 'books'} is a generational investment.
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed max-w-xs mx-auto mb-8 italic">
+                    Your sponsorship of {selectedAmount.toLocaleString()} {selectedAmount === 1 ? 'book' : 'books'} is a generational investment in our children's future.
                   </p>
-                  <button onClick={handleClose} className="w-full py-4 border-2 border-slate-100 text-slate-900 rounded-xl font-black uppercase text-[10px]">Close</button>
+                  <button onClick={handleClose} className="w-full py-4 border-2 border-slate-100 text-slate-900 rounded-xl font-black uppercase text-[10px]">Close Window</button>
                 </div>
               )}
             </>
