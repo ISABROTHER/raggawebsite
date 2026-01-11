@@ -1,6 +1,6 @@
 // src/pages/Support.tsx
 import React, { useState, useRef, useEffect } from 'react';
-import { Camera, Maximize2, ExternalLink, Search, ChevronDown, X, Heart, SlidersHorizontal, TrendingUp, BarChart3 } from 'lucide-react';
+import { Camera, Search, ChevronDown, X, Heart, SlidersHorizontal, BarChart3 } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 import { DonationModal } from '../components/DonationModal';
 
@@ -46,12 +46,10 @@ export function Support() {
   return (
     <div className="min-h-screen bg-slate-50 pt-20 pb-16 font-sans text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* --- HEADING BLOCK --- */}
         <div className="text-center mb-8 md:mb-12">
           <AnimatedSection>
             <div className="flex flex-col items-center justify-center group">
-              <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase text-slate-900">
                 THE RAGGA FOUNDATION
               </h1>
               <p className="mt-1 text-xs md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
@@ -62,18 +60,11 @@ export function Support() {
           </AnimatedSection>
         </div>
 
-        {/* --- SEARCH & FILTER --- */}
         <AnimatedSection delay={100}>
           <div className="max-w-2xl mx-auto mb-8 md:mb-16 relative" ref={dropdownRef}>
             <div className="relative flex items-center bg-white rounded-2xl md:rounded-3xl border border-slate-200 shadow-sm focus-within:shadow-md transition-all p-1 md:p-1.5">
               <div className="pl-3 pr-1 md:pl-4 md:pr-2"><Search className="w-4 h-4 md:w-5 md:h-5 text-slate-400" /></div>
-              <input 
-                type="text" 
-                placeholder="Search project..." 
-                value={searchTerm} 
-                onChange={(e) => setSearchTerm(e.target.value)} 
-                className="flex-1 py-2 md:py-3 bg-transparent outline-none text-xs md:text-sm font-medium" 
-              />
+              <input type="text" placeholder="Search project..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="flex-1 py-2 md:py-3 bg-transparent outline-none text-xs md:text-sm font-medium" />
               <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className={`flex items-center gap-1.5 px-3 py-2 md:px-4 md:py-2.5 rounded-xl md:rounded-2xl transition-all ${isDropdownOpen || filter !== 'All' ? 'bg-green-700 text-white' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}`}>
                 <SlidersHorizontal className="w-3.5 h-3.5" />
                 <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider hidden sm:inline">{filter === 'All' ? 'Filter' : filter}</span>
@@ -83,7 +74,6 @@ export function Support() {
           </div>
         </AnimatedSection>
 
-        {/* --- PROJECT GRID --- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-center">
           {filteredPhotos.map((photo, index) => (
             <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
@@ -102,9 +92,7 @@ export function Support() {
                       </div>
                       <span className="text-lg md:text-2xl font-black tracking-tighter text-white drop-shadow-md">{RAISED}</span>
                     </div>
-                    <div className="flex flex-col items-end">
-                      <span className="text-base md:text-xl font-black text-white drop-shadow-md">{PERCENT}%</span>
-                    </div>
+                    <div className="flex flex-col items-end text-white"><span className="text-base md:text-xl font-black drop-shadow-md">{PERCENT}%</span></div>
                   </div>
                   <div className="h-2 md:h-3 w-full bg-black/20 rounded-full overflow-hidden p-0.5 shadow-inner">
                     <div className="h-full bg-gradient-to-r from-white via-white to-green-300 rounded-full transition-all duration-1000" style={{ width: `${PERCENT}%` }} />
@@ -122,9 +110,7 @@ export function Support() {
             </AnimatedSection>
           ))}
         </div>
-
         <DonationModal isOpen={showModal} onClose={() => setShowModal(false)} />
-
       </div>
     </div>
   );
