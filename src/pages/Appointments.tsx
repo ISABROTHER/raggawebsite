@@ -1,10 +1,10 @@
 // src/components/ProjectTrackerDashboard.tsx
-import { 
-  TrendingUp, Coins, HardHat, CheckCircle2, 
-  PieChart, Activity, Clock, ArrowUpRight 
+import {
+  TrendingUp, Coins, HardHat, CheckCircle2,
+  PieChart, Activity, Clock, ArrowUpRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { AnimatedSection } from './AnimatedSection';
+import { AnimatedSection } from '../components/AnimatedSection';
 
 // Mock Data for Visualization
 const overallStats = {
@@ -216,3 +216,5 @@ export function ProjectTrackerDashboard() {
     </section>
   );
 }
+
+export { ProjectTrackerDashboard as Appointments };
