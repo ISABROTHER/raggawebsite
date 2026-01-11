@@ -20,7 +20,6 @@ export function Support() {
 
   const categories = ['All', 'Education'];
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -31,14 +30,14 @@ export function Support() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Data restricted to only the Exercise Books project as requested
   const photos = [
     {
       id: 1,
-      title: "RAISING 200,000 EXERCISE BOOKS PROJECT FOR STUDENTS IN CAPE COAST NORTH",
+      title: "200,000 Exercise Books for Students in Cape Coast North",
       category: "Education",
       image: "https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      desc: "We want to ensure that no one in Cape Coast North faces this, that is why I am doing this with you. Donate to support our students and write a better future together.",
+      desc: "This project aims to raise 200,000 exercise books for OVER 30,000 students in Cape Coast North to support teaching and learning in our schools and reduce the cost burden on parents.",
+      callToAction: "Support this project and help strengthen education in Cape Coast North",
       isFeatured: true
     }
   ];
@@ -69,7 +68,7 @@ export function Support() {
           </AnimatedSection>
         </div>
 
-        {/* --- SEARCH & FILTER BAR (RESTORED DESIGN) --- */}
+        {/* --- SEARCH & FILTER BAR --- */}
         <AnimatedSection delay={100}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-12 bg-white p-4 rounded-3xl border border-slate-200 shadow-sm">
             
@@ -77,7 +76,7 @@ export function Support() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-green-600 transition-colors" />
               <input 
                 type="text"
-                placeholder="Search projects..."
+                placeholder="Search project..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-12 pr-12 py-3 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all text-sm font-medium"
@@ -123,7 +122,7 @@ export function Support() {
           </div>
         </AnimatedSection>
 
-        {/* --- GALLERY GRID (RESTORED DESIGN) --- */}
+        {/* --- PROJECT CARD --- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPhotos.map((photo, index) => (
             <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
@@ -151,13 +150,16 @@ export function Support() {
                   <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight mb-2 group-hover:text-green-700 transition-colors">
                     {photo.title}
                   </h3>
-                  <p className="text-sm text-slate-500 font-medium leading-relaxed mb-6">
+                  <p className="text-sm text-slate-600 font-medium leading-relaxed mb-4">
                     {photo.desc}
+                  </p>
+                  <p className="text-xs font-bold text-green-700 uppercase tracking-wide mb-6">
+                    {photo.callToAction}
                   </p>
                   
                   <button className="w-full py-3 bg-green-700 hover:bg-green-800 text-white rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all">
                     <Heart className="w-4 h-4" />
-                    Support This Project
+                    Support Now
                   </button>
                 </div>
               </div>
@@ -170,7 +172,7 @@ export function Support() {
           <div className="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200">
             <Camera className="w-12 h-12 text-slate-200 mx-auto mb-4" />
             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">
-              No matches found for "{searchTerm}"
+              No results found
             </p>
           </div>
         )}
