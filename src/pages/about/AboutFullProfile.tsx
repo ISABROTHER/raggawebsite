@@ -2,13 +2,9 @@
 import React from 'react';
 import { 
   User, Smile, Flag, Briefcase as DesignationIcon, MapPin, Megaphone, 
-  CheckSquare, Users, Landmark, Eye, ArrowLeft
+  CheckSquare, Users, Landmark, Eye
 } from 'lucide-react';
 import { AnimatedSection } from '../../components/AnimatedSection';
-
-interface AboutFullProfileProps {
-  onBack: () => void;
-}
 
 // Helper component for Profile items
 const ProfileItem = ({ icon: Icon, label, value }: { icon: React.ElementType, label: string, value: string }) => (
@@ -21,9 +17,7 @@ const ProfileItem = ({ icon: Icon, label, value }: { icon: React.ElementType, la
     </div>
 );
 
-export function AboutFullProfile({ onBack }: AboutFullProfileProps) {
-  const mpPortraitUrl = "https://i.imgur.com/5H0XBuV.jpeg";
-
+export function AboutFullProfile() {
   const electionResults = [
     { year: 2020, nyarkuVotes: "22,972", nyarkuPercent: "51.48%", opponentVotes: "21,643", opponentPercent: "48.51%", margin: "1,329" },
     { year: 2024, nyarkuVotes: "23,521", nyarkuPercent: "57.6%", opponentVotes: "17,045", opponentPercent: "41.7%", margin: "6,476" }
@@ -50,31 +44,10 @@ export function AboutFullProfile({ onBack }: AboutFullProfileProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-12">
+    <div className="bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Back Button */}
-        <div className="mb-8">
-            <button 
-                onClick={onBack}
-                className="inline-flex items-center gap-2 text-slate-600 hover:text-blue-700 font-bold transition-colors"
-            >
-                <ArrowLeft className="w-5 h-5" /> Back to About
-            </button>
-        </div>
-
         <div className="space-y-16">
-            {/* Header Section */}
-            <div className="flex flex-col md:flex-row gap-8 items-center mb-12">
-                <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-xl flex-shrink-0">
-                    <img src={mpPortraitUrl} alt="Hon. Dr. Kwamena Minta Nyarku" className="w-full h-full object-cover" />
-                </div>
-                <div className="text-center md:text-left">
-                    <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-2">Hon. Dr. Kwamena Minta Nyarku</h1>
-                    <p className="text-lg text-slate-600 font-medium">Member of Parliament for Cape Coast North</p>
-                </div>
-            </div>
-
             {/* FULL MP INFORMATION SECTION */}
             <AnimatedSection>
                 <h2 className="text-3xl font-bold text-green-800 mb-6 border-b-2 border-amber-500 pb-2 inline-block">
