@@ -1,7 +1,7 @@
 // src/pages/Assemblymen.tsx
 import { useState, useMemo } from 'react';
-import { Phone, Search, Crosshair, MapPin, Loader2, Info } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Phone, Search, Crosshair, MapPin, Loader2, Quote } from 'lucide-react';
+import { motion, AnimatePresence } from 'ate-motion';
 import { AnimatedSection } from '../components/AnimatedSection';
 import { LOCATIONS } from '../data/locations';
 
@@ -36,7 +36,7 @@ export function Assemblymen() {
       (position) => {
         setTimeout(() => {
           setIsLocating(false);
-          const matchedZone = "Abura"; // Simulated logic for matching
+          const matchedZone = "Abura"; 
           setDetectedZone(matchedZone);
           setSearchQuery(matchedZone);
         }, 1200);
@@ -54,12 +54,10 @@ export function Assemblymen() {
         {/* --- STANDARD HEADING BLOCK --- */}
         <div className="text-center mb-6">
           <div className="flex flex-col items-center justify-center group">
-            {/* Main Heading */}
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
               Assemblymen
             </h1>
             
-            {/* Subtitle */}
             <p className="mt-2 text-xs md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
               Grassroots Leadership for Cape Coast North
             </p>
@@ -67,19 +65,20 @@ export function Assemblymen() {
             <span className="mt-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
           </div>
 
-          {/* FULL DESCRIPTION TEXT (ACT 936) */}
+          {/* PERSONAL NARRATIVE DESCRIPTION (ESSENTIALS) */}
           <div className="mt-6 max-w-4xl mx-auto">
-            <p className="text-xs md:text-sm text-slate-600 leading-relaxed font-medium bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
-              <span className="text-green-700 font-bold uppercase mr-1">Role & Responsibility:</span>
-              Ghanaian Assembly Members (Assemblymen/women) serve as crucial links between their communities and the District/Municipal Assemblies, focusing on local development by representing constituents' views, participating in assembly decisions, overseeing project execution (education, health, sanitation), and mobilizing communal efforts, acting as facilitators for participatory democracy at the local level under the <span className="text-slate-900 font-black">Local Governance Act, 2016 (Act 936).</span>
-            </p>
+            <div className="bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm relative">
+              <Quote className="absolute top-4 left-4 w-8 h-8 text-slate-50 pointer-events-none" />
+              <p className="text-sm md:text-base text-slate-700 leading-relaxed font-medium italic text-center relative z-10">
+                "To me, Assembly Members are the essential heartbeat of our local development. Under <span className="text-green-800 font-bold">Act 936</span>, they act as your direct voice—ensuring your views shape assembly decisions and overseeing the projects that matter most to your daily life, from health to education. They are the facilitators of our democracy at the grassroots level."
+              </p>
+            </div>
           </div>
         </div>
 
         {/* --- COMPACT SEARCH & LIVE HUB --- */}
         <div className="max-w-3xl mx-auto mb-8">
           <div className="flex flex-col md:flex-row items-center gap-3">
-            {/* Search Field */}
             <div className="relative w-full group">
               <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-green-600 transition-colors" />
               <input 
@@ -91,7 +90,6 @@ export function Assemblymen() {
               />
             </div>
 
-            {/* Live Button */}
             <button 
               onClick={handleLiveLocation}
               disabled={isLocating}
@@ -108,7 +106,7 @@ export function Assemblymen() {
           
           <div className="mt-3 flex justify-center">
             <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 bg-slate-100 rounded-full">
-              {filteredMembers.length} Representatives Listed
+              {filteredMembers.length} Representatives Found
             </span>
           </div>
         </div>
@@ -132,7 +130,6 @@ export function Assemblymen() {
                   />
                   <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent h-1/2"></div>
                   
-                  {/* Active Zone Indicator */}
                   <AnimatePresence>
                     {detectedZone === member.zone && (
                       <motion.div 
@@ -169,19 +166,18 @@ export function Assemblymen() {
           ))}
         </div>
 
-        {/* Empty State */}
         {filteredMembers.length === 0 && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200"
           >
-             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">No members found matching your search</p>
+             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">No results match your search</p>
              <button 
               onClick={() => setSearchQuery('')}
               className="mt-4 text-green-600 font-black text-xs uppercase underline underline-offset-4"
             >
-              Clear filter
+              Reset Search
             </button>
           </motion.div>
         )}
