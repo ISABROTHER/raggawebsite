@@ -4,9 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
-import { initializeMonitoring } from './lib/monitoring.ts';
-
-initializeMonitoring();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
