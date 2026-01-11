@@ -15,7 +15,7 @@ type PolicyKey = 'education' | 'health' | 'employment' | 'infrastructure' | 'agr
 
 const categories = [
   { id: 'education' as PolicyKey, title: 'Educational Support', count: 4, desc: 'Quality education, school resources, and youth training.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
-  { id: 'health' as PolicyKey, title: 'Health & Sanitation', count: 3, desc: 'Health facilities and public hygiene projects.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
+  { id: 'health' as PolicyKey, title: 'Health & Sanitation', count: 2, desc: 'Health facilities and public hygiene projects.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
   { id: 'employment' as PolicyKey, title: 'Job Creation', count: 3, desc: 'Reviving local industry and supporting small businesses.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
   { id: 'infrastructure' as PolicyKey, title: 'Infrastructure', count: 4, desc: 'Improving roads, lighting, and community connectivity.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
   { id: 'agriculture' as PolicyKey, title: 'Agri-Development', count: 4, desc: 'Supporting farmers with tools, training, and market access.', image: 'https://i.imgur.com/TZ4jIJA.jpeg', component: <Agriculture /> }
@@ -71,7 +71,7 @@ export function Achievements() {
                         <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6">{policy.desc}</p>
                         <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between gap-4">
                           <div className="bg-green-50 text-green-700 text-[10px] font-black px-2 py-1 rounded-lg border border-green-100 uppercase tracking-widest">
-                            {policy.count} Key Projects
+                            {policy.count} initiatives listed
                           </div>
                           <div className="flex items-center gap-1 text-green-600 font-black text-xs uppercase group-hover:gap-2 transition-all">
                             <span>Details</span>
