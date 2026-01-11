@@ -32,16 +32,16 @@ export function Achievements() {
           {!selectedPolicy ? (
             <motion.div key="grid" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               
-              {/* Standard Heading Block with New Subtitle */}
+              {/* Standard Heading Block */}
               <div className="text-center mb-12 md:mb-16">
                 <div className="flex flex-col items-center justify-center group">
                   <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent">
                     Our Achievements
                   </h1>
                   
-                  {/* Subtitle phrase */}
-                  <p className="mt-2 text-lg md:text-2xl font-bold text-green-700/80 tracking-tight">
-                    What I have achieved so far
+                  {/* Updated Subtitle: PROJECTS AND INITIATIVES */}
+                  <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
+                    PROJECTS AND INITIATIVES
                   </p>
 
                   <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
