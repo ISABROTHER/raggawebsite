@@ -12,7 +12,8 @@ import {
   TrendingUp,
   BarChart3,
   CheckCircle2,
-  ChevronRight
+  ChevronRight,
+  Wallet
 } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 
@@ -21,8 +22,9 @@ export function Support() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false);
-  const [donationStep, setDonationStep] = useState(1); // 1: Amount, 2: Info, 3: Success
-  const [selectedAmount, setSelectedAmount] = useState<number | string>(50);
+  const [donationStep, setDonationStep] = useState(1); // 1: Amount/Currency, 2: Info/Summary, 3: Success
+  const [selectedAmount, setSelectedAmount] = useState<number>(50);
+  const [currency, setCurrency] = useState<'GHS' | 'USD'>('GHS');
   
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -32,6 +34,10 @@ export function Support() {
   const RAISED = "0";
   const TARGET = "200,000";
   const PERCENT = 0;
+
+  // Price Logic (Vibe Check: 10 GHS or $1 per book)
+  const pricePerBook = currency === 'GHS' ? 10 : 1;
+  const totalCost = selectedAmount * pricePerBook;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -63,7 +69,11 @@ export function Support() {
 
   const resetDonation = () => {
     setShowDonationModal(false);
-    setTimeout(() => setDonationStep(1), 300);
+    setTimeout(() => {
+      setDonationStep(1);
+      setCurrency('GHS');
+      setSelectedAmount(50);
+    }, 300);
   };
 
   return (
@@ -97,11 +107,6 @@ export function Support() {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="flex-1 py-2 md:py-3 bg-transparent outline-none text-xs md:text-sm font-medium"
               />
-              {searchTerm && (
-                <button onClick={() => setSearchTerm('')} className="p-1 hover:bg-slate-100 rounded-full transition-colors mr-1">
-                  <X className="w-3 h-3 md:w-4 md:h-4 text-slate-400" />
-                </button>
-              )}
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className={`flex items-center gap-1.5 px-3 py-2 md:px-4 md:py-2.5 rounded-xl md:rounded-2xl transition-all ${isDropdownOpen || filter !== 'All' ? 'bg-green-700 text-white' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}`}
@@ -119,14 +124,11 @@ export function Support() {
           {filteredPhotos.map((photo, index) => (
             <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
               <div className="group relative bg-white rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border border-green-500 ring-2 md:ring-4 ring-green-500/10 shadow-sm hover:shadow-xl transition-all duration-500">
-                
-                {/* Image Area */}
                 <div className="relative h-48 md:h-64 overflow-hidden">
                   <img src={photo.image} alt={photo.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute top-3 left-3 md:top-4 md:left-4 px-2 py-0.5 md:px-3 md:py-1 bg-amber-500 text-white text-[8px] md:text-[9px] font-black uppercase rounded-full tracking-widest shadow-sm">Urgent Support</div>
                 </div>
 
-                {/* Tracking Section (Red Bar) */}
                 <div className="bg-red-800 p-3 md:p-5 text-white shadow-inner">
                   <div className="flex justify-between items-end mb-2 md:mb-3">
                     <div className="flex flex-col">
@@ -145,9 +147,8 @@ export function Support() {
                   </div>
                 </div>
 
-                {/* Content Area */}
                 <div className="p-4 md:p-6">
-                  <h3 className="text-base md:text-lg font-black text-slate-900 uppercase tracking-tight mb-1 md:mb-2 group-hover:text-green-700 transition-colors">
+                  <h3 className="text-base md:text-lg font-black text-slate-900 uppercase tracking-tight mb-1 md:mb-2">
                     {photo.title}
                   </h3>
                   <p className="text-[11px] md:text-sm text-slate-600 font-medium leading-relaxed mb-4">
@@ -166,7 +167,7 @@ export function Support() {
           ))}
         </div>
 
-        {/* --- 4. DONATION PROCESS MODAL (NEW) --- */}
+        {/* --- 4. DONATION PROCESS MODAL --- */}
         {showDonationModal && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-white w-full max-w-lg rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in zoom-in-95 duration-300">
@@ -177,102 +178,114 @@ export function Support() {
                   <h2 className="text-xl font-black uppercase tracking-tight">Support The Project</h2>
                   <p className="text-[10px] font-bold uppercase tracking-widest text-white/70">Building with you • Obiara Ka Ho</p>
                 </div>
-                <button 
-                  onClick={resetDonation}
-                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                >
+                <button onClick={resetDonation} className="p-2 hover:bg-white/10 rounded-full transition-colors">
                   <X className="w-6 h-6" />
                 </button>
               </div>
 
-              {/* Modal Body */}
               <div className="p-8">
                 
-                {/* Step 1: Select Amount */}
+                {/* Step 1: Currency & Amount Selection */}
                 {donationStep === 1 && (
                   <div className="space-y-6">
-                    <p className="text-sm font-bold text-slate-500 uppercase tracking-wider text-center mb-4 italic">How many books would you like to sponsor?</p>
-                    <div className="grid grid-cols-2 gap-4">
+                    {/* Currency Toggle */}
+                    <div className="flex justify-center p-1 bg-slate-100 rounded-2xl">
+                      <button 
+                        onClick={() => setCurrency('GHS')}
+                        className={`flex-1 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${currency === 'GHS' ? 'bg-white text-green-700 shadow-sm scale-[1.02]' : 'text-slate-400'}`}
+                      >
+                        Ghana Cedi (₵)
+                      </button>
+                      <button 
+                        onClick={() => setCurrency('USD')}
+                        className={`flex-1 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${currency === 'USD' ? 'bg-white text-green-700 shadow-sm scale-[1.02]' : 'text-slate-400'}`}
+                      >
+                        US Dollar ($)
+                      </button>
+                    </div>
+
+                    <p className="text-sm font-bold text-slate-500 uppercase tracking-wider text-center mb-2 italic">Select Number of Books</p>
+                    <div className="grid grid-cols-2 gap-3">
                       {[10, 50, 100, 200].map((num) => (
                         <button
                           key={num}
                           onClick={() => setSelectedAmount(num)}
-                          className={`py-6 rounded-3xl border-2 transition-all flex flex-col items-center justify-center group ${
-                            selectedAmount === num 
-                            ? 'border-green-600 bg-green-50' 
-                            : 'border-slate-100 bg-slate-50 hover:border-green-300'
+                          className={`py-5 rounded-2xl border-2 transition-all flex flex-col items-center justify-center ${
+                            selectedAmount === num ? 'border-green-600 bg-green-50' : 'border-slate-100 bg-slate-50 hover:border-green-300'
                           }`}
                         >
-                          <span className={`text-2xl font-black ${selectedAmount === num ? 'text-green-700' : 'text-slate-900'}`}>{num}</span>
-                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Books</span>
+                          <span className={`text-xl font-black ${selectedAmount === num ? 'text-green-700' : 'text-slate-900'}`}>{num}</span>
+                          <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Books</span>
                         </button>
                       ))}
                     </div>
+
+                    {/* Cost Display Display */}
+                    <div className="bg-green-700 p-5 rounded-2xl text-center text-white shadow-lg shadow-green-100">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-green-100 mb-1">Estimated Contribution</p>
+                      <p className="text-3xl font-black tracking-tighter">
+                        {currency === 'GHS' ? '₵' : '$'}{totalCost.toLocaleString()}
+                      </p>
+                    </div>
+
                     <button 
                       onClick={() => setDonationStep(2)}
-                      className="w-full py-5 bg-green-700 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm shadow-xl shadow-green-200 hover:bg-green-800 transition-all flex items-center justify-center gap-2 mt-4"
+                      className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
                     >
                       Proceed to Information <ChevronRight className="w-4 h-4" />
                     </button>
                   </div>
                 )}
 
-                {/* Step 2: User Information */}
+                {/* Step 2: Details & Summary */}
                 {donationStep === 2 && (
                   <div className="space-y-5">
-                    <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-center justify-between mb-2">
-                      <span className="text-xs font-black uppercase text-slate-400 tracking-widest">Sponsoring</span>
-                      <span className="text-lg font-black text-green-700 uppercase tracking-tight">{selectedAmount} Books</span>
+                    {/* Catchy Summary Box */}
+                    <div className="bg-slate-50 border-2 border-dashed border-slate-200 p-5 rounded-3xl mb-4">
+                      <div className="flex items-center gap-3 mb-4">
+                        <Wallet className="w-5 h-5 text-green-600" />
+                        <span className="text-xs font-black uppercase tracking-widest text-slate-400">Payment Summary</span>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center text-sm">
+                          <span className="font-bold text-slate-600 uppercase text-[10px] tracking-widest">Sponsorship</span>
+                          <span className="font-black text-slate-900 uppercase tracking-tight">{selectedAmount} Books</span>
+                        </div>
+                        <div className="flex justify-between items-center pt-2 border-t border-slate-100">
+                          <span className="font-black text-green-700 uppercase text-[11px] tracking-widest">Total to Pay</span>
+                          <span className="text-xl font-black text-green-700">{currency === 'GHS' ? '₵' : '$'}{totalCost.toLocaleString()}</span>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1.5 ml-1">Your Full Name</label>
-                      <input 
-                        type="text" 
-                        placeholder="Enter your name"
-                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 font-bold text-sm"
-                      />
+
+                    <div className="space-y-4">
+                      <input type="text" placeholder="Full Name" className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 font-bold text-sm" />
+                      <input type="text" placeholder="Phone Number / Email" className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 font-bold text-sm" />
                     </div>
-                    <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1.5 ml-1">Phone / Email</label>
-                      <input 
-                        type="text" 
-                        placeholder="Mobile Money number or Email"
-                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 font-bold text-sm"
-                      />
-                    </div>
+
                     <div className="pt-4 flex gap-3">
-                      <button 
-                        onClick={() => setDonationStep(1)}
-                        className="w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-slate-50"
-                      >
-                        Back
-                      </button>
+                      <button onClick={() => setDonationStep(1)} className="w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-slate-50">Back</button>
                       <button 
                         onClick={() => setDonationStep(3)}
                         className="w-2/3 py-5 bg-red-800 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm shadow-xl shadow-red-200 hover:bg-red-900 transition-all"
                       >
-                        Donate Now
+                        Proceed to Pay
                       </button>
                     </div>
                   </div>
                 )}
 
-                {/* Step 3: Success Confirmation */}
+                {/* Step 3: Success */}
                 {donationStep === 3 && (
-                  <div className="text-center py-6 animate-in zoom-in-50 duration-500">
+                  <div className="text-center py-6">
                     <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                       <CheckCircle2 className="w-12 h-12" />
                     </div>
                     <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-2">THANK YOU!</h3>
                     <p className="text-sm text-slate-600 font-medium leading-relaxed max-w-xs mx-auto mb-8">
-                      Your commitment to provide <span className="font-black text-green-700">{selectedAmount} books</span> will make a massive impact in Cape Coast North.
+                      Your contribution of <span className="font-black text-green-700">{currency === 'GHS' ? '₵' : '$'}{totalCost}</span> for {selectedAmount} books has been recorded.
                     </p>
-                    <button 
-                      onClick={resetDonation}
-                      className="w-full py-4 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-50"
-                    >
-                      Close Window
-                    </button>
+                    <button onClick={resetDonation} className="w-full py-4 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-50">Close</button>
                   </div>
                 )}
               </div>
