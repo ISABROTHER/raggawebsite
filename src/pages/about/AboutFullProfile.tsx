@@ -2,7 +2,7 @@
 import React from 'react';
 import { 
   User, Smile, Flag, Briefcase as DesignationIcon, MapPin, Megaphone, 
-  CheckSquare, Users, Landmark, Eye
+  CheckSquare, Users, Landmark, Quote 
 } from 'lucide-react';
 import { AnimatedSection } from '../../components/AnimatedSection';
 
@@ -198,26 +198,47 @@ export function AboutFullProfile() {
                 </div>
             </AnimatedSection>
 
-            {/* Vision / Welcome Philosophy */}
+            {/* Vision / Welcome Philosophy - Redesigned */}
             <AnimatedSection delay={340}>
-                <h2 className="text-3xl font-bold text-green-800 mb-6 border-b-2 border-amber-500 pb-2 inline-block">
+              <div className="relative mt-20 mb-10">
+                {/* Floating Icon Decor */}
+                <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 bg-green-700 rounded-full flex items-center justify-center shadow-xl border-4 border-white z-10">
+                  <Quote className="w-8 h-8 text-white fill-white" />
+                </div>
+                
+                <div className="bg-white rounded-[2.5rem] p-10 md:p-16 shadow-2xl border border-slate-100 text-center relative overflow-hidden">
+                  {/* Subtle Brand Color Blurs */}
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-green-50 rounded-full -translate-y-32 translate-x-32 blur-3xl opacity-60" />
+                  <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-50 rounded-full translate-y-32 -translate-x-32 blur-3xl opacity-60" />
+                  
+                  <h2 className="text-sm font-black text-green-700 uppercase tracking-[0.3em] mb-8 relative z-20">
                     My Vision
-                </h2>
-                <blockquote className="relative p-6 bg-gradient-to-r from-blue-50 to-white border-l-4 border-amber-500 italic rounded-r-lg shadow-sm">
-                    <Eye className="absolute top-4 right-4 w-8 h-8 text-amber-300 opacity-50" />
-                    <p className="text-lg text-gray-700 leading-relaxed mb-4">
-                    "For me, leadership is not about titles or recognition. It is about what endures
-                    after one’s service, the systems, opportunities and hope that remain."
+                  </h2>
+                  
+                  <div className="space-y-8 relative z-20">
+                    <p className="text-xl md:text-2xl font-bold text-slate-800 leading-relaxed italic">
+                      "For me, leadership is not about titles or recognition. It is about what endures 
+                      after one’s service, the systems, opportunities and hope that remain."
                     </p>
-                    <p className="text-lg text-gray-700 leading-relaxed">
-                    "My vision is to help build a Cape Coast North where fairness, opportunity and
-                    respect are shared by all, where everyone feels they belong and every young person
-                    knows their dream matters."
+                    
+                    <p className="text-xl md:text-2xl font-bold text-slate-800 leading-relaxed italic">
+                      "My vision is to help build a Cape Coast North where fairness, opportunity and 
+                      respect are shared by all, where everyone feels they belong and every young person 
+                      knows their dream matters."
                     </p>
-                    <footer className="mt-4 text-md font-semibold text-blue-800">
-                    — Hon. Dr. Kwamena Minta Nyarku (Ragga)
+                  </div>
+                  
+                  <div className="mt-10 pt-8 border-t border-slate-100 flex flex-col items-center relative z-20">
+                    <span className="h-1 w-12 bg-amber-500 rounded-full mb-4" />
+                    <footer className="text-lg font-black text-slate-900 tracking-tight">
+                      Hon. Dr. Kwamena Minta Nyarku (Ragga)
                     </footer>
-                </blockquote>
+                    <p className="text-xs font-bold text-green-700 uppercase tracking-widest mt-1">
+                      Member of Parliament, Cape Coast North
+                    </p>
+                  </div>
+                </div>
+              </div>
             </AnimatedSection>
         </div>
       </div>
