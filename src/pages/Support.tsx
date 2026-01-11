@@ -134,8 +134,8 @@ export function Support() {
                   <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white text-[9px] font-black uppercase rounded-full tracking-widest">Urgent Support</div>
                 </div>
 
-                {/* --- TRACKING SECTION (NOW RED) --- */}
-                <div className="bg-red-600 p-5 text-white">
+                {/* --- TRACKING SECTION (NOW DARK RED) --- */}
+                <div className="bg-red-800 p-5 text-white shadow-inner">
                   <div className="flex justify-between items-center mb-3">
                     <div className="flex items-center gap-2">
                       <BarChart3 className="w-4 h-4 text-white" />
