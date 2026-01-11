@@ -8,7 +8,7 @@ import { AnimatedSection } from '../../components/AnimatedSection';
 
 // Helper component for Profile items
 const ProfileItem = ({ icon: Icon, label, value }: { icon: React.ElementType, label: string, value: string }) => (
-    <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start space-x-3">
+    <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex items-start space-x-3 font-sans">
         <Icon className="w-5 h-5 text-green-700 mt-1 flex-shrink-0"/>
         <div>
             <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{label}</h4>
@@ -44,11 +44,11 @@ export function AboutFullProfile() {
   }
 
   return (
-    <div className="bg-gray-50 py-16">
+    <div className="bg-gray-50 py-16 font-sans">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="space-y-20">
-            {/* FULL MP INFORMATION SECTION */}
+            {/* PERSONAL PROFILE SECTION */}
             <AnimatedSection>
                 <div className="mb-8">
                   <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight border-l-4 border-green-600 pl-4">
@@ -65,7 +65,7 @@ export function AboutFullProfile() {
                 </div>
             </AnimatedSection>
 
-            {/* Educational Qualifications */}
+            {/* EDUCATIONAL QUALIFICATIONS */}
             <AnimatedSection delay={220}>
                 <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
@@ -104,7 +104,7 @@ export function AboutFullProfile() {
                 </div>
             </AnimatedSection>
 
-            {/* Employment History */}
+            {/* EMPLOYMENT HISTORY */}
             <AnimatedSection delay={260}>
                  <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
@@ -137,7 +137,7 @@ export function AboutFullProfile() {
                 </div>
             </AnimatedSection>
 
-            {/* Service in Parliament */}
+            {/* SERVICE IN PARLIAMENT */}
             <AnimatedSection delay={300}>
                 <div className="mb-8">
                   <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight border-l-4 border-green-600 pl-4">
@@ -146,7 +146,6 @@ export function AboutFullProfile() {
                 </div>
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Elected MP */}
                     <div className="bg-white p-6 rounded-2xl border border-gray-200 flex items-start shadow-sm">
                         <CheckSquare className="w-6 h-6 text-green-700 mr-4 mt-1 flex-shrink-0" />
                         <div>
@@ -174,7 +173,6 @@ export function AboutFullProfile() {
                         </div>
                     </div>
 
-                    {/* Party Affiliation */}
                     <div className="bg-white p-6 rounded-2xl border border-gray-200 flex items-start shadow-sm">
                         <Users className="w-6 h-6 text-green-700 mr-4 mt-1 flex-shrink-0" />
                         <div>
@@ -185,7 +183,6 @@ export function AboutFullProfile() {
                         </div>
                     </div>
 
-                    {/* Parliamentary Committees */}
                     <div className="bg-white p-6 rounded-2xl border border-gray-200 flex items-start shadow-sm md:col-span-2">
                         <Landmark className="w-6 h-6 text-green-700 mr-4 mt-1 flex-shrink-0" />
                         <div className="w-full">
@@ -211,21 +208,22 @@ export function AboutFullProfile() {
                 </div>
             </AnimatedSection>
 
-            {/* Clean & Professional Vision Section */}
+            {/* MY VISION - STANDARD CLEAN DESIGN */}
             <AnimatedSection delay={340}>
               <div className="text-center mb-12">
                 <div className="flex flex-col items-center justify-center group">
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
                     My Vision
                   </h2>
+                  <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
+                    Leadership for the Future
+                  </p>
                   <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
                 </div>
               </div>
 
               <div className="max-w-3xl mx-auto">
                 <div className="bg-white rounded-3xl p-8 md:p-12 border border-slate-200 shadow-sm relative">
-                  <Quote className="absolute top-6 left-6 w-12 h-12 text-slate-50 pointer-events-none" />
-                  
                   <div className="relative z-10 space-y-8">
                     <p className="text-lg md:text-xl font-medium text-slate-700 leading-relaxed italic border-l-4 border-green-600 pl-6">
                       "For me, leadership is not about titles or recognition. It is about what endures 
