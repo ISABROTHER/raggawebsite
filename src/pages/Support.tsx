@@ -131,30 +131,39 @@ export function Support() {
                   </div>
                   
                   {/* Status Badge */}
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white text-[9px] font-black uppercase rounded-full tracking-widest">Urgent Support</div>
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white text-[9px] font-black uppercase rounded-full tracking-widest shadow-sm">Urgent Support</div>
                 </div>
 
-                {/* --- TRACKING SECTION (NOW DARK RED) --- */}
+                {/* --- TRACKING SECTION (BOLD & CATCHY DARK RED) --- */}
                 <div className="bg-red-800 p-5 text-white shadow-inner">
-                  <div className="flex justify-between items-center mb-3">
-                    <div className="flex items-center gap-2">
-                      <BarChart3 className="w-4 h-4 text-white" />
-                      <span className="text-[11px] font-black uppercase tracking-widest">{RAISED} Books Donated</span>
+                  <div className="flex justify-between items-end mb-3">
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-1.5 mb-0.5">
+                        <BarChart3 className="w-4 h-4 text-white/90" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/80">Books Donated</span>
+                      </div>
+                      <span className="text-2xl font-black tracking-tighter drop-shadow-md">{RAISED}</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-white">
-                      <TrendingUp className="w-3.5 h-3.5" />
-                      <span className="text-[11px] font-black">{PERCENT}%</span>
+                    <div className="flex flex-col items-end">
+                      <div className="flex items-center gap-1 mb-0.5">
+                        <TrendingUp className="w-3.5 h-3.5 text-white/90" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-white/80">Progress</span>
+                      </div>
+                      <span className="text-xl font-black text-white drop-shadow-md">{PERCENT}%</span>
                     </div>
                   </div>
+                  
                   {/* Progress Bar */}
-                  <div className="h-2 w-full bg-white/20 rounded-full overflow-hidden p-0.5">
+                  <div className="h-3 w-full bg-black/20 rounded-full overflow-hidden p-0.5 shadow-inner">
                     <div 
-                      className="h-full bg-white rounded-full transition-all duration-1000" 
+                      className="h-full bg-gradient-to-r from-white via-white to-green-300 rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(255,255,255,0.5)]" 
                       style={{ width: `${PERCENT}%` }} 
                     />
                   </div>
-                  <div className="mt-2 text-right">
-                    <span className="text-[9px] font-bold text-white/70 uppercase tracking-widest">Goal: {TARGET}</span>
+                  
+                  <div className="mt-3 flex justify-between items-center">
+                    <span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">Live Updates</span>
+                    <span className="text-xs font-black text-white uppercase tracking-wider bg-white/10 px-2 py-0.5 rounded border border-white/20 shadow-sm">Goal: {TARGET}</span>
                   </div>
                 </div>
 
@@ -163,7 +172,7 @@ export function Support() {
                   <p className="text-sm text-slate-600 font-medium leading-relaxed mb-4">{photo.desc}</p>
                   <p className="text-xs font-bold text-green-700 uppercase tracking-wide mb-6">{photo.callToAction}</p>
                   
-                  <button className="w-full py-3 bg-green-700 hover:bg-green-800 text-white rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all">
+                  <button className="w-full py-3 bg-green-700 hover:bg-green-800 text-white rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-md">
                     <Heart className="w-4 h-4" /> kindly support, obiara ka ho
                   </button>
                 </div>
