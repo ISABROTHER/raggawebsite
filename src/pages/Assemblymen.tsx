@@ -48,11 +48,11 @@ export function Assemblymen() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-16 pb-20 font-sans"> 
+    <div className="min-h-screen bg-slate-50 pt-8 pb-20 font-sans"> 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* --- STANDARD HEADING BLOCK --- */}
-        <div className="text-center mb-12 md:mb-16">
+        {/* --- COMPACT STANDARD HEADING BLOCK --- */}
+        <div className="text-center mb-8 md:mb-12">
           <div className="flex flex-col items-center justify-center group">
             {/* Main Heading */}
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
@@ -68,9 +68,9 @@ export function Assemblymen() {
           </div>
         </div>
 
-        {/* --- SEARCH & LIVE HUB --- */}
+        {/* --- SEARCH & LIVE HUB (TIGHTER MARGINS) --- */}
         <AnimatedSection delay={100}>
-          <div className="max-w-3xl mx-auto mb-16">
+          <div className="max-w-3xl mx-auto mb-10">
             <div className="flex flex-col md:flex-row items-center gap-3">
               
               {/* Search Field */}
@@ -81,7 +81,7 @@ export function Assemblymen() {
                   placeholder="Find by town or name..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-14 pr-6 py-5 bg-white border border-slate-200 rounded-2xl shadow-sm focus:ring-4 focus:ring-green-500/5 focus:border-green-600 transition-all outline-none font-bold text-slate-900 text-lg"
+                  className="w-full pl-14 pr-6 py-4 bg-white border border-slate-200 rounded-2xl shadow-sm focus:ring-4 focus:ring-green-500/5 focus:border-green-600 transition-all outline-none font-bold text-slate-900 text-lg"
                 />
               </div>
 
@@ -89,7 +89,7 @@ export function Assemblymen() {
               <button 
                 onClick={handleLiveLocation}
                 disabled={isLocating}
-                className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-5 bg-slate-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all active:scale-95 disabled:opacity-80 whitespace-nowrap shadow-xl"
+                className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all active:scale-95 disabled:opacity-80 whitespace-nowrap shadow-xl"
               >
                 {isLocating ? (
                   <Loader2 className="w-4 h-4 animate-spin text-green-400" />
@@ -103,7 +103,7 @@ export function Assemblymen() {
             {/* Status Metadata */}
             <div className="mt-4 flex flex-wrap justify-center gap-4">
                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                 {filteredMembers.length} Representatives Active
+                 {filteredMembers.length} Representatives Found
                </span>
                <AnimatePresence>
                 {detectedZone && (
