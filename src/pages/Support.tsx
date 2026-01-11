@@ -134,27 +134,27 @@ export function Support() {
                   <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white text-[9px] font-black uppercase rounded-full tracking-widest">Urgent Support</div>
                 </div>
 
-                {/* --- PROPER TRACKING SECTION (ON CARD) --- */}
-                <div className="bg-slate-900 p-5 text-white">
+                {/* --- TRACKING SECTION (NOW RED) --- */}
+                <div className="bg-red-600 p-5 text-white">
                   <div className="flex justify-between items-center mb-3">
                     <div className="flex items-center gap-2">
-                      <BarChart3 className="w-4 h-4 text-green-400" />
+                      <BarChart3 className="w-4 h-4 text-white" />
                       <span className="text-[11px] font-black uppercase tracking-widest">{RAISED} Books Donated</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-green-400">
+                    <div className="flex items-center gap-1.5 text-white">
                       <TrendingUp className="w-3.5 h-3.5" />
                       <span className="text-[11px] font-black">{PERCENT}%</span>
                     </div>
                   </div>
                   {/* Progress Bar */}
-                  <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden p-0.5">
+                  <div className="h-2 w-full bg-white/20 rounded-full overflow-hidden p-0.5">
                     <div 
-                      className="h-full bg-gradient-to-r from-green-400 to-emerald-400 rounded-full transition-all duration-1000" 
+                      className="h-full bg-white rounded-full transition-all duration-1000" 
                       style={{ width: `${PERCENT}%` }} 
                     />
                   </div>
                   <div className="mt-2 text-right">
-                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Goal: {TARGET}</span>
+                    <span className="text-[9px] font-bold text-white/70 uppercase tracking-widest">Goal: {TARGET}</span>
                   </div>
                 </div>
 
