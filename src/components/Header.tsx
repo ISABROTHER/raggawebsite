@@ -1,4 +1,3 @@
-
 // src/components/Header.tsx
 import { useState } from 'react';
 import { 
@@ -75,7 +74,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
   const handleNavClick = (pageId: string) => {
     setMobileMenuOpen(false);
     if (pageId === 'admin') return; 
-    onNavigate(pageId);
+    onNavigate(pageId); // This correctly triggers the page change logic
   };
 
   const menuVariants = {
