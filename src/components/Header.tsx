@@ -1,3 +1,4 @@
+
 // src/components/Header.tsx
 import { useState } from 'react';
 import { 
@@ -217,5 +218,5 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
       </div>
       <style>{`.marquee-track { animation: marquee 42s linear infinite; } @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }`}</style>
     </div>
-  ); 
-} 
+  );
+}
