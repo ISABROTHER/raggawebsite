@@ -2,13 +2,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   Camera, 
-  Filter, 
   Maximize2, 
   ExternalLink, 
   Search, 
   ChevronDown, 
   X, 
-  Heart 
+  Heart,
+  SlidersHorizontal // "Builder" / Adjustment icon
 } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 
@@ -20,6 +20,7 @@ export function Support() {
 
   const categories = ['All', 'Education'];
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -50,7 +51,7 @@ export function Support() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-24 pb-24 font-sans">
+    <div className="min-h-screen bg-slate-50 pt-24 pb-24 font-sans text-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* --- HEADING BLOCK --- */}
@@ -68,62 +69,75 @@ export function Support() {
           </AnimatedSection>
         </div>
 
-        {/* --- SEARCH & FILTER BAR --- */}
+        {/* --- INTEGRATED SEARCH & FILTER BAR --- */}
         <AnimatedSection delay={100}>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-12 bg-white p-4 rounded-3xl border border-slate-200 shadow-sm">
-            
-            <div className="relative w-full md:max-w-md group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-green-600 transition-colors" />
+          <div className="max-w-2xl mx-auto mb-16 relative" ref={dropdownRef}>
+            <div className="relative flex items-center bg-white rounded-3xl border border-slate-200 shadow-sm focus-within:shadow-md focus-within:border-green-500 transition-all p-1.5">
+              <div className="pl-4 pr-2">
+                <Search className="w-5 h-5 text-slate-400" />
+              </div>
+              
               <input 
                 type="text"
                 placeholder="Search project..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-12 py-3 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all text-sm font-medium"
+                className="flex-1 py-3 bg-transparent outline-none text-sm font-medium"
               />
+
               {searchTerm && (
-                <button onClick={() => setSearchTerm('')} className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-200 rounded-full transition-colors">
-                  <X className="w-4 h-4 text-slate-500" />
+                <button 
+                  onClick={() => setSearchTerm('')} 
+                  className="p-1 hover:bg-slate-100 rounded-full transition-colors mr-1"
+                >
+                  <X className="w-4 h-4 text-slate-400" />
                 </button>
               )}
-            </div>
 
-            <div className="relative w-full md:w-64" ref={dropdownRef}>
+              {/* Filter "Builder" Icon Button */}
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="w-full flex items-center justify-between px-6 py-3 bg-white border border-slate-200 rounded-2xl hover:border-green-500 hover:shadow-md transition-all group"
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all ${
+                  isDropdownOpen || filter !== 'All' 
+                    ? 'bg-green-700 text-white' 
+                    : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                }`}
               >
-                <div className="flex items-center gap-3">
-                  <Filter className="w-4 h-4 text-slate-400 group-hover:text-green-600" />
-                  <span className="text-sm font-bold text-slate-700 uppercase tracking-wider">{filter}</span>
-                </div>
-                <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                <SlidersHorizontal className="w-4 h-4" />
+                <span className="text-xs font-bold uppercase tracking-wider hidden sm:inline">
+                  {filter === 'All' ? 'Filter' : filter}
+                </span>
+                <ChevronDown className={`w-3 h-3 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
-
-              {isDropdownOpen && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden">
-                  {categories.map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => {
-                        setFilter(cat);
-                        setIsDropdownOpen(false);
-                      }}
-                      className={`w-full text-left px-6 py-4 text-xs font-black uppercase tracking-widest transition-colors ${
-                        filter === cat ? 'bg-green-50 text-green-700' : 'text-slate-500 hover:bg-slate-50 hover:text-green-600'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
+
+            {/* Filter Dropdown Menu */}
+            {isDropdownOpen && (
+              <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="p-2 border-b border-slate-50 bg-slate-50/50 text-[10px] font-black uppercase tracking-widest text-slate-400 px-4 py-2">
+                  Filter Category
+                </div>
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => {
+                      setFilter(cat);
+                      setIsDropdownOpen(false);
+                    }}
+                    className={`w-full text-left px-5 py-3.5 text-xs font-bold uppercase tracking-widest transition-colors ${
+                      filter === cat ? 'text-green-700 bg-green-50' : 'text-slate-500 hover:bg-slate-50 hover:text-green-600'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </AnimatedSection>
 
-        {/* --- PROJECT CARD --- */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* --- PROJECT GRID --- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
           {filteredPhotos.map((photo, index) => (
             <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
               <div className="group relative bg-white rounded-[2rem] overflow-hidden border border-green-500 ring-4 ring-green-500/10 shadow-sm hover:shadow-xl transition-all duration-500">
@@ -157,7 +171,6 @@ export function Support() {
                     {photo.callToAction}
                   </p>
                   
-                  {/* Updated Button Text Below */}
                   <button className="w-full py-3 bg-green-700 hover:bg-green-800 text-white rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all">
                     <Heart className="w-4 h-4" />
                     kindly support, obiara ka ho
@@ -170,7 +183,7 @@ export function Support() {
 
         {/* --- EMPTY STATE --- */}
         {filteredPhotos.length === 0 && (
-          <div className="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200">
+          <div className="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200 max-w-2xl mx-auto">
             <Camera className="w-12 h-12 text-slate-200 mx-auto mb-4" />
             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">
               No results found
