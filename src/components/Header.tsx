@@ -4,7 +4,7 @@ import {
   Menu, X, Home, User, Users, HardHat, Award, 
   Calendar, MessageSquareWarning, HandHeart, 
   LayoutDashboard, LogIn, ChevronRight, Vote, 
-  UserCircle, Heart // Updated Icon
+  UserCircle, Heart 
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -35,7 +35,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'achievements', label: 'Impact' }, 
-    { id: 'support', label: 'Support' }, // Changed Gallery to Support
+    { id: 'support', label: 'Support' }, 
     { id: 'assemblymen', label: 'Assemblymen' },
     { id: 'ongoing-projects', label: 'Projects' },
     { id: 'events', label: 'Events' },
@@ -45,7 +45,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
 
   const mobileNavItems = [
     { id: 'home', label: 'Home', icon: Home },
-    { id: 'support', label: 'Support Ragga', icon: Heart }, // Updated Mobile
+    { id: 'support', label: 'Support Ragga', icon: Heart },
     { id: 'about', label: 'About Profile', icon: User },
     { id: 'achievements', label: 'Achievements', icon: Award }, 
     { id: 'assemblymen', label: 'Assemblymen', icon: Users },
@@ -62,26 +62,8 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
   };
 
   const menuVariants = {
-    closed: {
-      scale: 0.9,
-      opacity: 0,
-      borderBottomLeftRadius: "100%",
-      borderTopLeftRadius: "100%",
-      borderBottomRightRadius: "100%",
-      transition: { type: "spring", stiffness: 300, damping: 35 }
-    },
-    open: {
-      scale: 1,
-      opacity: 1,
-      borderBottomLeftRadius: "40px",
-      borderTopLeftRadius: "40px",
-      borderBottomRightRadius: "40px",
-      transition: { 
-        type: "spring", stiffness: 200, damping: 25,
-        staggerChildren: 0.05, 
-        delayChildren: 0.1 
-      }
-    }
+    closed: { scale: 0.9, opacity: 0, transition: { type: "spring", stiffness: 300, damping: 35 } },
+    open: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 200, damping: 25 } }
   };
 
   const itemVariants = {
