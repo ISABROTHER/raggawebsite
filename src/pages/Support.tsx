@@ -2,13 +2,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   Camera, 
-  Filter,
-  Maximize2,
-  ExternalLink,
-  Search,
-  ChevronDown,
-  X,
-  Heart
+  Filter, 
+  Maximize2, 
+  ExternalLink, 
+  Search, 
+  ChevronDown, 
+  X, 
+  Heart 
 } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
 
@@ -38,7 +38,6 @@ export function Support() {
       image: "https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=1200",
       desc: "This project aims to raise 200,000 exercise books for OVER 30,000 students in Cape Coast North to support teaching and learning in our schools and reduce the cost burden on parents.",
       callToAction: "Support this project and help strengthen education in Cape Coast North",
-      slogan: "kindly support now, obiara ka ho",
       isFeatured: true
     }
   ];
@@ -127,7 +126,7 @@ export function Support() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPhotos.map((photo, index) => (
             <AnimatedSection key={photo.id} delay={150 + (index * 50)}>
-              <div className="group relative bg-white rounded-[2.5rem] overflow-hidden border border-green-500 ring-4 ring-green-500/10 shadow-sm hover:shadow-xl transition-all duration-500">
+              <div className="group relative bg-white rounded-[2rem] overflow-hidden border border-green-500 ring-4 ring-green-500/10 shadow-sm hover:shadow-xl transition-all duration-500">
                 <div className="relative h-64 overflow-hidden">
                   <img 
                     src={photo.image} 
@@ -147,23 +146,21 @@ export function Support() {
                   </div>
                 </div>
 
-                <div className="p-8">
-                  <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight mb-4 group-hover:text-green-700 transition-colors leading-tight">
+                <div className="p-6">
+                  <h3 className="text-lg font-black text-slate-900 uppercase tracking-tight mb-2 group-hover:text-green-700 transition-colors">
                     {photo.title}
                   </h3>
                   <p className="text-sm text-slate-600 font-medium leading-relaxed mb-4">
                     {photo.desc}
                   </p>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2">
+                  <p className="text-xs font-bold text-green-700 uppercase tracking-wide mb-6">
                     {photo.callToAction}
                   </p>
-                  <p className="text-sm font-black text-green-700 uppercase italic tracking-widest mb-8">
-                    "{photo.slogan}"
-                  </p>
                   
-                  <button className="w-full py-4 bg-green-700 hover:bg-green-800 text-white rounded-2xl font-black text-sm uppercase tracking-[0.15em] flex items-center justify-center gap-3 shadow-lg shadow-green-100 transition-all hover:-translate-y-1">
-                    <Heart className="w-5 h-5 fill-current" />
-                    Kindly Support Now
+                  {/* Updated Button Text Below */}
+                  <button className="w-full py-3 bg-green-700 hover:bg-green-800 text-white rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all">
+                    <Heart className="w-4 h-4" />
+                    kindly support now, obiara ka ho
                   </button>
                 </div>
               </div>
