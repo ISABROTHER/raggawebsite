@@ -40,7 +40,7 @@ export function Support() {
   const photos = [
     {
       id: 1,
-      title: "obiara ka ho 200,000 book project", // Updated Title
+      title: "obiara ka ho 200,000 book project", // Project title
       category: "Education",
       image: "https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=1200",
       desc: "This project aims to raise 200,000 exercise books for OVER 30,000 students in Cape Coast North to support teaching and learning in our schools and reduce the cost burden on parents.",
@@ -64,7 +64,7 @@ export function Support() {
           <AnimatedSection>
             <div className="flex flex-col items-center justify-center group">
               <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
-                SUPPORT RAGGA
+                THE RAGGA FOUNDATION
               </h1>
               <p className="mt-1 text-xs md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
                 BUILDING WITH YOU OBIARA KA HO
@@ -132,7 +132,7 @@ export function Support() {
                   <div className="absolute top-3 left-3 md:top-4 md:left-4 px-2 py-0.5 md:px-3 md:py-1 bg-amber-500 text-white text-[8px] md:text-[9px] font-black uppercase rounded-full tracking-widest shadow-sm">Urgent Support</div>
                 </div>
 
-                {/* --- TRACKING SECTION (RESET TO 0) --- */}
+                {/* --- TRACKING SECTION (RED BAR) --- */}
                 <div className="bg-red-800 p-3 md:p-5 text-white shadow-inner">
                   <div className="flex justify-between items-end mb-2 md:mb-3">
                     <div className="flex flex-col">
