@@ -19,7 +19,7 @@ function App() {
           <Route path="/projects" element={<OngoingProjects />} />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/reports" element={<Reports />} /> 
-          {/* Volunteer route removed */}
+          {/* Volunteer route successfully removed */}
         </Routes>
       </main>
       <Footer />
