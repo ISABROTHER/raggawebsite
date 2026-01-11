@@ -1,218 +1,110 @@
 // src/components/Header.tsx
 import { useState } from 'react';
 import { 
-  Menu, 
-  X, 
-  Home, 
-  User, 
-  Users, 
-  HardHat, 
-  Award, // Added for Achievements
-  Calendar, 
-  MessageSquareWarning, 
-  HandHeart, 
-  LayoutDashboard, 
-  LogIn, 
-  ChevronRight,
-  Vote,
-  UserCircle // Added for Appointments
+  Menu, X, Home, User, Users, HardHat, Award, 
+  Calendar, MessageSquareWarning, LayoutDashboard, 
+  LogIn, ChevronRight, Vote, UserCircle, FileText 
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 
-interface HeaderProps {
-  currentPage: string;
-  onNavigate: (page: string) => void;
-}
-
-export function Header({ currentPage, onNavigate }: HeaderProps) {
+export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
-  // === NUMERIC CONTROLS (RESTORED FROM ORIGINAL) ===
-  const headerHeightBase = 90; 
-  const headerScale = 1.1; 
-  const headerHeight = headerHeightBase * headerScale;
+  const headerHeight = 99; 
 
-  const logoScale = 1.2; 
-  const logoTopOffset = 8; 
-  const logoBottomOffset = 2; 
-  const logoVerticalAdjust = -1; 
-  const logoLeftAdjust = 15; 
-
-  const desktopNavGap = 14; // Slightly reduced to fit new items
-  const desktopNavPaddingY = 8; 
-  const desktopNavPaddingX = 14; 
-  const desktopNavFontSize = 15; 
-
-  // === NAVIGATION ITEMS ===
   const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'achievements', label: 'Achievements' }, // Added to Header
-    { id: 'assemblymen', label: 'Assemblymen' },
-    { id: 'ongoing-projects', label: 'Projects' },
-    { id: 'events', label: 'Events' },
-    { id: 'polls', label: 'Polls' },
-    { id: 'admin', label: 'My Page' }, 
+    { id: 'home', label: 'Home', path: '/' },
+    { id: 'about', label: 'About', path: '/about' },
+    { id: 'assemblymen', label: 'Assemblymen', path: '/assemblymen' },
+    { id: 'projects', label: 'Projects', path: '/projects' },
+    { id: 'appointments', label: 'Appointments', path: '/appointments' },
+    { id: 'reports', label: 'Reports', path: '/reports' }, // Added Reports
   ];
 
   const mobileNavItems = [
-    { id: 'home', label: 'Home', icon: Home },
-    { id: 'about', label: 'About Profile', icon: User },
-    { id: 'achievements', label: 'Achievements', icon: Award }, // Added to Mobile
-    { id: 'assemblymen', label: 'Assemblymen', icon: Users },
-    { id: 'ongoing-projects', label: 'Projects', icon: HardHat },
-    { id: 'events', label: 'Events', icon: Calendar },
-    { id: 'polls', label: 'Polls & Tracker', icon: Vote },
-    { id: 'issues', label: 'Report Issue', icon: MessageSquareWarning },
-    { id: 'appointments', label: 'Book Appointment', icon: UserCircle }, // Added to Mobile
-    { id: 'volunteer', label: 'Get Involved', icon: HandHeart },
+    { id: 'home', label: 'Home', icon: Home, path: '/' },
+    { id: 'about', label: 'About Profile', icon: User, path: '/about' },
+    { id: 'achievements', label: 'Achievements', icon: Award, path: '/achievements' },
+    { id: 'assemblymen', label: 'Assemblymen', icon: Users, path: '/assemblymen' },
+    { id: 'ongoing-projects', label: 'Projects', icon: HardHat, path: '/projects' },
+    { id: 'reports', label: 'Reports', icon: FileText, path: '/reports' }, // Added Reports
+    { id: 'appointments', label: 'Book Appointment', icon: UserCircle, path: '/appointments' },
+    { id: 'issues', label: 'Report Issue', icon: MessageSquareWarning, path: '/issues' },
+    // Volunteer (Get Involved) removed here
   ];
-
-  const handleNavClick = (pageId: string) => {
-    setMobileMenuOpen(false);
-    if (pageId === 'admin') return; 
-    onNavigate(pageId);
-  };
-
-  const menuVariants = {
-    closed: {
-      scale: 0.9,
-      opacity: 0,
-      borderBottomLeftRadius: "100%",
-      borderTopLeftRadius: "100%",
-      borderBottomRightRadius: "100%",
-      transition: { type: "spring", stiffness: 300, damping: 35 }
-    },
-    open: {
-      scale: 1,
-      opacity: 1,
-      borderBottomLeftRadius: "40px",
-      borderTopLeftRadius: "40px",
-      borderBottomRightRadius: "40px",
-      transition: { 
-        type: "spring", stiffness: 200, damping: 25,
-        staggerChildren: 0.05, 
-        delayChildren: 0.1 
-      }
-    }
-  };
-
-  const itemVariants = {
-    closed: { opacity: 0, x: -20 },
-    open: { opacity: 1, x: 0 }
-  };
 
   return (
     <div className="relative w-full">
       <header
-        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-xl"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm"
         style={{ height: `${headerHeight}px` }}
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full relative">
-          <div className="flex justify-between items-center h-full">
-            
-            <button
-              onClick={() => handleNavClick('home')}
-              className="flex items-center space-x-3 group transition-transform hover:scale-[1.01] focus:outline-none"
-              style={{
-                position: 'relative',
-                top: `${logoTopOffset + logoVerticalAdjust}px`,
-                left: `${logoLeftAdjust}px`,
-                bottom: `${logoBottomOffset}px`,
-              }}
-            >
-              <img
-                src="https://i.imgur.com/1GfnCQc.png"
-                alt="Logo"
-                className="object-contain"
-                style={{
-                  height: `${headerHeight * 0.8 * logoScale}px`,
-                  width: 'auto',
-                  transform: `scale(${logoScale})`,
-                }}
-              />
-            </button>
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
+          <Link to="/" className="flex items-center gap-2 group font-black text-slate-900 tracking-tighter uppercase text-xl">
+            Cape Coast North
+          </Link>
 
-            <div className="hidden md:flex items-center" style={{ gap: `${desktopNavGap}px` }}>
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`rounded-full font-semibold transition-all duration-300 ${
-                    currentPage === item.id
-                      ? 'bg-blue-900 text-white shadow-lg shadow-blue-500/50'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-700'
-                  } ${item.id === 'admin' ? 'border-2 border-red-100 text-red-700 cursor-default' : ''}`} 
-                  style={{
-                    padding: `${desktopNavPaddingY}px ${desktopNavPaddingX}px`,
-                    fontSize: `${desktopNavFontSize}px`,
-                  }}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="md:hidden relative z-50">
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`w-14 h-14 rounded-full flex items-center justify-center bg-[#CE1126] text-white shadow-xl border-4 border-white ${mobileMenuOpen ? 'rotate-90' : ''}`}
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.id}
+                to={item.path}
+                className={`px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all ${
+                  location.pathname === item.path
+                    ? 'bg-green-700 text-white shadow-lg shadow-green-900/20'
+                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                }`}
               >
-                {mobileMenuOpen ? <X className="w-7 h-7" strokeWidth={3} /> : <Menu className="w-7 h-7" strokeWidth={3} />}
-              </button>
-            </div>
+                {item.label}
+              </Link>
+            ))}
           </div>
 
-          <AnimatePresence>
-            {mobileMenuOpen && (
-              <motion.div 
-                initial="closed" animate="open" exit="closed" variants={menuVariants}
-                className="md:hidden absolute top-[10px] right-[10px] w-[300px] origin-top-right"
-              >
-                <div className="relative bg-[#CE1126] pt-24 pb-6 px-6 shadow-2xl h-full w-full overflow-hidden border-4 border-white/20 rounded-[40px] max-h-[85vh] overflow-y-auto">
-                  <motion.div variants={itemVariants} className="mb-6 relative z-10">
-                    <button className="w-full bg-white text-[#CE1126] rounded-2xl p-4 flex items-center justify-between cursor-default">
-                      <div className="flex items-center gap-2">
-                        <LayoutDashboard className="w-5 h-5" />
-                        <span className="font-black text-xl">MY PAGE</span>
-                      </div>
-                      <LogIn className="w-5 h-5" />
-                    </button>
-                  </motion.div>
-
-                  <div className="flex flex-col space-y-2.5 relative z-10 pb-4">
-                    {mobileNavItems.map((item) => {
-                      const Icon = item.icon;
-                      const isActive = currentPage === item.id;
-                      return (
-                        <motion.button
-                          key={item.id}
-                          variants={itemVariants}
-                          onClick={() => handleNavClick(item.id)}
-                          className={`flex items-center justify-between px-5 py-3.5 rounded-xl w-full text-left transition-all ${isActive ? 'bg-white text-[#CE1126] font-extrabold translate-x-2' : 'bg-white/90 text-slate-800 font-semibold'}`}
-                        >
-                          <div className="flex items-center gap-3">
-                            <Icon className={`w-5 h-5 ${isActive ? 'text-[#CE1126]' : 'text-slate-400'}`} />
-                            <span className="text-sm">{item.label}</span>
-                          </div>
-                          {isActive && <ChevronRight className="w-4 h-4" />}
-                        </motion.button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Mobile Toggle */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="w-12 h-12 rounded-2xl flex items-center justify-center bg-slate-900 text-white"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </nav>
-      </header>
 
-      <div className="bg-red-600 h-5 overflow-hidden relative flex items-center" style={{ marginTop: `${headerHeight}px` }}>
-        <div className="marquee-track absolute top-0 left-0 h-full flex items-center whitespace-nowrap font-bold text-white text-[0.65rem] tracking-widest uppercase">
-          <span>SUPPORT HON. RAGGA’S OPERATION 1000 DESKS FOR STUDENTS 'II' OBIARA KA HO 'II'</span>
-        </div>
-      </div>
-      <style>{`.marquee-track { animation: marquee 42s linear infinite; } @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }`}</style>
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="md:hidden absolute top-[100px] left-4 right-4 bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 p-6"
+            >
+              <div className="flex flex-col gap-2">
+                {mobileNavItems.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={item.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center justify-between p-4 rounded-2xl transition-all ${
+                      location.pathname === item.path ? 'bg-green-50 text-green-700' : 'bg-slate-50 text-slate-600'
+                    }`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <item.icon className="w-5 h-5" />
+                      <span className="font-black uppercase text-xs tracking-widest">{item.label}</span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 opacity-30" />
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
     </div>
   );
 }
