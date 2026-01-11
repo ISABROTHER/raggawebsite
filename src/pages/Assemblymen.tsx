@@ -36,7 +36,7 @@ export function Assemblymen() {
       (position) => {
         setTimeout(() => {
           setIsLocating(false);
-          const matchedZone = "Abura"; // Simulated logic for demonstration
+          const matchedZone = "Abura"; // Simulated logic for matching
           setDetectedZone(matchedZone);
           setSearchQuery(matchedZone);
         }, 1200);
@@ -48,11 +48,11 @@ export function Assemblymen() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-12 pb-20 font-sans"> 
+    <div className="min-h-screen bg-slate-50 pt-10 pb-20 font-sans"> 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* --- STANDARD HEADING BLOCK --- */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6">
           <div className="flex flex-col items-center justify-center group">
             {/* Main Heading */}
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
@@ -60,38 +60,34 @@ export function Assemblymen() {
             </h1>
             
             {/* Subtitle */}
-            <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
+            <p className="mt-2 text-xs md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
               Grassroots Leadership for Cape Coast North
             </p>
 
-            <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
+            <span className="mt-3 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
           </div>
 
-          {/* New Detailed Description (Act 936) */}
-          <div className="mt-8 max-w-3xl mx-auto bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-            <div className="flex items-start gap-4 text-left">
-              <div className="bg-green-50 p-2 rounded-lg shrink-0">
-                <Info className="w-5 h-5 text-green-700" />
-              </div>
-              <p className="text-sm md:text-base text-slate-600 leading-relaxed font-medium italic">
-                Ghanaian Assembly Members (Assemblymen/women) serve as crucial links between their communities and the District/Municipal Assemblies, focusing on local development by representing constituents' views, participating in assembly decisions, overseeing project execution (education, health, sanitation), and mobilizing communal efforts, acting as facilitators for participatory democracy at the local level under the <span className="text-green-800 font-bold">Local Governance Act, 2016 (Act 936).</span>
-              </p>
-            </div>
+          {/* FULL DESCRIPTION TEXT (ACT 936) */}
+          <div className="mt-6 max-w-4xl mx-auto">
+            <p className="text-xs md:text-sm text-slate-600 leading-relaxed font-medium bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+              <span className="text-green-700 font-bold uppercase mr-1">Role & Responsibility:</span>
+              Ghanaian Assembly Members (Assemblymen/women) serve as crucial links between their communities and the District/Municipal Assemblies, focusing on local development by representing constituents' views, participating in assembly decisions, overseeing project execution (education, health, sanitation), and mobilizing communal efforts, acting as facilitators for participatory democracy at the local level under the <span className="text-slate-900 font-black">Local Governance Act, 2016 (Act 936).</span>
+            </p>
           </div>
         </div>
 
         {/* --- COMPACT SEARCH & LIVE HUB --- */}
-        <div className="max-w-3xl mx-auto mb-12">
+        <div className="max-w-3xl mx-auto mb-8">
           <div className="flex flex-col md:flex-row items-center gap-3">
             {/* Search Field */}
             <div className="relative w-full group">
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300 group-focus-within:text-green-600 transition-colors" />
+              <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-green-600 transition-colors" />
               <input 
                 type="text"
                 placeholder="Find by town or name..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-14 pr-6 py-4 bg-white border border-slate-200 rounded-2xl shadow-sm focus:ring-4 focus:ring-green-500/5 focus:border-green-600 transition-all outline-none font-bold text-slate-900 text-lg"
+                className="w-full pl-12 pr-6 py-3.5 bg-white border border-slate-200 rounded-xl shadow-sm focus:ring-4 focus:ring-green-500/5 focus:border-green-600 transition-all outline-none font-bold text-slate-900 text-base"
               />
             </div>
 
@@ -99,42 +95,42 @@ export function Assemblymen() {
             <button 
               onClick={handleLiveLocation}
               disabled={isLocating}
-              className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all active:scale-95 disabled:opacity-80 whitespace-nowrap shadow-xl"
+              className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-3.5 bg-slate-900 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all active:scale-95 disabled:opacity-80 whitespace-nowrap shadow-md"
             >
               {isLocating ? (
                 <Loader2 className="w-4 h-4 animate-spin text-green-400" />
               ) : (
                 <Crosshair className="w-4 h-4" />
               )}
-              <span>{isLocating ? "Scanning..." : "Live Location"}</span>
+              <span>{isLocating ? "Locating..." : "Live Location"}</span>
             </button>
           </div>
-
-          <div className="mt-4 flex justify-center">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-100 px-3 py-1 rounded-full">
-              {filteredMembers.length} Representatives Found
+          
+          <div className="mt-3 flex justify-center">
+            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 bg-slate-100 rounded-full">
+              {filteredMembers.length} Representatives Listed
             </span>
           </div>
         </div>
         
         {/* --- ASSEMBLY MEMBERS GRID (ANIMATED ON SCROLL) --- */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
           {filteredMembers.map((member, index) => (
-            <AnimatedSection key={member.zone} delay={index % 5 * 100}>
+            <AnimatedSection key={member.zone} delay={(index % 5) * 50}>
               <div
-                className={`flex flex-col items-center text-center group bg-white border rounded-xl p-3 h-full transition-all duration-300 ${
+                className={`flex flex-col items-center text-center group bg-white border rounded-2xl p-3 h-full transition-all duration-300 ${
                   detectedZone === member.zone 
                   ? 'border-green-500 shadow-xl ring-4 ring-green-50' 
                   : 'border-slate-100 hover:shadow-lg hover:border-green-200'
                 }`}
               >
-                <div className="w-full aspect-[3/4] bg-slate-100 overflow-hidden rounded-lg mb-3 relative">
+                <div className="w-full aspect-[3/4] bg-slate-100 overflow-hidden rounded-xl mb-3 relative">
                   <img 
                     src={member.photoUrl} 
                     alt={member.assemblyman}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/50 to-transparent h-1/3"></div>
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent h-1/2"></div>
                   
                   {/* Active Zone Indicator */}
                   <AnimatePresence>
@@ -151,17 +147,17 @@ export function Assemblymen() {
                 </div>
                 
                 <div className="w-full flex flex-col flex-1">
-                  <p className="text-[10px] font-extrabold tracking-widest text-green-700 uppercase mb-1">
+                  <p className="text-[9px] font-black tracking-widest text-green-700 uppercase mb-1">
                     {member.zone}
                   </p>
-                  <p className="text-sm sm:text-base font-black text-slate-900 leading-tight uppercase line-clamp-2 mb-3">
+                  <p className="text-sm font-black text-slate-900 leading-tight uppercase line-clamp-2 mb-3">
                     {member.assemblyman}
                   </p>
                   
                   <div className="mt-auto">
                     <a 
                       href={`tel:${member.phone}`}
-                      className="flex items-center justify-center gap-2 py-2.5 bg-slate-50 border border-slate-100 rounded-lg text-sm font-bold text-slate-700 hover:bg-green-50 hover:text-green-700 hover:border-green-100 transition-all"
+                      className="flex items-center justify-center gap-2 py-2.5 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 hover:bg-green-50 hover:text-green-700 hover:border-green-100 transition-all"
                     >
                       <Phone className="w-3.5 h-3.5 text-green-600" />
                       <span>{formatPhoneNumber(member.phone)}</span>
@@ -180,12 +176,12 @@ export function Assemblymen() {
             animate={{ opacity: 1 }}
             className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200"
           >
-             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">No results found for your search</p>
+             <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">No members found matching your search</p>
              <button 
               onClick={() => setSearchQuery('')}
               className="mt-4 text-green-600 font-black text-xs uppercase underline underline-offset-4"
             >
-              Show all representatives
+              Clear filter
             </button>
           </motion.div>
         )}
