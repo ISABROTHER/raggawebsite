@@ -1,13 +1,6 @@
 // src/pages/home/QuickAccessGrid.tsx
 import React from "react";
-import {
-  MessageSquareWarning,
-  HardHat,
-  Users,
-  Award,
-  HandHeart,
-  UserCircle
-} from "lucide-react";
+import { MessageSquareWarning, HardHat, Users, Award, Heart, UserCircle } from "lucide-react";
 
 type QuickLink = {
   title: string;
@@ -48,25 +41,25 @@ const quickLinks: QuickLink[] = [
     route: "assemblymen"
   },
   {
-    title: "Achievements", // TITLE PERSISTS
+    title: "Achievements",
     mobileDesc: "Track record",
     desc: "A record of promises kept: infrastructure, desks, and more.",
     icon: Award,
     bgClass: "from-purple-50 to-fuchsia-50/50 border-purple-100",
     iconColor: "text-purple-600",
-    route: "achievements" // ROUTE UPDATED TO MATCH RENAMED FILE
+    route: "achievements"
   },
   {
-    title: "Support",
-    mobileDesc: "Join us",
-    desc: "Volunteer your time or donate to the campaign.",
-    icon: HandHeart,
+    title: "Support", // Home Page Button
+    mobileDesc: "Donate Books",
+    desc: "Help us raise 200,000 exercise books for our students.",
+    icon: Heart,
     bgClass: "from-rose-50 to-pink-50/50 border-rose-100",
     iconColor: "text-rose-600",
-    route: "volunteer"
+    route: "support" // Wired to the new support page
   },
   {
-    title: "Appointment & Applications",
+    title: "Appointments",
     mobileDesc: "Book/Apply",
     desc: "Schedule meetings or submit job and grant applications.",
     icon: UserCircle,
@@ -90,7 +83,7 @@ export function QuickAccessGrid({ onNavigate }: QuickAccessGridProps) {
             <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-green-700">Constituency Services</span>
           </p>
           <div className="mt-4 flex flex-col items-center justify-center group">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent">Information, Services & Support</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">Information & Support</h2>
             <span className="mt-3 h-1 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
           </div>
         </div>
