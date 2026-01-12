@@ -14,11 +14,11 @@ import { Agriculture } from './achievements/Agriculture';
 type PolicyKey = 'education' | 'health' | 'employment' | 'infrastructure' | 'agriculture';
 
 const categories = [
-  { id: 'education' as PolicyKey, title: 'Educational Support', count: 14, desc: 'School renovations, institutional funding, and student resources.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
-  { id: 'health' as PolicyKey, title: 'Health & Social Welfare', count: 3, desc: 'Health facilities and direct support for vulnerable groups.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
-  { id: 'employment' as PolicyKey, title: 'Jobs & Economic Empowerment', count: 11, desc: 'Job placements, vocational training, and business support.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
-  { id: 'infrastructure' as PolicyKey, title: 'Infrastructure & Community', count: 13, desc: 'Road construction, street lighting, and community centers.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
-  { id: 'agriculture' as PolicyKey, title: 'Agri-Development', count: 5, desc: 'Fertilizer distribution and support for local farmers.', image: 'https://i.imgur.com/TZ4jIJA.jpeg', component: <Agriculture /> }
+  { id: 'education' as PolicyKey, title: 'Educational Support', count: 24, desc: 'School renovations, institutional funding, and massive sports development.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
+  { id: 'health' as PolicyKey, title: 'Health & Social Welfare', count: 7, desc: 'CHPS compound renovations, medical supplies, and community relief.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
+  { id: 'employment' as PolicyKey, title: 'Jobs & Economic Empowerment', count: 10, desc: 'Job placements, logistics support, and small business capital.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
+  { id: 'infrastructure' as PolicyKey, title: 'Infrastructure & Community', count: 13, desc: 'Community centers, bridge construction, and road networks.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
+  { id: 'agriculture' as PolicyKey, title: 'Agri-Development', count: 3, desc: 'Fertilizer distribution and support for farming cooperatives.', image: 'https://i.imgur.com/TZ4jIJA.jpeg', component: <Agriculture /> }
 ];
 
 export function Achievements() {
@@ -32,7 +32,6 @@ export function Achievements() {
           {!selectedPolicy ? (
             <motion.div key="grid" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               
-              {/* Standard Heading Block */}
               <div className="text-center mb-12 md:mb-16">
                 <div className="flex flex-col items-center justify-center group">
                   <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
@@ -40,7 +39,7 @@ export function Achievements() {
                   </h1>
                   
                   <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
-                    ACCOUNTING TO THE PEOPLE
+                    ACCOUNTING TO THE PEOPLE (2021 - 2025)
                   </p>
 
                   <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
@@ -63,10 +62,10 @@ export function Achievements() {
                         <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6">{policy.desc}</p>
                         <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between gap-4">
                           <div className="bg-green-50 text-green-700 text-[10px] font-black px-2 py-1 rounded-lg border border-green-100 uppercase tracking-widest">
-                            {policy.count} Initiatives Listed
+                            {policy.count} TOTAL PROJECTS
                           </div>
                           <div className="flex items-center gap-1 text-green-600 font-black text-xs uppercase group-hover:gap-2 transition-all">
-                            <span>View All</span>
+                            <span>View Progress</span>
                             <ChevronRight className="w-4 h-4" />
                           </div>
                         </div>
