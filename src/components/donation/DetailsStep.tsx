@@ -30,21 +30,36 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
       <div className="space-y-3">
         <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 ml-1">Select Gateway</label>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          <button onClick={() => setPaymentMethod('MOMO')} className={`py-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 ${paymentMethod === 'MOMO' ? 'border-red-800 bg-red-50 text-red-800' : 'border-slate-100 bg-white text-slate-400'}`}>
-            <Smartphone className="w-4 h-4" />
+          {/* MOMO - MTN/TELECEL VIBE */}
+          <button onClick={() => setPaymentMethod('MOMO')} className={`py-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 ${paymentMethod === 'MOMO' ? 'border-yellow-400 bg-yellow-50 text-slate-900' : 'border-slate-100 bg-white text-slate-400'}`}>
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center ${paymentMethod === 'MOMO' ? 'bg-yellow-400 text-white' : 'bg-slate-100 text-slate-400'}`}>
+              <Smartphone className="w-3 h-3" />
+            </div>
             <span className="text-[8px] font-black uppercase">MoMo</span>
           </button>
-          <button onClick={() => setPaymentMethod('CARD')} className={`py-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 ${paymentMethod === 'CARD' ? 'border-red-800 bg-red-50 text-red-800' : 'border-slate-100 bg-white text-slate-400'}`}>
-            <CreditCard className="w-4 h-4" />
+
+          {/* CARD - VISA/MASTER VIBE */}
+          <button onClick={() => setPaymentMethod('CARD')} className={`py-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 ${paymentMethod === 'CARD' ? 'border-blue-600 bg-blue-50 text-slate-900' : 'border-slate-100 bg-white text-slate-400'}`}>
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center ${paymentMethod === 'CARD' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'}`}>
+              <CreditCard className="w-3 h-3" />
+            </div>
             <span className="text-[8px] font-black uppercase">Card</span>
           </button>
-          <button onClick={() => setPaymentMethod('BANK')} className={`py-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 ${paymentMethod === 'BANK' ? 'border-red-800 bg-red-50 text-red-800' : 'border-slate-100 bg-white text-slate-400'}`}>
-            <Landmark className="w-4 h-4" />
+
+          {/* BANK - TRANSFER VIBE */}
+          <button onClick={() => setPaymentMethod('BANK')} className={`py-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 ${paymentMethod === 'BANK' ? 'border-red-600 bg-red-50 text-slate-900' : 'border-slate-100 bg-white text-slate-400'}`}>
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center ${paymentMethod === 'BANK' ? 'bg-red-600 text-white' : 'bg-slate-100 text-slate-400'}`}>
+              <Landmark className="w-3 h-3" />
+            </div>
             <span className="text-[8px] font-black uppercase">Bank</span>
           </button>
-          <button onClick={() => setPaymentMethod('APPLE')} className={`py-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 ${paymentMethod === 'APPLE' ? 'border-red-800 bg-red-50 text-red-800' : 'border-slate-100 bg-white text-slate-400'}`}>
-            <Apple className="w-4 h-4" />
-            <span className="text-[8px] font-black uppercase">Apple</span>
+
+          {/* APPLE PAY - ICONIC VIBE */}
+          <button onClick={() => setPaymentMethod('APPLE')} className={`py-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 ${paymentMethod === 'APPLE' ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-100 bg-white text-slate-400'}`}>
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center ${paymentMethod === 'APPLE' ? 'bg-white text-slate-900' : 'bg-slate-100 text-slate-400'}`}>
+              <Apple className="w-3 h-3" />
+            </div>
+            <span className="text-[8px] font-black uppercase">Apple Pay</span>
           </button>
         </div>
       </div>
@@ -80,7 +95,7 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
 
       <div className="flex items-center gap-2 px-2 text-[9px] font-bold text-slate-400 uppercase tracking-widest">
         <ShieldCheck className="w-3 h-3 text-green-600" /> 
-        Secure {paymentMethod} Protocol
+        Secure {paymentMethod} Protocol Verified
       </div>
 
       <div className="pt-4 flex flex-col sm:flex-row gap-3">
