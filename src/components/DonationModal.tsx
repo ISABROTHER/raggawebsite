@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   X, CheckCircle2,
-  Minus, Plus, Loader2, Heart
+  Minus, Plus, Loader2
 } from 'lucide-react';
 import Paystack from '@paystack/inline-js';
 
@@ -149,11 +149,11 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 bg-slate-900/60 backdrop-blur-sm touch-none">
-      <div className="bg-white w-full max-w-lg rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in zoom-in-95 duration-300 max-h-[95vh] flex flex-col touch-auto">
+    <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/60 backdrop-blur-sm transition-all duration-300">
+      <div className="bg-white w-full max-w-lg rounded-t-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in slide-in-from-bottom sm:zoom-in-95 duration-300 max-h-[92vh] flex flex-col">
         
-        {/* Header */}
-        <div className="bg-red-800 p-4 md:p-6 text-white flex justify-between items-center shrink-0">
+        {/* Header - Fixed to top */}
+        <div className="bg-red-800 p-5 md:p-6 text-white flex justify-between items-center shrink-0 shadow-lg z-10">
           <div className="pr-4 text-left">
             <h2 className="text-lg md:text-xl font-black uppercase tracking-tight">Support Project</h2>
             <p className="text-[10px] font-bold uppercase tracking-wider text-white/80 mt-0.5 leading-tight">
@@ -167,14 +167,15 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
           )}
         </div>
 
-        <div className="p-5 md:p-8 overflow-y-auto overscroll-contain">
+        {/* Modal Body - Scrollable to accommodate keyboard */}
+        <div className="flex-1 p-6 md:p-8 overflow-y-auto overscroll-contain bg-white">
           {isProcessing ? (
             <div className="py-12 flex flex-col items-center justify-center space-y-4">
               <Loader2 className="w-12 h-12 text-red-800 animate-spin" />
               <p className="text-sm font-black uppercase tracking-widest text-slate-900">Processing Payment...</p>
             </div>
           ) : (
-            <>
+            <div className="pb-12 sm:pb-0"> {/* Added bottom padding for mobile keyboard scrolling */}
               {/* STEP 1: QUANTITY */}
               {step === 1 && (
                 <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
@@ -206,8 +207,8 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                             const val = parseInt(e.target.value.replace(/,/g, ''));
                             setSelectedAmount(isNaN(val) ? 0 : val);
                           }}
-                          className="bg-transparent text-2xl font-black text-slate-900 outline-none w-20 md:w-32 text-center sm:text-left text-base sm:text-2xl" 
-                          style={{ fontSize: '16px' }} 
+                          className="bg-transparent text-2xl font-black text-slate-900 outline-none w-24 md:w-32 text-center sm:text-left focus:ring-0" 
+                          style={{ fontSize: '18px' }} 
                           placeholder="0"
                         />
                         <span className="text-2xl font-black text-slate-900 uppercase">
@@ -254,7 +255,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   <button 
                     onClick={() => selectedAmount >= 1 && setStep(2)} 
                     disabled={selectedAmount < 1}
-                    className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-[0.98] transition-transform"
+                    className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-[0.98] transition-all"
                   >
                     Proceed to Details
                   </button>
@@ -276,27 +277,38 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
                   <div className="space-y-4 text-left">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="space-y-1">
+                        <label className="text-[9px] font-black uppercase text-slate-400 ml-1 tracking-widest">First Name</label>
+                        <input 
+                          type="text" placeholder="e.g. John" value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20 transition-all" 
+                          style={{ fontSize: '16px' }}
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-[9px] font-black uppercase text-slate-400 ml-1 tracking-widest">Surname</label>
+                        <input 
+                          type="text" placeholder="e.g. Doe" value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20 transition-all" 
+                          style={{ fontSize: '16px' }}
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-black uppercase text-slate-400 ml-1 tracking-widest">
+                        {payMethod === 'LOCAL' ? "Mobile Money Number" : "Email Address"}
+                      </label>
                       <input 
-                        type="text" placeholder="First Name" value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20" 
-                        style={{ fontSize: '16px' }}
-                      />
-                      <input 
-                        type="text" placeholder="Surname" value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20" 
+                        type={payMethod === 'LOCAL' ? "tel" : "email"} 
+                        placeholder={payMethod === 'LOCAL' ? "024XXXXXXX" : "your@email.com"} 
+                        value={contactInfo}
+                        onChange={(e) => setContactInfo(e.target.value)}
+                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20 transition-all" 
                         style={{ fontSize: '16px' }}
                       />
                     </div>
-                    <input 
-                      type={payMethod === 'LOCAL' ? "tel" : "email"} 
-                      placeholder={payMethod === 'LOCAL' ? "MoMo Number" : "Email Address"} 
-                      value={contactInfo}
-                      onChange={(e) => setContactInfo(e.target.value)}
-                      className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20" 
-                      style={{ fontSize: '16px' }}
-                    />
                   </div>
 
                   <div className="pt-2 flex flex-col sm:flex-row gap-3">
@@ -327,7 +339,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   <button onClick={handleClose} className="w-full py-5 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase text-xs hover:bg-slate-50">Close Window</button>
                 </div>
               )}
-            </>
+            </div>
           )}
         </div>
       </div>
