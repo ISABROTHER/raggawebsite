@@ -26,23 +26,23 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
   ];
 
   return (
-    <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-300">
+    <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-300 pb-10 sm:pb-0">
       <div className="flex items-center gap-3 mb-2">
         <span className="flex items-center justify-center w-8 h-8 rounded-full bg-red-800 text-white font-black text-sm">2</span>
         <h3 className="text-sm font-black uppercase tracking-widest text-slate-900">Payment Method</h3>
       </div>
 
-      {/* Summary Summary */}
+      {/* Summary Box */}
       <div className="bg-slate-50 border-2 border-dashed border-slate-200 p-4 rounded-3xl">
         <div className="flex justify-between items-center">
-          <span className="font-black text-green-700 uppercase text-[11px] tracking-widest">Amount to Pay</span>
+          <span className="font-black text-green-700 uppercase text-[10px] tracking-widest">Amount to Pay</span>
           <span className="text-xl font-black text-green-700">{currency === 'GHS' ? '₵' : '$'}{totalCost.toLocaleString()}</span>
         </div>
       </div>
 
-      {/* Conditional Payment Selection */}
+      {/* Network/Method Selection */}
       <div className="space-y-3">
-        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">
+        <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 ml-1">
           {currency === 'GHS' ? 'Select Network' : 'Select Method'}
         </label>
         
@@ -51,6 +51,7 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
             momoNetworks.map((net) => (
               <button
                 key={net.id}
+                type="button"
                 onClick={() => setPaymentMethod(net.id)}
                 className={`py-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1 ${
                   paymentMethod === net.id ? 'border-red-800 bg-red-50' : 'border-slate-100 bg-white'
@@ -64,6 +65,7 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
             internationalMethods.map((method) => (
               <button
                 key={method.id}
+                type="button"
                 onClick={() => setPaymentMethod(method.id)}
                 className={`py-3 px-2 rounded-xl border-2 transition-all flex flex-col items-center gap-1 ${
                   paymentMethod === method.id ? 'border-red-800 bg-red-50' : 'border-slate-100 bg-white'
@@ -77,55 +79,69 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
         </div>
       </div>
 
-      {/* Inputs - Fixed at 16px to prevent iOS zoom */}
-      <div className="space-y-3">
-        <div className="relative">
-          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input 
-            type="text" 
-            placeholder="Full Name" 
-            className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800 font-bold text-base" 
-            style={{ fontSize: '16px' }}
-          />
+      {/* Input Fields - Font Size set to 16px to prevent iOS Zoom */}
+      <div className="space-y-4">
+        <div className="space-y-1">
+          <label className="text-[9px] font-black uppercase text-slate-400 ml-1 tracking-widest">Full Name</label>
+          <div className="relative">
+            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input 
+              type="text" 
+              placeholder="e.g. Kwamena Minta" 
+              className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800/20 font-bold text-base" 
+              style={{ fontSize: '16px' }}
+            />
+          </div>
         </div>
         
-        <div className="relative">
-          {currency === 'GHS' ? (
-            <>
-              <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input 
-                type="tel" 
-                placeholder="MoMo Number" 
-                className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800 font-bold text-base" 
-                style={{ fontSize: '16px' }}
-              />
-            </>
-          ) : (
-            <>
-              <CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input 
-                type="text" 
-                placeholder="Card Number or Email" 
-                className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800 font-bold text-base" 
-                style={{ fontSize: '16px' }}
-              />
-            </>
-          )}
+        <div className="space-y-1">
+          <label className="text-[9px] font-black uppercase text-slate-400 ml-1 tracking-widest">
+            {currency === 'GHS' ? 'MoMo Number' : 'Card / Email Address'}
+          </label>
+          <div className="relative">
+            {currency === 'GHS' ? (
+              <>
+                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input 
+                  type="tel" 
+                  placeholder="024 XXX XXXX" 
+                  className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800/20 font-bold text-base" 
+                  style={{ fontSize: '16px' }}
+                />
+              </>
+            ) : (
+              <>
+                <CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input 
+                  type="text" 
+                  placeholder="Enter card or email" 
+                  className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800/20 font-bold text-base" 
+                  style={{ fontSize: '16px' }}
+                />
+              </>
+            )}
+          </div>
         </div>
       </div>
 
       <div className="flex items-center gap-2 px-2 text-[9px] font-bold text-slate-400 uppercase tracking-widest">
         <ShieldCheck className="w-3 h-3 text-green-600" /> 
-        {currency === 'GHS' ? 'Verified Gateway' : 'Secure Processing'}
+        {currency === 'GHS' ? 'Verified MoMo Gateway' : 'Secure Card Processing'}
       </div>
 
+      {/* Actions */}
       <div className="pt-4 flex flex-col sm:flex-row gap-3">
-        <button onClick={onBack} className="order-2 sm:order-1 w-full sm:w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-slate-50">Back</button>
+        <button 
+          onClick={onBack} 
+          className="order-2 sm:order-1 w-full sm:w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-slate-50 active:scale-95 transition-all"
+        >
+          Back
+        </button>
         <button 
           onClick={onPay}
-          className="order-1 sm:order-2 w-full sm:w-2/3 py-5 bg-red-800 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm shadow-xl shadow-red-200 hover:bg-red-900 transition-all active:scale-95"
+          className="order-1 sm:order-2 w-full sm:w-2/3 py-5 bg-red-800 text-white rounded-2xl font-black uppercase tracking-[0.15em] text-sm shadow-xl shadow-red-200 hover:bg-red-900 transition-all active:scale-95"
         >
-          {currency === 'GHS' ? 'Donate Now' : 'Donate Now'}
+          Confirm Donation
         </button>
       </div>
     </div>
