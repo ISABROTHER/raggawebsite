@@ -1,8 +1,8 @@
 // src/components/DonationModal.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  X, Heart, CheckCircle2,
-  Minus, Plus, Loader2
+  X, Heart, ChevronRight, CheckCircle2,
+  User, Phone, CreditCard, Loader2, RefreshCw, Minus, Plus
 } from 'lucide-react';
 import Paystack from '@paystack/inline-js';
 
@@ -113,7 +113,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
             }
           ]
         },
-        onSuccess: (transaction: any) => {
+        onSuccess: (transaction) => {
           console.log('Payment successful:', transaction);
           setIsProcessing(false);
           setStep(3);
@@ -122,7 +122,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
           console.log('Payment cancelled');
           setIsProcessing(false);
         },
-        onError: (error: any) => {
+        onError: (error) => {
           console.error('Payment error:', error);
           setIsProcessing(false);
           alert('There was an error processing your payment. Please try again.');
@@ -207,7 +207,6 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                           }}
                           className="bg-transparent text-2xl font-black text-slate-900 outline-none w-24 md:w-32"
                           placeholder="0"
-                          style={{ fontSize: '16px' }}
                         />
                         <span className="text-2xl font-black text-slate-900 uppercase">
                           {selectedAmount === 1 ? 'BOOK' : 'BOOKS'}
@@ -253,9 +252,10 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   <button 
                     onClick={() => selectedAmount >= 1 && setStep(2)} 
                     disabled={selectedAmount < 1}
-                    className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl"
+                    className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl hover:bg-slate-800 hover:shadow-2xl hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                   >
                     Proceed to Details
+                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
                   </button>
                 </div>
               )}
@@ -279,13 +279,11 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                         type="text" placeholder="First Name" value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none" 
-                        style={{ fontSize: '16px' }}
                       />
                       <input 
                         type="text" placeholder="Surname" value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none" 
-                        style={{ fontSize: '16px' }}
                       />
                     </div>
                     <input 
@@ -294,16 +292,15 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                       value={contactInfo}
                       onChange={(e) => setContactInfo(e.target.value)}
                       className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none" 
-                      style={{ fontSize: '16px' }}
                     />
                   </div>
 
                   <div className="pt-2 flex gap-3">
-                    <button onClick={() => setStep(1)} className="w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase text-[10px]">Back</button>
+                    <button onClick={() => setStep(1)} className="w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase text-[10px] hover:bg-slate-50 transition-colors">Back</button>
                     <button 
                       onClick={handlePay} 
                       disabled={!firstName || !lastName || !contactInfo}
-                      className={`w-2/3 py-5 rounded-2xl font-black uppercase text-sm shadow-xl transition-all ${(!firstName || !lastName || !contactInfo) ? 'bg-slate-200 text-slate-400' : 'bg-red-800 text-white'}`}
+                      className={`w-2/3 py-5 rounded-2xl font-black uppercase text-sm shadow-xl transition-all hover:shadow-2xl hover:-translate-y-0.5 active:scale-[0.98] ${(!firstName || !lastName || !contactInfo) ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-red-800 text-white cursor-pointer hover:bg-red-700'}`}
                     >
                       Confirm ₵{totalGHS.toLocaleString()}
                     </button>
@@ -323,7 +320,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   <p className="text-sm text-slate-600 font-medium leading-relaxed max-w-xs mx-auto mb-8 italic">
                     Your sponsorship of {selectedAmount.toLocaleString()} {selectedAmount === 1 ? 'book' : 'books'} is a generational investment.
                   </p>
-                  <button onClick={handleClose} className="w-full py-5 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase text-xs">Close Window</button>
+                  <button onClick={handleClose} className="w-full py-5 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase text-xs hover:bg-slate-50 transition-colors">Close Window</button>
                 </div>
               )}
             </>
