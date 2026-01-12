@@ -52,7 +52,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
         .then(res => res.json())
         .then(data => {
           if (data?.rates?.GHS) setExchangeRate(data.rates.GHS);
-          setIsFetchingRate(false);
+          setIsFetchingRate(false)
         })
         .catch(() => setIsFetchingRate(false));
     }
@@ -75,7 +75,11 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
     try {
       const amountInPesewas = Math.round(totalGHS * 100);
-      const email = payMethod === 'FOREIGN' ? contactInfo : `${contactInfo.replace(/[^0-9]/g, '')}@momo.placeholder`;
+      
+      // FIX: Changed .placeholder to .com and added .trim() to ensure valid email formatting for Paystack
+      const email = payMethod === 'FOREIGN' 
+        ? contactInfo.trim() 
+        : `${contactInfo.replace(/[^0-9]/g, '') || '0000000000'}@momo.com`;
 
       const popup = new Paystack();
 
