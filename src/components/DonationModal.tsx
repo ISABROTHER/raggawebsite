@@ -290,4 +290,4 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
       </div>
     </div>
   );
-}
+} 
