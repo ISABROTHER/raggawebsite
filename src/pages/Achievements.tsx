@@ -14,11 +14,11 @@ import { Agriculture } from './achievements/Agriculture';
 type PolicyKey = 'education' | 'health' | 'employment' | 'infrastructure' | 'agriculture';
 
 const categories = [
-  { id: 'education' as PolicyKey, title: 'Educational Support', count: 10, desc: 'Quality education, school resources, and youth training.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
-  { id: 'health' as PolicyKey, title: 'Health & Social Welfare', count: 1, desc: 'Health facilities and support for the vulnerable.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
-  { id: 'employment' as PolicyKey, title: 'Jobs & Economic Empowerment', count: 7, desc: 'Reviving local industry and securing job placements.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
-  { id: 'infrastructure' as PolicyKey, title: 'Infrastructure', count: 9, desc: 'Improving roads, lighting, and community connectivity.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
-  { id: 'agriculture' as PolicyKey, title: 'Agri-Development', count: 1, desc: 'Supporting farmers with tools, training, and resources.', image: 'https://i.imgur.com/TZ4jIJA.jpeg', component: <Agriculture /> }
+  { id: 'education' as PolicyKey, title: 'Education & Sports', count: 10, desc: 'School renovations, institutional support, and sports infrastructure.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
+  { id: 'health' as PolicyKey, title: 'Health & Social Welfare', count: 1, desc: 'Support for the aged, disabled, and vulnerable groups.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
+  { id: 'employment' as PolicyKey, title: 'Jobs & Empowerment', count: 21, desc: 'Public service recruitments, skills training, and financial support.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
+  { id: 'infrastructure' as PolicyKey, title: 'Infrastructure & Roads', count: 9, desc: 'Road construction, street lighting, and community centers.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
+  { id: 'agriculture' as PolicyKey, title: 'Agri-Development', count: 1, desc: 'Direct support to farming communities and resources.', image: 'https://i.imgur.com/TZ4jIJA.jpeg', component: <Agriculture /> }
 ];
 
 export function Achievements() {
@@ -32,17 +32,15 @@ export function Achievements() {
           {!selectedPolicy ? (
             <motion.div key="grid" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               
-              {/* Standard Heading Block */}
+              {/* Main Heading Block */}
               <div className="text-center mb-12 md:mb-16">
                 <div className="flex flex-col items-center justify-center group">
-                  {/* Main Heading */}
                   <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
-                    PROJECTS AND INITIATIVES
+                    WHAT IS DONE
                   </h1>
                   
-                  {/* Subtitle */}
                   <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
-                    ACCOUNTING TO THE PEOPLE
+                    2025 ACHIEVEMENTS - ACCOUNTING TO THE PEOPLE
                   </p>
 
                   <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
@@ -65,10 +63,10 @@ export function Achievements() {
                         <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6">{policy.desc}</p>
                         <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between gap-4">
                           <div className="bg-green-50 text-green-700 text-[10px] font-black px-2 py-1 rounded-lg border border-green-100 uppercase tracking-widest">
-                            {policy.count} key items listed
+                            {policy.count} 2025 items
                           </div>
                           <div className="flex items-center gap-1 text-green-600 font-black text-xs uppercase group-hover:gap-2 transition-all">
-                            <span>Details</span>
+                            <span>View All</span>
                             <ChevronRight className="w-4 h-4" />
                           </div>
                         </div>
@@ -85,10 +83,10 @@ export function Achievements() {
                 className="flex items-center gap-2 text-slate-600 hover:text-green-700 mb-8 font-black transition-colors group"
               >
                 <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" /> 
-                <span className="font-black">Back to Overview</span>
+                <span className="font-black uppercase">Back to 2025 Overview</span>
               </button>
 
-              <div className="relative h-48 md:h-64 rounded-[2rem] overflow-hidden mb-12 shadow-xl">
+              <div className="relative h-48 md:h-64 rounded-[2rem] overflow-hidden mb-12 shadow-xl border border-slate-100">
                 <img src={selectedPolicy.image} alt={selectedPolicy.title} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-8 md:p-10">
                   <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight uppercase">{selectedPolicy.title}</h1>
