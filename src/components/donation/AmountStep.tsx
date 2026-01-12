@@ -60,14 +60,32 @@ export function AmountStep({
         </p>
       </div>
 
-      {/* Modern Animated Button */}
+      {/* Modern Animated Breathing Button */}
       <button 
         onClick={onNext}
-        className="group relative w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl transition-all duration-300 hover:bg-slate-800 hover:shadow-slate-900/30 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
+        className="group relative w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl transition-all duration-300 hover:bg-slate-800 hover:shadow-slate-900/30 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2 overflow-hidden"
+        style={{ animation: 'pulse-subtle-light 2.5s infinite' }}
       >
-        Next: Your Details 
-        <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+        {/* Shimmer Effect */}
+        <div className="absolute inset-0 w-1/4 h-full bg-white/10 skew-x-[-20deg] -translate-x-full group-hover:animate-shimmer" />
+        
+        <span className="relative z-10">Next: Your Details</span>
+        <ChevronRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
       </button>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes pulse-subtle-light {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.015); shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+        }
+        @keyframes shimmer {
+          0% { transform: skewX(-20deg) translateX(-150%); }
+          100% { transform: skewX(-20deg) translateX(350%); }
+        }
+        .animate-shimmer {
+          animation: shimmer 2s infinite;
+        }
+      `}} />
     </div>
   );
 }
