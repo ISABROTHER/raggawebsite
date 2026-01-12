@@ -207,6 +207,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                           }}
                           className="bg-transparent text-2xl font-black text-slate-900 outline-none w-24 md:w-32"
                           placeholder="0"
+                          style={{ fontSize: '16px' }}
                         />
                         <span className="text-2xl font-black text-slate-900 uppercase">
                           {selectedAmount === 1 ? 'BOOK' : 'BOOKS'}
@@ -249,14 +250,18 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     </div>
                   </div>
 
-                  {/* Modern Animated Button */}
+                  {/* Breathing Pulse Animated Button */}
                   <button 
                     onClick={() => selectedAmount >= 1 && setStep(2)} 
                     disabled={selectedAmount < 1}
-                    className="group relative w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl transition-all duration-300 hover:bg-slate-800 hover:shadow-slate-900/30 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-xl"
+                    className="group relative w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl transition-all duration-300 hover:bg-slate-800 hover:shadow-2xl hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:animate-none"
+                    style={{ animation: selectedAmount >= 1 ? 'pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' : 'none' }}
                   >
-                    Proceed to Details
-                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    {/* Shimmer Effect Overlay */}
+                    <div className="absolute inset-0 w-1/4 h-full bg-white/10 skew-x-[-20deg] -translate-x-full group-hover:animate-shimmer" />
+                    
+                    <span className="relative z-10">Proceed to Details</span>
+                    <ChevronRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
               )}
@@ -280,11 +285,13 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                         type="text" placeholder="First Name" value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none" 
+                        style={{ fontSize: '16px' }}
                       />
                       <input 
                         type="text" placeholder="Surname" value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none" 
+                        style={{ fontSize: '16px' }}
                       />
                     </div>
                     <input 
@@ -293,6 +300,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                       value={contactInfo}
                       onChange={(e) => setContactInfo(e.target.value)}
                       className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none" 
+                      style={{ fontSize: '16px' }}
                     />
                   </div>
 
@@ -301,9 +309,11 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     <button 
                       onClick={handlePay} 
                       disabled={!firstName || !lastName || !contactInfo}
-                      className={`group w-2/3 py-5 rounded-2xl font-black uppercase text-sm shadow-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-95 ${(!firstName || !lastName || !contactInfo) ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-red-800 text-white hover:bg-red-700 hover:shadow-red-900/20'}`}
+                      className={`group relative w-2/3 py-5 rounded-2xl font-black uppercase text-sm shadow-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-95 overflow-hidden ${(!firstName || !lastName || !contactInfo) ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-red-800 text-white hover:bg-red-700 shadow-red-900/20'}`}
+                      style={{ animation: (!firstName || !lastName || !contactInfo) ? 'none' : 'pulse-subtle 2s infinite' }}
                     >
-                      Confirm ₵{totalGHS.toLocaleString()}
+                      <div className="absolute inset-0 w-1/4 h-full bg-white/10 skew-x-[-20deg] -translate-x-full group-hover:animate-shimmer" />
+                      <span className="relative z-10">Confirm ₵{totalGHS.toLocaleString()}</span>
                     </button>
                   </div>
                 </div>
@@ -321,13 +331,28 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   <p className="text-sm text-slate-600 font-medium leading-relaxed max-w-xs mx-auto mb-8 italic">
                     Your sponsorship of {selectedAmount.toLocaleString()} {selectedAmount === 1 ? 'book' : 'books'} is a generational investment.
                   </p>
-                  <button onClick={handleClose} className="w-full py-5 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase text-xs hover:bg-slate-50 transition-colors">Close Window</button>
+                  <button onClick={handleClose} className="w-full py-5 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase text-xs hover:bg-slate-50">Close Window</button>
                 </div>
               )}
             </>
           )}
         </div>
       </div>
+      
+      {/* Custom Keyframe Styles */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes pulse-subtle {
+          0%, 100% { transform: scale(1); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+          50% { transform: scale(1.02); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2); }
+        }
+        @keyframes shimmer {
+          0% { transform: skewX(-20deg) translateX(-150%); }
+          100% { transform: skewX(-20deg) translateX(350%); }
+        }
+        .animate-shimmer {
+          animation: shimmer 1.5s infinite;
+        }
+      `}} />
     </div>
   );
 }
