@@ -249,13 +249,14 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     </div>
                   </div>
 
+                  {/* Modern Animated Button */}
                   <button 
                     onClick={() => selectedAmount >= 1 && setStep(2)} 
                     disabled={selectedAmount < 1}
-                    className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl hover:bg-slate-800 hover:shadow-2xl hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                    className="group relative w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl transition-all duration-300 hover:bg-slate-800 hover:shadow-slate-900/30 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-xl"
                   >
                     Proceed to Details
-                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+                    <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                   </button>
                 </div>
               )}
@@ -300,7 +301,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     <button 
                       onClick={handlePay} 
                       disabled={!firstName || !lastName || !contactInfo}
-                      className={`w-2/3 py-5 rounded-2xl font-black uppercase text-sm shadow-xl transition-all hover:shadow-2xl hover:-translate-y-0.5 active:scale-[0.98] ${(!firstName || !lastName || !contactInfo) ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-red-800 text-white cursor-pointer hover:bg-red-700'}`}
+                      className={`group w-2/3 py-5 rounded-2xl font-black uppercase text-sm shadow-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-95 ${(!firstName || !lastName || !contactInfo) ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-red-800 text-white hover:bg-red-700 hover:shadow-red-900/20'}`}
                     >
                       Confirm ₵{totalGHS.toLocaleString()}
                     </button>
