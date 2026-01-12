@@ -77,23 +77,38 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
         </div>
       </div>
 
-      {/* Inputs */}
+      {/* Inputs - Fixed at 16px to prevent iOS zoom */}
       <div className="space-y-3">
         <div className="relative">
           <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input type="text" placeholder="Full Name" className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800 font-bold text-sm" />
+          <input 
+            type="text" 
+            placeholder="Full Name" 
+            className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800 font-bold text-base" 
+            style={{ fontSize: '16px' }}
+          />
         </div>
         
         <div className="relative">
           {currency === 'GHS' ? (
             <>
               <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input type="tel" placeholder="MoMo Number" className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800 font-bold text-sm" />
+              <input 
+                type="tel" 
+                placeholder="MoMo Number" 
+                className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800 font-bold text-base" 
+                style={{ fontSize: '16px' }}
+              />
             </>
           ) : (
             <>
               <CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input type="text" placeholder="Card Number or Email" className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800 font-bold text-sm" />
+              <input 
+                type="text" 
+                placeholder="Card Number or Email" 
+                className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800 font-bold text-base" 
+                style={{ fontSize: '16px' }}
+              />
             </>
           )}
         </div>
