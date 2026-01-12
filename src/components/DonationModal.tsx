@@ -24,7 +24,6 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   // Ref for the long-press interval
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // --- BUTTON LOGIC ---
   const stopAdjusting = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
@@ -44,7 +43,6 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
     intervalRef.current = setInterval(adjust, 70);
   };
 
-  // Fetch Rate & Cleanup Interval
   useEffect(() => {
     if (isOpen) {
       setIsFetchingRate(true);
@@ -56,18 +54,24 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
         })
         .catch(() => setIsFetchingRate(false));
     }
-    return () => stopAdjusting(); // Safety cleanup
+    return () => stopAdjusting();
   }, [isOpen]);
 
   if (!isOpen) return null;
 
-  // Constants for display
   const totalGHS = selectedAmount * pricePerBookGHS;
   const totalUSD = totalGHS / (exchangeRate || 15.20);
 
   const handlePay = () => {
+    // Basic Validation
     if (selectedAmount < 1 || !firstName || !lastName || !contactInfo) {
       alert('Please fill in all required fields');
+      return;
+    }
+
+    // Email Validation for Foreign Tab
+    if (payMethod === 'FOREIGN' && !contactInfo.includes('@')) {
+      alert('Please enter a valid email address for card payments');
       return;
     }
 
@@ -76,9 +80,15 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
     try {
       const amountInPesewas = Math.round(totalGHS * 100);
       
+      // Control the Email sent to Paystack
       const email = payMethod === 'FOREIGN' 
         ? contactInfo.trim() 
         : `${contactInfo.replace(/[^0-9]/g, '') || '0000000000'}@momo.com`;
+
+      // LINK TABS TO CHANNELS: This makes the tabs "Real"
+      const paystackChannels = payMethod === 'LOCAL' 
+        ? ['mobile_money'] 
+        : ['card', 'bank_transfer', 'apple_pay', 'google_pay'];
 
       const popup = new Paystack();
 
@@ -88,50 +98,31 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
         amount: amountInPesewas,
         currency: 'GHS',
         reference: 'BOOK_' + Date.now() + Math.floor(Math.random() * 1000000),
-        channels: ['card', 'mobile_money', 'bank_transfer'],
+        channels: paystackChannels,
         metadata: {
           custom_fields: [
-            {
-              display_name: "Donor Name",
-              variable_name: "donor_name",
-              value: `${firstName} ${lastName}`
-            },
-            {
-              display_name: "Books Sponsored",
-              variable_name: "books_count",
-              value: selectedAmount.toString()
-            },
-            {
-              display_name: "Payment Method",
-              variable_name: "payment_method",
-              value: payMethod
-            },
-            {
-              display_name: "Contact",
-              variable_name: "contact",
-              value: contactInfo
-            }
+            { display_name: "Donor Name", variable_name: "donor_name", value: `${firstName} ${lastName}` },
+            { display_name: "Books Sponsored", variable_name: "books_count", value: selectedAmount.toString() },
+            { display_name: "Type", variable_name: "payment_type", value: payMethod }
           ]
         },
-        onSuccess: (transaction) => {
+        onSuccess: (transaction: any) => {
           console.log('Payment successful:', transaction);
           setIsProcessing(false);
           setStep(3);
         },
         onCancel: () => {
-          console.log('Payment cancelled');
           setIsProcessing(false);
         },
-        onError: (error) => {
+        onError: (error: any) => {
           console.error('Payment error:', error);
           setIsProcessing(false);
-          alert('There was an error processing your payment. Please try again.');
+          alert('There was an error processing your payment. Please ensure your details are correct.');
         }
       });
     } catch (error) {
       setIsProcessing(false);
-      console.error('Payment initialization error:', error);
-      alert('There was an error initializing payment. Please try again.');
+      alert('Could not initialize payment. Please check your internet connection.');
     }
   };
 
@@ -150,11 +141,11 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
   return (
     <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/60 backdrop-blur-sm transition-all duration-300">
-      <div className="bg-white w-full max-w-lg rounded-t-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in slide-in-from-bottom sm:zoom-in-95 duration-300 max-h-[92vh] flex flex-col">
+      <div className="bg-white w-full max-w-lg rounded-t-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in slide-in-from-bottom sm:zoom-in-95 duration-300 max-h-[94vh] flex flex-col">
         
-        {/* Header - Fixed to top */}
-        <div className="bg-red-800 p-5 md:p-6 text-white flex justify-between items-center shrink-0 shadow-lg z-10">
-          <div className="pr-4 text-left">
+        {/* Header */}
+        <div className="bg-red-800 p-5 md:p-6 text-white flex justify-between items-center shrink-0 z-10 shadow-md">
+          <div className="text-left">
             <h2 className="text-lg md:text-xl font-black uppercase tracking-tight">Support Project</h2>
             <p className="text-[10px] font-bold uppercase tracking-wider text-white/80 mt-0.5 leading-tight">
               Impact a generational future
@@ -167,16 +158,16 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
           )}
         </div>
 
-        {/* Modal Body - Scrollable to accommodate keyboard */}
+        {/* Scrollable Content */}
         <div className="flex-1 p-6 md:p-8 overflow-y-auto overscroll-contain bg-white">
           {isProcessing ? (
             <div className="py-12 flex flex-col items-center justify-center space-y-4">
               <Loader2 className="w-12 h-12 text-red-800 animate-spin" />
-              <p className="text-sm font-black uppercase tracking-widest text-slate-900">Processing Payment...</p>
+              <p className="text-sm font-black uppercase tracking-widest text-slate-900">Connecting to Paystack...</p>
             </div>
           ) : (
-            <div className="pb-12 sm:pb-0"> {/* Added bottom padding for mobile keyboard scrolling */}
-              {/* STEP 1: QUANTITY */}
+            <div className="pb-10 sm:pb-0">
+              {/* STEP 1 */}
               {step === 1 && (
                 <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
                   <div className="flex items-center gap-2">
@@ -207,7 +198,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                             const val = parseInt(e.target.value.replace(/,/g, ''));
                             setSelectedAmount(isNaN(val) ? 0 : val);
                           }}
-                          className="bg-transparent text-2xl font-black text-slate-900 outline-none w-24 md:w-32 text-center sm:text-left focus:ring-0" 
+                          className="bg-transparent text-2xl font-black text-slate-900 outline-none w-24 md:w-32 text-center sm:text-left" 
                           style={{ fontSize: '18px' }} 
                           placeholder="0"
                         />
@@ -217,28 +208,11 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                       </div>
 
                       <div className="flex items-center gap-4">
-                        <button 
-                          onMouseDown={() => startAdjusting('down')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting}
-                          onTouchStart={() => startAdjusting('down')} onTouchEnd={stopAdjusting}
-                          className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90"
-                        >
-                          <Minus className="w-6 h-6" />
-                        </button>
-                        <button 
-                          onMouseDown={() => startAdjusting('up')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting}
-                          onTouchStart={() => startAdjusting('up')} onTouchEnd={stopAdjusting}
-                          className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90"
-                        >
-                          <Plus className="w-6 h-6" />
-                        </button>
+                        <button onMouseDown={() => startAdjusting('down')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting} onTouchStart={() => startAdjusting('down')} onTouchEnd={stopAdjusting} className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90"><Minus className="w-6 h-6" /></button>
+                        <button onMouseDown={() => startAdjusting('up')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting} onTouchStart={() => startAdjusting('up')} onTouchEnd={stopAdjusting} className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90"><Plus className="w-6 h-6" /></button>
                       </div>
                     </div>
-                    <input 
-                      type="range" min="1" max="200000" step="1"
-                      value={selectedAmount}
-                      onChange={(e) => setSelectedAmount(parseInt(e.target.value))}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-red-800"
-                    />
+                    <input type="range" min="1" max="200000" step="1" value={selectedAmount} onChange={(e) => setSelectedAmount(parseInt(e.target.value))} className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-red-800" />
                   </div>
 
                   <div className="bg-green-700 px-4 py-5 rounded-2xl text-center text-white shadow-lg">
@@ -252,17 +226,11 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     </div>
                   </div>
 
-                  <button 
-                    onClick={() => selectedAmount >= 1 && setStep(2)} 
-                    disabled={selectedAmount < 1}
-                    className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-[0.98] transition-all"
-                  >
-                    Proceed to Details
-                  </button>
+                  <button onClick={() => selectedAmount >= 1 && setStep(2)} disabled={selectedAmount < 1} className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-[0.98] transition-all">Proceed to Details</button>
                 </div>
               )}
 
-              {/* STEP 2: DONOR INFO */}
+              {/* STEP 2 */}
               {step === 2 && (
                 <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-300">
                   <div className="flex items-center gap-2">
@@ -270,42 +238,33 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-900">Sponsor Info</h3>
                   </div>
 
+                  {/* REAL LOGIC TABS */}
                   <div className="flex p-1 bg-slate-100 rounded-xl">
-                    <button onClick={() => setPayMethod('LOCAL')} className={`flex-1 py-3 rounded-lg font-black text-[10px] uppercase transition-all ${payMethod === 'LOCAL' ? 'bg-white text-red-800 shadow-sm' : 'text-slate-400'}`}>Local (MoMo)</button>
-                    <button onClick={() => setPayMethod('FOREIGN')} className={`flex-1 py-3 rounded-lg font-black text-[10px] uppercase transition-all ${payMethod === 'FOREIGN' ? 'bg-white text-red-800 shadow-sm' : 'text-slate-400'}`}>Foreign (Card)</button>
+                    <button onClick={() => setPayMethod('LOCAL')} className={`flex-1 py-3 rounded-lg font-black text-[10px] uppercase transition-all ${payMethod === 'LOCAL' ? 'bg-white text-red-800 shadow-sm scale-[1.02]' : 'text-slate-400'}`}>Local (MoMo)</button>
+                    <button onClick={() => setPayMethod('FOREIGN')} className={`flex-1 py-3 rounded-lg font-black text-[10px] uppercase transition-all ${payMethod === 'FOREIGN' ? 'bg-white text-red-800 shadow-sm scale-[1.02]' : 'text-slate-400'}`}>Foreign (Card)</button>
                   </div>
 
                   <div className="space-y-4 text-left">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="space-y-1">
                         <label className="text-[9px] font-black uppercase text-slate-400 ml-1 tracking-widest">First Name</label>
-                        <input 
-                          type="text" placeholder="e.g. John" value={firstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20 transition-all" 
-                          style={{ fontSize: '16px' }}
-                        />
+                        <input type="text" placeholder="e.g. John" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20" style={{ fontSize: '16px' }} />
                       </div>
                       <div className="space-y-1">
                         <label className="text-[9px] font-black uppercase text-slate-400 ml-1 tracking-widest">Surname</label>
-                        <input 
-                          type="text" placeholder="e.g. Doe" value={lastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                          className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20 transition-all" 
-                          style={{ fontSize: '16px' }}
-                        />
+                        <input type="text" placeholder="e.g. Doe" value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20" style={{ fontSize: '16px' }} />
                       </div>
                     </div>
                     <div className="space-y-1">
                       <label className="text-[9px] font-black uppercase text-slate-400 ml-1 tracking-widest">
-                        {payMethod === 'LOCAL' ? "Mobile Money Number" : "Email Address"}
+                        {payMethod === 'LOCAL' ? "MoMo Number" : "Email Address (for receipt)"}
                       </label>
                       <input 
                         type={payMethod === 'LOCAL' ? "tel" : "email"} 
                         placeholder={payMethod === 'LOCAL' ? "024XXXXXXX" : "your@email.com"} 
                         value={contactInfo}
                         onChange={(e) => setContactInfo(e.target.value)}
-                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20 transition-all" 
+                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20" 
                         style={{ fontSize: '16px' }}
                       />
                     </div>
@@ -318,24 +277,18 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                       disabled={!firstName || !lastName || !contactInfo}
                       className={`order-1 sm:order-2 w-full sm:w-2/3 py-5 rounded-2xl font-black uppercase text-sm shadow-xl transition-all ${(!firstName || !lastName || !contactInfo) ? 'bg-slate-200 text-slate-400' : 'bg-red-800 text-white active:scale-[0.98]'}`}
                     >
-                      Confirm ₵{totalGHS.toLocaleString()}
+                      Donate ₵{totalGHS.toLocaleString()}
                     </button>
                   </div>
                 </div>
               )}
 
-              {/* STEP 3: SUCCESS */}
+              {/* STEP 3 */}
               {step === 3 && (
                 <div className="text-center py-6 animate-in zoom-in-95 duration-500">
-                  <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle2 className="w-12 h-12" />
-                  </div>
-                  <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-2">
-                    THANK YOU,<br/>{firstName} {lastName}!
-                  </h3>
-                  <p className="text-sm text-slate-600 font-medium leading-relaxed max-w-xs mx-auto mb-8 italic">
-                    Your sponsorship of {selectedAmount.toLocaleString()} {selectedAmount === 1 ? 'book' : 'books'} is a generational investment.
-                  </p>
+                  <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6"><CheckCircle2 className="w-12 h-12" /></div>
+                  <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight mb-2">THANK YOU,<br/>{firstName} {lastName}!</h3>
+                  <p className="text-sm text-slate-600 font-medium leading-relaxed max-w-xs mx-auto mb-8 italic">Your sponsorship of {selectedAmount.toLocaleString()} books is a generational investment.</p>
                   <button onClick={handleClose} className="w-full py-5 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase text-xs hover:bg-slate-50">Close Window</button>
                 </div>
               )}
