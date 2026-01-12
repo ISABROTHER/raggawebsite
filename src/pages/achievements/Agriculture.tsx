@@ -1,24 +1,10 @@
+// src/pages/achievements/Agriculture.tsx
 import { motion } from 'framer-motion';
 
 const initiatives = [
   {
-    title: "Farmer Logistics",
-    info: "Direct distribution of modern farming tools, improved seeds, and fertilizers to local cooperatives.",
-    image: "https://i.imgur.com/TZ4jIJA.jpeg"
-  },
-  {
-    title: "Market Connectivity",
-    info: "Creating direct supply chains between rural farmers and wholesalers to ensure fair pricing.",
-    image: "https://i.imgur.com/TZ4jIJA.jpeg"
-  },
-  {
-    title: "Agribusiness Training",
-    info: "Specialized programs focused on mechanization and modern value-addition for youth in farming.",
-    image: "https://i.imgur.com/TZ4jIJA.jpeg"
-  },
-  {
-    title: "Resilient Farming",
-    info: "Ongoing workshops on climate-resilient farming and soil conservation for local smallholders.",
+    title: "Fertilizer Distribution",
+    info: "Donated 1500 bags of fertilizer to farmers across all farming communities in the constituency.",
     image: "https://i.imgur.com/TZ4jIJA.jpeg"
   }
 ];
