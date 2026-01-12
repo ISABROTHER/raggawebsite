@@ -41,11 +41,13 @@ export function AmountStep({
           <button
             key={num}
             onClick={() => setSelectedAmount(num)}
-            className={`py-5 rounded-2xl border-2 transition-all flex flex-col items-center justify-center ${
-              selectedAmount === num ? 'border-green-600 bg-green-50 shadow-md scale-[0.98]' : 'border-slate-100 bg-slate-50 hover:border-green-300 hover:shadow-sm'
+            className={`py-5 rounded-2xl border-2 transition-all duration-300 flex flex-col items-center justify-center active:scale-95 ${
+              selectedAmount === num 
+                ? 'border-green-600 bg-green-50 shadow-md ring-1 ring-green-600/10' 
+                : 'border-slate-100 bg-slate-50 hover:border-green-300 hover:shadow-sm'
             }`}
           >
-            <span className={`text-xl font-black ${selectedAmount === num ? 'text-green-700' : 'text-slate-900'}`}>{num}</span>
+            <span className={`text-xl font-black transition-colors ${selectedAmount === num ? 'text-green-700' : 'text-slate-900'}`}>{num}</span>
             <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Books</span>
           </button>
         ))}
@@ -58,12 +60,13 @@ export function AmountStep({
         </p>
       </div>
 
+      {/* Modern Animated Button */}
       <button 
         onClick={onNext}
-        className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl hover:bg-slate-800 hover:shadow-2xl hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer"
+        className="group relative w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl transition-all duration-300 hover:bg-slate-800 hover:shadow-slate-900/30 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
       >
         Next: Your Details 
-        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+        <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
       </button>
     </div>
   );
