@@ -3,13 +3,8 @@ import { motion } from 'framer-motion';
 
 const initiatives = [
   {
-    title: "Health Center Support",
-    info: "Provision of critical medical supplies and infrastructure upgrades to health centers in Kwaprow and Dankwakrom.",
-    image: "https://i.imgur.com/XmWnKbH.jpeg"
-  },
-  {
-    title: "Public Sanitation",
-    info: "Construction of modern sanitation facilities in high-density areas to improve community health.",
+    title: "Support for the Aged & Disabled",
+    info: "Distributed over 1500 bags of rice and 1500 liters of cooking oil to the aged, persons with disabilities, and the less privileged.",
     image: "https://i.imgur.com/XmWnKbH.jpeg"
   }
 ];
