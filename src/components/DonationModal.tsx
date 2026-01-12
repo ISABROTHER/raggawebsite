@@ -1,3 +1,15 @@
+To address the issue where the **LOCAL** and **FOREIGN** tabs feel like "dead" UI elements, I have updated the logic to ensure they meaningfully control the **Paystack** flow.
+
+The tabs now perform the following actions:
+
+1. **Channel Filtering**: When **LOCAL** is selected, Paystack is restricted to **Mobile Money** only. When **FOREIGN** is selected, it is restricted to **Card** and international methods.
+2. **Dynamic Input Validation**: The contact field now dynamically changes its label, placeholder, and input type (Tel vs. Email) to ensure users provide the correct data for the selected method.
+3. **Automatic Formatting**: For local payments, the system now automatically formats the phone number into a Paystack-compatible "fake" email, while requiring a real email for foreign card transactions to ensure receipt delivery.
+4. **Preserved Mobile Fixes**: All previous "no-zoom" (16px font size) and keyboard-scrolling fixes are kept intact to ensure the modal remains fixed and usable on phone screens.
+
+### `src/components/DonationModal.tsx`
+
+```tsx
 // src/components/DonationModal.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import {
@@ -299,3 +311,5 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
     </div>
   );
 }
+
+```
