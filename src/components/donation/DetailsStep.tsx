@@ -15,8 +15,8 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
 
   // Payment Option Configurations
   const momoNetworks = [
-    { id: 'MTN', name: 'MTN MoMo', color: 'bg-yellow-400' },
-    { id: 'Telecel', name: 'Telecel Cash', color: 'bg-red-600' },
+    { id: 'MTN', name: 'MTN', color: 'bg-yellow-400' },
+    { id: 'Telecel', name: 'Telecel', color: 'bg-red-600' },
     { id: 'AirtelTigo', name: 'AirtelTigo', color: 'bg-blue-600' }
   ];
 
@@ -43,12 +43,11 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
       {/* Conditional Payment Selection */}
       <div className="space-y-3">
         <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">
-          {currency === 'GHS' ? 'Select Network' : 'Select Payment Method'}
+          {currency === 'GHS' ? 'Select Network' : 'Select Method'}
         </label>
         
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {currency === 'GHS' ? (
-            // LOCAL CURRENCY: SHOW MOMO
             momoNetworks.map((net) => (
               <button
                 key={net.id}
@@ -62,7 +61,6 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
               </button>
             ))
           ) : (
-            // FOREIGN CURRENCY: SHOW VISA / APPLE
             internationalMethods.map((method) => (
               <button
                 key={method.id}
@@ -86,7 +84,6 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
           <input type="text" placeholder="Full Name" className="w-full pl-11 pr-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-800 font-bold text-sm" />
         </div>
         
-        {/* Dynamic Input based on Payment Method */}
         <div className="relative">
           {currency === 'GHS' ? (
             <>
@@ -104,16 +101,16 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
 
       <div className="flex items-center gap-2 px-2 text-[9px] font-bold text-slate-400 uppercase tracking-widest">
         <ShieldCheck className="w-3 h-3 text-green-600" /> 
-        {currency === 'GHS' ? 'Verified MoMo Gateway' : 'Secure Card Processing'}
+        {currency === 'GHS' ? 'Verified Gateway' : 'Secure Processing'}
       </div>
 
-      <div className="pt-4 flex gap-3">
-        <button onClick={onBack} className="w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-slate-50">Back</button>
+      <div className="pt-4 flex flex-col sm:flex-row gap-3">
+        <button onClick={onBack} className="order-2 sm:order-1 w-full sm:w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-slate-50">Back</button>
         <button 
           onClick={onPay}
-          className="w-2/3 py-5 bg-red-800 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm shadow-xl shadow-red-200 hover:bg-red-900 transition-all active:scale-95"
+          className="order-1 sm:order-2 w-full sm:w-2/3 py-5 bg-red-800 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm shadow-xl shadow-red-200 hover:bg-red-900 transition-all active:scale-95"
         >
-          {currency === 'GHS' ? 'Donate with MoMo' : 'Donate with Card'}
+          {currency === 'GHS' ? 'Donate Now' : 'Donate Now'}
         </button>
       </div>
     </div>
