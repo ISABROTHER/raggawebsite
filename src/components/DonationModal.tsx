@@ -24,10 +24,10 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // --- REFINED INCREMENT LOGIC ---
+  // --- REFINED INCREMENT LOGIC (FIXED) ---
   const adjust = (direction: 'up' | 'down') => {
     setSelectedAmount((prev) => {
-      if (direction === 'up') return Math.min(200,000, prev + 1);
+      if (direction === 'up') return Math.min(200000, prev + 1); // Fixed comma issue
       return Math.max(1, prev - 1);
     });
   };
@@ -168,7 +168,6 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
                   <div className="space-y-4 px-5 py-6 bg-slate-50 rounded-[2rem] border border-slate-100">
                     <div className="flex justify-between items-center">
-                      {/* TIGHT TYPOGRAPHY: Number & Books together */}
                       <div className="flex items-center gap-1.5">
                         <input 
                           type="text"
@@ -204,14 +203,12 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     <input type="range" min="1" max="200000" step="1" value={selectedAmount} onChange={(e) => setSelectedAmount(parseInt(e.target.value))} className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-green-700" />
                   </div>
 
-                  {/* NDC GREEN ESTIMATION CARD */}
                   <div className="bg-green-700 p-6 rounded-[2rem] text-center text-white shadow-xl shadow-green-100 relative overflow-hidden">
                     <p className="relative z-10 text-[10px] font-black uppercase tracking-[0.2em] text-white/60 mb-1">Estimated Contribution</p>
                     <p className="relative z-10 text-3xl font-black tracking-tight">₵{totalGHS.toLocaleString()}</p>
                     <p className="relative z-10 text-[9px] font-bold tracking-widest text-white/40 uppercase mt-1">≈ ${totalUSD.toLocaleString(undefined, { maximumFractionDigits: 2 })} USD</p>
                   </div>
 
-                  {/* NDC RED PROCEED BUTTON */}
                   <button 
                     onClick={() => setStep(2)} 
                     className="group relative w-full py-4.5 bg-red-600 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] shadow-xl transition-all duration-300 hover:bg-red-700 active:scale-95 flex items-center justify-center gap-2 overflow-hidden"
@@ -233,8 +230,8 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   </div>
 
                   <div className="flex p-1 bg-slate-100 rounded-2xl">
-                    <button onClick={() => setPayMethod('LOCAL')} className={`flex-1 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ${payMethod === 'LOCAL' ? 'bg-white text-green-700 shadow-sm' : 'text-slate-400'}`}>Local (MoMo)</button>
-                    <button onClick={() => setPayMethod('FOREIGN')} className={`flex-1 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ${payMethod === 'FOREIGN' ? 'bg-white text-green-700 shadow-sm' : 'text-slate-400'}`}>Foreign (Card)</button>
+                    <button onClick={() => setPayMethod('LOCAL')} className={`flex-1 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all ${payMethod === 'LOCAL' ? 'bg-white text-green-700 shadow-sm' : 'text-slate-400'}`}>Local (MoMo)</button>
+                    <button onClick={() => setPayMethod('FOREIGN')} className={`flex-1 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all ${payMethod === 'FOREIGN' ? 'bg-white text-green-700 shadow-sm' : 'text-slate-400'}`}>Foreign (Card)</button>
                   </div>
 
                   <div className="space-y-4">
@@ -246,14 +243,14 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   </div>
 
                   <div className="pt-2 flex gap-3">
-                    <button onClick={() => setStep(1)} className="w-1/3 py-5 border border-slate-100 rounded-2xl font-black uppercase text-[10px] tracking-widest text-slate-400 active:scale-95 transition-all">Back</button>
+                    <button onClick={() => setStep(1)} className="w-1/3 py-5 border border-slate-100 rounded-2xl font-bold uppercase text-[10px] tracking-widest text-slate-400 active:scale-95 transition-all">Back</button>
                     <button 
                       onClick={handlePay} 
                       disabled={!firstName || !lastName || !contactInfo}
                       className={`group relative w-2/3 py-5 rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-xl transition-all duration-300 active:scale-95 overflow-hidden ${(!firstName || !lastName || !contactInfo) ? 'bg-slate-100 text-slate-300' : 'bg-red-600 text-white shadow-red-100'}`}
                       style={{ animation: (!firstName || !lastName || !contactInfo) ? 'none' : 'breathing-red 2s infinite ease-in-out' }}
                     >
-                      <div className="absolute inset-0 w-1/3 h-full bg-white/10 skew-x-[-25deg] -translate-x-[250%] group-hover:animate-[shimmer-btn_1.5s_infinite]" />
+                      <div className="absolute inset-0 w-1/3 h-full bg-white/10 skew-x-[-25deg] -translate-x-[250%] group-hover:animate-[shimmer-fast_1.2s_infinite]" />
                       <span className="relative z-10">Confirm Donation</span>
                     </button>
                   </div>
@@ -280,6 +277,10 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
         @keyframes breathing-red {
           0%, 100% { transform: scale(1); box-shadow: 0 10px 15px -3px rgb(206 17 38 / 0.1); }
           50% { transform: scale(1.02); box-shadow: 0 20px 25px -5px rgb(206 17 38 / 0.2); }
+        }
+        @keyframes shimmer-fast {
+          0% { transform: skewX(-25deg) translateX(-250%); }
+          100% { transform: skewX(-25deg) translateX(350%); }
         }
         @keyframes shimmer-btn {
           0% { transform: skewX(-25deg) translateX(-200%); }
