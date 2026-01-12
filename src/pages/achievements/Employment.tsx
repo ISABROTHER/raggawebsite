@@ -3,38 +3,57 @@ import { motion } from 'framer-motion';
 
 const initiatives = [
   {
-    title: "Transport Sector Support",
+    year: 2025,
+    title: "YEA RECRUITMENT DRIVE (40+ SLOTS)",
+    info: "Secured slots for Community Protection, Prisons, Ambulance, and Fire Assistants under the Youth Employment Agency.",
+    image: "https://i.imgur.com/saQoFLV.png"
+  },
+  {
+    year: 2025,
+    title: "PUBLIC SECTOR JOB PLACEMENTS",
+    info: "Successfully secured recruitment slots for GES (15), EPA (23), Signal Bureau (1), NADMO (6), NHIA (1), and Armed Forces (20).",
+    image: "https://i.imgur.com/saQoFLV.png"
+  },
+  {
+    year: 2025,
+    title: "PROFESSIONAL APPOINTMENTS & COORD. ROLES",
+    info: "Secured appointments for Health/Education Coordinators, Forestry Commission roles, and DRIP Coordinator positions.",
+    image: "https://i.imgur.com/saQoFLV.png"
+  },
+  {
+    year: 2025,
+    title: "SUPPORT FOR ABURA TRANSPORT OPERATORS",
     info: "Donated GH₵5,000 in fuel coupons and GH₵2,000 cash to taxi drivers at Abura Taxi Station.",
     image: "https://i.imgur.com/saQoFLV.png"
   },
   {
-    title: "Market Women Empowerment",
-    info: "Provided GH₵2,000 cash support to market women at Abura Market to boost their small businesses.",
+    year: 2025,
+    title: "FINANCIAL BOOST FOR ABURA MARKET WOMEN",
+    info: "Provided GH₵2,000 cash support to market women to enhance their trading capital and livelihoods.",
     image: "https://i.imgur.com/saQoFLV.png"
   },
   {
-    title: "Public Service Recruitment",
-    info: "Secured job placements for constituents: GES (15), EPA (23), Signal Bureau (1), NADMO (6), NHIA (1), and Ghana Armed Forces (20).",
-    image: "https://i.imgur.com/saQoFLV.png"
-  },
-  {
-    title: "YEA Community Slots",
-    info: "Secured over 40 slots for Community Protection, Prisons, Ambulance, and Fire Assistants under the Youth Employment Agency.",
-    image: "https://i.imgur.com/saQoFLV.png"
-  },
-  {
-    title: "Professional Appointments",
-    info: "Secured appointments for Health/Education Coordinators, Forestry Commission roles, and a DRIP Coordinator.",
-    image: "https://i.imgur.com/saQoFLV.png"
-  },
-  {
-    title: "Youth Skills & Apprenticeship",
+    year: 2025,
+    title: "NATIONAL APPRENTICESHIP & ADWUMAWURA",
     info: "Secured 25 slots for the National Apprenticeship Programme and 10 slots for the NYA Adwumawura programme.",
     image: "https://i.imgur.com/saQoFLV.png"
   },
   {
-    title: "Creative Arts & Advocacy",
-    info: "Donated a video camera worth GH₵10,000 to K2Philms and provided support to serial callers.",
+    year: 2025,
+    title: "GH₵10,000 VIDEO EQUIPMENT FOR K2PHILMS",
+    info: "Donated a professional video camera to support local creative arts and multimedia production.",
+    image: "https://i.imgur.com/saQoFLV.png"
+  },
+  {
+    year: 2025,
+    title: "SUPPORT FOR NDC SERIAL CALLERS",
+    info: "Direct support provided to community advocates and communicators within the constituency.",
+    image: "https://i.imgur.com/saQoFLV.png"
+  },
+  {
+    year: 2024,
+    title: "VOCATIONAL SKILLS TRAINING WORKSHOPS",
+    info: "Implementation of technical workshops to equip youth with modern vocational skills.",
     image: "https://i.imgur.com/saQoFLV.png"
   }
 ];
@@ -47,17 +66,19 @@ export function Employment() {
           key={idx}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: idx * 0.05 }}
           className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-md flex flex-col hover:shadow-lg transition-shadow"
         >
-          <div className="h-40 overflow-hidden shrink-0">
+          <div className="relative h-40 overflow-hidden shrink-0">
             <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+            <div className="absolute top-3 left-3 bg-green-600 text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">
+              {item.year}
+            </div>
           </div>
           <div className="p-5 flex flex-col flex-1">
-            <h3 className="text-lg font-black text-slate-900 mb-2 leading-tight uppercase tracking-tight">
+            <h3 className="text-sm font-black text-slate-900 mb-3 leading-tight uppercase tracking-tight">
               {item.title}
             </h3>
-            <p className="text-slate-600 text-sm leading-relaxed font-medium">
+            <p className="text-slate-600 text-xs leading-relaxed font-medium">
               {item.info}
             </p>
           </div>
