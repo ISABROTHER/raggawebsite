@@ -106,4 +106,4 @@ export function DetailsStep({ currency, selectedAmount, totalCost, onBack, onPay
       </div>
     </div>
   );
-}
+} 
