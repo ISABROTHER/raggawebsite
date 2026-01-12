@@ -60,30 +60,27 @@ export function AmountStep({
         </p>
       </div>
 
-      {/* Modern Animated Breathing Button */}
+      {/* INTENSE BREATHING NEXT BUTTON */}
       <button 
         onClick={onNext}
-        className="group relative w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl transition-all duration-300 hover:bg-slate-800 hover:shadow-slate-900/30 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2 overflow-hidden"
-        style={{ animation: 'pulse-subtle-light 2.5s infinite' }}
+        className="group relative w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl transition-all duration-300 hover:bg-slate-800 hover:shadow-2xl active:scale-95 flex items-center justify-center gap-2 overflow-hidden"
+        style={{ animation: 'intense-pulse-light 2s ease-in-out infinite' }}
       >
-        {/* Shimmer Effect */}
-        <div className="absolute inset-0 w-1/4 h-full bg-white/10 skew-x-[-20deg] -translate-x-full group-hover:animate-shimmer" />
+        {/* Rapid Shimmer Effect */}
+        <div className="absolute inset-0 w-1/3 h-full bg-white/10 skew-x-[-25deg] -translate-x-[200%] group-hover:animate-[shimmer-fast_1.5s_infinite]" />
         
         <span className="relative z-10">Next: Your Details</span>
-        <ChevronRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+        <ChevronRight className="w-5 h-5 relative z-10 group-hover:translate-x-1.5 transition-transform duration-300" />
       </button>
 
       <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes pulse-subtle-light {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.015); shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+        @keyframes intense-pulse-light {
+          0%, 100% { transform: scale(1); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+          50% { transform: scale(1.025); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.15), 0 0 12px 2px rgba(15, 23, 42, 0.1); }
         }
-        @keyframes shimmer {
-          0% { transform: skewX(-20deg) translateX(-150%); }
-          100% { transform: skewX(-20deg) translateX(350%); }
-        }
-        .animate-shimmer {
-          animation: shimmer 2s infinite;
+        @keyframes shimmer-fast {
+          0% { transform: skewX(-25deg) translateX(-200%); }
+          100% { transform: skewX(-25deg) translateX(300%); }
         }
       `}} />
     </div>
