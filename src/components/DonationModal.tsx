@@ -1,8 +1,8 @@
 // src/components/DonationModal.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  X, Heart, ChevronRight, CheckCircle2,
-  User, Phone, CreditCard, Loader2, RefreshCw, Minus, Plus
+  X, CheckCircle2,
+  Minus, Plus, Loader2
 } from 'lucide-react';
 import Paystack from '@paystack/inline-js';
 
@@ -76,7 +76,6 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
     try {
       const amountInPesewas = Math.round(totalGHS * 100);
       
-      // FIX: Changed .placeholder to .com and added .trim() to ensure valid email formatting for Paystack
       const email = payMethod === 'FOREIGN' 
         ? contactInfo.trim() 
         : `${contactInfo.replace(/[^0-9]/g, '') || '0000000000'}@momo.com`;
@@ -150,15 +149,15 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm">
-      <div className="bg-white w-full max-w-lg rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in zoom-in-95 duration-300 max-h-[95vh] flex flex-col">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 bg-slate-900/60 backdrop-blur-sm">
+      <div className="bg-white w-full max-w-lg rounded-3xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in zoom-in-95 duration-300 max-h-[95vh] flex flex-col">
         
         {/* Header */}
         <div className="bg-red-800 p-5 md:p-6 text-white flex justify-between items-center shrink-0">
           <div className="pr-4 text-left">
             <h2 className="text-lg md:text-xl font-black uppercase tracking-tight">Support Project</h2>
             <p className="text-[9px] font-bold uppercase tracking-wider text-white/80 mt-1 leading-tight">
-              You are about to make a generational impact on our children's future
+              Impact a generational future
             </p>
           </div>
           {!isProcessing && (
@@ -168,7 +167,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
           )}
         </div>
 
-        <div className="p-6 md:p-8 overflow-y-auto">
+        <div className="p-5 md:p-8 overflow-y-auto">
           {isProcessing ? (
             <div className="py-12 flex flex-col items-center justify-center space-y-4">
               <Loader2 className="w-12 h-12 text-red-800 animate-spin" />
@@ -184,7 +183,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-900">Select Number of Books</h3>
                   </div>
 
-                  <div className="grid grid-cols-4 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     {[500, 1000, 5000, 10000].map((num) => (
                       <button 
                         key={num} 
@@ -197,8 +196,8 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   </div>
 
                   <div className="space-y-4 px-4 py-6 bg-slate-50 rounded-2xl border border-slate-100">
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-baseline gap-2 overflow-hidden">
+                    <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+                      <div className="flex items-baseline gap-2 overflow-hidden w-full sm:w-auto justify-center sm:justify-start">
                         <input 
                           type="text"
                           value={selectedAmount === 0 ? "" : selectedAmount.toLocaleString()}
@@ -206,7 +205,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                             const val = parseInt(e.target.value.replace(/,/g, ''));
                             setSelectedAmount(isNaN(val) ? 0 : val);
                           }}
-                          className="bg-transparent text-2xl font-black text-slate-900 outline-none w-24 md:w-32"
+                          className="bg-transparent text-2xl font-black text-slate-900 outline-none w-20 md:w-32 text-center sm:text-left"
                           placeholder="0"
                         />
                         <span className="text-2xl font-black text-slate-900 uppercase">
@@ -214,20 +213,20 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-4">
                         <button 
                           onMouseDown={() => startAdjusting('down')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting}
                           onTouchStart={() => startAdjusting('down')} onTouchEnd={stopAdjusting}
-                          className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90"
+                          className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90"
                         >
-                          <Minus className="w-5 h-5" />
+                          <Minus className="w-6 h-6" />
                         </button>
                         <button 
                           onMouseDown={() => startAdjusting('up')} onMouseUp={stopAdjusting} onMouseLeave={stopAdjusting}
                           onTouchStart={() => startAdjusting('up')} onTouchEnd={stopAdjusting}
-                          className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90"
+                          className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-800 shadow-sm active:scale-90"
                         >
-                          <Plus className="w-5 h-5" />
+                          <Plus className="w-6 h-6" />
                         </button>
                       </div>
                     </div>
@@ -239,21 +238,27 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     />
                   </div>
 
-                  <div className="bg-green-700 px-4 py-5 rounded-[2rem] text-center text-white shadow-lg">
-                    <p className="text-[15px] md:text-lg font-black uppercase tracking-tight">
+                  <div className="bg-green-700 px-4 py-5 rounded-2xl sm:rounded-[2rem] text-center text-white shadow-lg">
+                    <p className="text-base md:text-lg font-black uppercase tracking-tight">
                       {selectedAmount.toLocaleString()} {selectedAmount === 1 ? 'Book' : 'Books'} | ₵{totalGHS.toLocaleString()}
                     </p>
-                    <div className="mt-1 flex items-center justify-center gap-1 opacity-70">
-                      <span className="text-[9px] font-bold tracking-widest uppercase">
-                        ≈ ${totalUSD.toLocaleString(undefined, { maximumFractionDigits: 2 })} USD
-                      </span>
-                    </div>
+                    {isFetchingRate ? (
+                      <div className="mt-1 flex justify-center items-center gap-1 opacity-70">
+                        <Loader2 className="w-2 h-2 animate-spin" />
+                      </div>
+                    ) : (
+                      <div className="mt-1 flex items-center justify-center gap-1 opacity-70">
+                        <span className="text-[9px] font-bold tracking-widest uppercase">
+                          ≈ ${totalUSD.toLocaleString(undefined, { maximumFractionDigits: 2 })} USD
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <button 
                     onClick={() => selectedAmount >= 1 && setStep(2)} 
                     disabled={selectedAmount < 1}
-                    className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl"
+                    className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-[0.98] transition-transform"
                   >
                     Proceed to Details
                   </button>
@@ -274,16 +279,16 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   </div>
 
                   <div className="space-y-4 text-left">
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <input 
                         type="text" placeholder="First Name" value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none" 
+                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none focus:ring-2 focus:ring-red-800/20" 
                       />
                       <input 
                         type="text" placeholder="Surname" value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none" 
+                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none focus:ring-2 focus:ring-red-800/20" 
                       />
                     </div>
                     <input 
@@ -291,16 +296,16 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                       placeholder={payMethod === 'LOCAL' ? "MoMo Number" : "Email Address"} 
                       value={contactInfo}
                       onChange={(e) => setContactInfo(e.target.value)}
-                      className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none" 
+                      className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none focus:ring-2 focus:ring-red-800/20" 
                     />
                   </div>
 
-                  <div className="pt-2 flex gap-3">
-                    <button onClick={() => setStep(1)} className="w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase text-[10px]">Back</button>
+                  <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                    <button onClick={() => setStep(1)} className="order-2 sm:order-1 w-full sm:w-1/3 py-5 border-2 border-slate-100 rounded-2xl font-black uppercase text-[10px]">Back</button>
                     <button 
                       onClick={handlePay} 
                       disabled={!firstName || !lastName || !contactInfo}
-                      className={`w-2/3 py-5 rounded-2xl font-black uppercase text-sm shadow-xl transition-all ${(!firstName || !lastName || !contactInfo) ? 'bg-slate-200 text-slate-400' : 'bg-red-800 text-white'}`}
+                      className={`order-1 sm:order-2 w-full sm:w-2/3 py-5 rounded-2xl font-black uppercase text-sm shadow-xl transition-all ${(!firstName || !lastName || !contactInfo) ? 'bg-slate-200 text-slate-400' : 'bg-red-800 text-white active:scale-[0.98]'}`}
                     >
                       Confirm ₵{totalGHS.toLocaleString()}
                     </button>
@@ -320,7 +325,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   <p className="text-sm text-slate-600 font-medium leading-relaxed max-w-xs mx-auto mb-8 italic">
                     Your sponsorship of {selectedAmount.toLocaleString()} {selectedAmount === 1 ? 'book' : 'books'} is a generational investment.
                   </p>
-                  <button onClick={handleClose} className="w-full py-5 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase text-xs">Close Window</button>
+                  <button onClick={handleClose} className="w-full py-5 border-2 border-slate-100 text-slate-900 rounded-2xl font-black uppercase text-xs hover:bg-slate-50">Close Window</button>
                 </div>
               )}
             </>
