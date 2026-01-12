@@ -42,7 +42,7 @@ export function AmountStep({
             key={num}
             onClick={() => setSelectedAmount(num)}
             className={`py-5 rounded-2xl border-2 transition-all flex flex-col items-center justify-center ${
-              selectedAmount === num ? 'border-green-600 bg-green-50' : 'border-slate-100 bg-slate-50 hover:border-green-300'
+              selectedAmount === num ? 'border-green-600 bg-green-50 shadow-md scale-[0.98]' : 'border-slate-100 bg-slate-50 hover:border-green-300 hover:shadow-sm'
             }`}
           >
             <span className={`text-xl font-black ${selectedAmount === num ? 'text-green-700' : 'text-slate-900'}`}>{num}</span>
@@ -60,9 +60,10 @@ export function AmountStep({
 
       <button 
         onClick={onNext}
-        className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
+        className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl hover:bg-slate-800 hover:shadow-2xl hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer"
       >
-        Next: Your Details <ChevronRight className="w-4 h-4" />
+        Next: Your Details 
+        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
       </button>
     </div>
   );
