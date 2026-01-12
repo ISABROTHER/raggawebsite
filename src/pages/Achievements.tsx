@@ -14,11 +14,11 @@ import { Agriculture } from './achievements/Agriculture';
 type PolicyKey = 'education' | 'health' | 'employment' | 'infrastructure' | 'agriculture';
 
 const categories = [
-  { id: 'education' as PolicyKey, title: 'Educational Support', count: 4, desc: 'Quality education, school resources, and youth training.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
-  { id: 'health' as PolicyKey, title: 'Health & Sanitation', count: 2, desc: 'Health facilities and public hygiene projects.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
-  { id: 'employment' as PolicyKey, title: 'Job Creation', count: 3, desc: 'Reviving local industry and supporting small businesses.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
-  { id: 'infrastructure' as PolicyKey, title: 'Infrastructure', count: 4, desc: 'Improving roads, lighting, and community connectivity.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
-  { id: 'agriculture' as PolicyKey, title: 'Agri-Development', count: 4, desc: 'Supporting farmers with tools, training, and market access.', image: 'https://i.imgur.com/TZ4jIJA.jpeg', component: <Agriculture /> }
+  { id: 'education' as PolicyKey, title: 'Educational Support', count: 10, desc: 'Quality education, school resources, and youth training.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
+  { id: 'health' as PolicyKey, title: 'Health & Social Welfare', count: 1, desc: 'Health facilities and support for the vulnerable.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
+  { id: 'employment' as PolicyKey, title: 'Jobs & Economic Empowerment', count: 7, desc: 'Reviving local industry and securing job placements.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
+  { id: 'infrastructure' as PolicyKey, title: 'Infrastructure', count: 9, desc: 'Improving roads, lighting, and community connectivity.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
+  { id: 'agriculture' as PolicyKey, title: 'Agri-Development', count: 1, desc: 'Supporting farmers with tools, training, and resources.', image: 'https://i.imgur.com/TZ4jIJA.jpeg', component: <Agriculture /> }
 ];
 
 export function Achievements() {
@@ -42,12 +42,11 @@ export function Achievements() {
                   
                   {/* Subtitle */}
                   <p className="mt-2 text-sm md:text-xl font-bold text-green-700/80 tracking-[0.2em] uppercase">
-                    WHAT I HAVE ACHIEVED SO FAR
+                    ACCOUNTING TO THE PEOPLE
                   </p>
 
                   <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
                 </div>
-                {/* Description removed as requested */}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -66,7 +65,7 @@ export function Achievements() {
                         <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6">{policy.desc}</p>
                         <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between gap-4">
                           <div className="bg-green-50 text-green-700 text-[10px] font-black px-2 py-1 rounded-lg border border-green-100 uppercase tracking-widest">
-                            {policy.count} initiatives listed
+                            {policy.count} key items listed
                           </div>
                           <div className="flex items-center gap-1 text-green-600 font-black text-xs uppercase group-hover:gap-2 transition-all">
                             <span>Details</span>
