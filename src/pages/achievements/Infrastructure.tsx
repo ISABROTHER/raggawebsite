@@ -1,24 +1,40 @@
+// src/pages/achievements/Infrastructure.tsx
 import { motion } from 'framer-motion';
 
 const initiatives = [
   {
-    title: "Operation Light Up",
-    info: "Installation of over 2,500 streetlights across the constituency to enhance security and night commerce.",
+    title: "10km Inner-City Roads",
+    info: "Lobbied for construction of 10km of roads at 4th Ridge, Bessakrom, Kwawprow–Ankaful, Pedu Estate, and Akaikrom.",
     image: "https://i.imgur.com/AZqDymE.jpeg"
   },
   {
-    title: "Road Maintenance",
-    info: "Extensive road grading projects and secured allocation for 10km of asphalted roads in key areas.",
+    title: "Community Lighting Projects",
+    info: "Donated 150 streetlights to Assembly members and distributed an additional 200 streetlights to various institutions.",
     image: "https://i.imgur.com/AZqDymE.jpeg"
   },
   {
-    title: "Community Center",
-    info: "Full refurbishment and construction of the Ankaful Community Centre for public gatherings.",
+    title: "Community Centre Support",
+    info: "Donated 30 bags of cement for Koforidua community centre and materials for the Brabedze community centre expansion.",
     image: "https://i.imgur.com/AZqDymE.jpeg"
   },
   {
-    title: "Rural Power Grid",
-    info: "Expansion of electricity infrastructure to underserved rural communities within the constituency.",
+    title: "Akotokyir Community Plaza",
+    info: "Presented GH₵20,000 to support the construction of the Akotokyir Community Plaza.",
+    image: "https://i.imgur.com/AZqDymE.jpeg"
+  },
+  {
+    title: "Obiara Ka Ho Soccer Centre",
+    info: "Ongoing construction of the 'Obiara ka ho' soccer centre at Pedu community to enhance local sports.",
+    image: "https://i.imgur.com/AZqDymE.jpeg"
+  },
+  {
+    title: "Cultural Heritage Support",
+    info: "GH₵30,000 support for Oguaa Fetu Afahye, Orange Friday, Kwaprow Afahye, and Abura Afahye celebrations.",
+    image: "https://i.imgur.com/AZqDymE.jpeg"
+  },
+  {
+    title: "Apewosika Community Materials",
+    info: "Donated 100 bags of cement, stones, and sand to support local construction projects in Apewosika.",
     image: "https://i.imgur.com/AZqDymE.jpeg"
   }
 ];
