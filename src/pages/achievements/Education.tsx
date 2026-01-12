@@ -3,23 +3,53 @@ import { motion } from 'framer-motion';
 
 const initiatives = [
   {
-    title: "High School Support Program",
-    info: "Strategic assistance providing materials, mentorship, and exam preparation for students across the constituency.",
+    title: "Duakor Basic School Renovation",
+    info: "Renovated the school building, fixed leaking roofs, repaired partitions, installed new doors and windows, and completed full painting.",
+    image: "https://i.imgur.com/Ozjnrli.jpeg"
+  },
+  {
+    title: "OLA Training College Support",
+    info: "Donated 100 bags of cement, two truckloads of sand, and stones to support the construction of a new infirmary.",
+    image: "https://i.imgur.com/Ozjnrli.jpeg"
+  },
+  {
+    title: "Tertiary Projects Funding",
+    info: "Provided financial and logistical support toward various projects in tertiary institutions across the constituency.",
     image: "https://i.imgur.com/Ozjnrli.jpeg"
   },
   {
     title: "Adisadel College Lighting",
-    info: "Donation of 500 LED bulbs to secure a safe and effective night-time learning environment for students.",
+    info: "Donation of 500 LED bulbs to address chronic lighting issues and improve the nighttime learning environment.",
     image: "https://i.imgur.com/Ozjnrli.jpeg"
   },
   {
-    title: "Basic School Furniture",
-    info: "Delivery of 100 high-quality dual desks to ten basic schools with critical furniture deficits.",
+    title: "Senior High School Resources",
+    info: "Distributed 1500 LED bulbs, 5 computers, 20 streetlights, and 1000 mosquito repellents to five senior high schools.",
     image: "https://i.imgur.com/Ozjnrli.jpeg"
   },
   {
-    title: "Classroom Infrastructure",
-    info: "Comprehensive structural renovations for dilapidated school buildings to restore student safety and pride.",
+    title: "SHS Student Essentials",
+    info: "Donated 180 chopboxes to first-year SHS students to assist with their transition to boarding school.",
+    image: "https://i.imgur.com/Ozjnrli.jpeg"
+  },
+  {
+    title: "Casford Hall Sports Complex",
+    info: "Donated GH₵20,000 toward the construction of the Casford Hall Sports Complex.",
+    image: "https://i.imgur.com/Ozjnrli.jpeg"
+  },
+  {
+    title: "Abakam Basic School Canteen",
+    info: "Facilitated the construction of a new canteen for Abakam Basic School and the surrounding community.",
+    image: "https://i.imgur.com/Ozjnrli.jpeg"
+  },
+  {
+    title: "Institutional Financial Aid",
+    info: "Provided GH₵50,000 in direct support for various educational institutions in the area.",
+    image: "https://i.imgur.com/Ozjnrli.jpeg"
+  },
+  {
+    title: "Asenadze Youth Sports",
+    info: "Donated football jerseys and equipment to the youth of Asenadze to promote healthy recreation.",
     image: "https://i.imgur.com/Ozjnrli.jpeg"
   }
 ];
