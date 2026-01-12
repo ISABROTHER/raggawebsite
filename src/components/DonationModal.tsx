@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   X, CheckCircle2,
-  Minus, Plus, Loader2
+  Minus, Plus, Loader2, Heart
 } from 'lucide-react';
 import Paystack from '@paystack/inline-js';
 
@@ -149,25 +149,25 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 bg-slate-900/60 backdrop-blur-sm">
-      <div className="bg-white w-full max-w-lg rounded-3xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in zoom-in-95 duration-300 max-h-[95vh] flex flex-col">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 bg-slate-900/60 backdrop-blur-sm touch-none">
+      <div className="bg-white w-full max-w-lg rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in zoom-in-95 duration-300 max-h-[95vh] flex flex-col touch-auto">
         
         {/* Header */}
-        <div className="bg-red-800 p-5 md:p-6 text-white flex justify-between items-center shrink-0">
+        <div className="bg-red-800 p-4 md:p-6 text-white flex justify-between items-center shrink-0">
           <div className="pr-4 text-left">
             <h2 className="text-lg md:text-xl font-black uppercase tracking-tight">Support Project</h2>
-            <p className="text-[9px] font-bold uppercase tracking-wider text-white/80 mt-1 leading-tight">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-white/80 mt-0.5 leading-tight">
               Impact a generational future
             </p>
           </div>
           {!isProcessing && (
-            <button onClick={handleClose} className="p-1.5 hover:bg-white/10 rounded-full transition-all text-white">
+            <button onClick={handleClose} className="p-2 hover:bg-white/10 rounded-full transition-all text-white">
               <X className="w-6 h-6" />
             </button>
           )}
         </div>
 
-        <div className="p-5 md:p-8 overflow-y-auto">
+        <div className="p-5 md:p-8 overflow-y-auto overscroll-contain">
           {isProcessing ? (
             <div className="py-12 flex flex-col items-center justify-center space-y-4">
               <Loader2 className="w-12 h-12 text-red-800 animate-spin" />
@@ -188,7 +188,7 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                       <button 
                         key={num} 
                         onClick={() => setSelectedAmount(num)} 
-                        className={`py-3 rounded-xl border-2 font-black text-[10px] transition-all ${selectedAmount === num ? 'border-green-600 bg-green-50 shadow-sm' : 'border-slate-100 bg-white hover:border-slate-200'}`}
+                        className={`py-3 rounded-xl border-2 font-black text-xs transition-all ${selectedAmount === num ? 'border-green-600 bg-green-50 shadow-sm' : 'border-slate-100 bg-white hover:border-slate-200'}`}
                       >
                         {num.toLocaleString()}
                       </button>
@@ -197,15 +197,17 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
                   <div className="space-y-4 px-4 py-6 bg-slate-50 rounded-2xl border border-slate-100">
                     <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                      <div className="flex items-baseline gap-2 overflow-hidden w-full sm:w-auto justify-center sm:justify-start">
+                      <div className="flex items-baseline gap-2 w-full sm:w-auto justify-center sm:justify-start">
                         <input 
                           type="text"
+                          inputMode="numeric"
                           value={selectedAmount === 0 ? "" : selectedAmount.toLocaleString()}
                           onChange={(e) => {
                             const val = parseInt(e.target.value.replace(/,/g, ''));
                             setSelectedAmount(isNaN(val) ? 0 : val);
                           }}
-                          className="bg-transparent text-2xl font-black text-slate-900 outline-none w-20 md:w-32 text-center sm:text-left"
+                          className="bg-transparent text-2xl font-black text-slate-900 outline-none w-20 md:w-32 text-center sm:text-left text-base sm:text-2xl" 
+                          style={{ fontSize: '16px' }} 
                           placeholder="0"
                         />
                         <span className="text-2xl font-black text-slate-900 uppercase">
@@ -238,21 +240,15 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     />
                   </div>
 
-                  <div className="bg-green-700 px-4 py-5 rounded-2xl sm:rounded-[2rem] text-center text-white shadow-lg">
+                  <div className="bg-green-700 px-4 py-5 rounded-2xl text-center text-white shadow-lg">
                     <p className="text-base md:text-lg font-black uppercase tracking-tight">
                       {selectedAmount.toLocaleString()} {selectedAmount === 1 ? 'Book' : 'Books'} | ₵{totalGHS.toLocaleString()}
                     </p>
-                    {isFetchingRate ? (
-                      <div className="mt-1 flex justify-center items-center gap-1 opacity-70">
-                        <Loader2 className="w-2 h-2 animate-spin" />
-                      </div>
-                    ) : (
-                      <div className="mt-1 flex items-center justify-center gap-1 opacity-70">
-                        <span className="text-[9px] font-bold tracking-widest uppercase">
-                          ≈ ${totalUSD.toLocaleString(undefined, { maximumFractionDigits: 2 })} USD
-                        </span>
-                      </div>
-                    )}
+                    <div className="mt-1 flex items-center justify-center gap-1 opacity-70">
+                      <span className="text-[9px] font-bold tracking-widest uppercase">
+                        ≈ ${totalUSD.toLocaleString(undefined, { maximumFractionDigits: 2 })} USD
+                      </span>
+                    </div>
                   </div>
 
                   <button 
@@ -283,20 +279,23 @@ export function DonationModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
                       <input 
                         type="text" placeholder="First Name" value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none focus:ring-2 focus:ring-red-800/20" 
+                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20" 
+                        style={{ fontSize: '16px' }}
                       />
                       <input 
                         type="text" placeholder="Surname" value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none focus:ring-2 focus:ring-red-800/20" 
+                        className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20" 
+                        style={{ fontSize: '16px' }}
                       />
                     </div>
                     <input 
-                      type="text" 
+                      type={payMethod === 'LOCAL' ? "tel" : "email"} 
                       placeholder={payMethod === 'LOCAL' ? "MoMo Number" : "Email Address"} 
                       value={contactInfo}
                       onChange={(e) => setContactInfo(e.target.value)}
-                      className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-sm outline-none focus:ring-2 focus:ring-red-800/20" 
+                      className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-base outline-none focus:ring-2 focus:ring-red-800/20" 
+                      style={{ fontSize: '16px' }}
                     />
                   </div>
 
