@@ -1,5 +1,6 @@
+// src/components/donation/AmountStep.tsx
 import React from 'react';
-import { ChevronRight, BarChart3 } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 interface AmountStepProps {
   currency: 'GHS' | 'USD';
@@ -25,13 +26,13 @@ export function AmountStep({
           onClick={() => setCurrency('GHS')}
           className={`flex-1 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${currency === 'GHS' ? 'bg-white text-green-700 shadow-sm scale-[1.02]' : 'text-slate-400'}`}
         >
-          Ghana Cedi (₵)
+          Cedi (₵)
         </button>
         <button 
           onClick={() => setCurrency('USD')}
           className={`flex-1 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${currency === 'USD' ? 'bg-white text-green-700 shadow-sm scale-[1.02]' : 'text-slate-400'}`}
         >
-          US Dollar ($)
+          Dollar ($)
         </button>
       </div>
 
