@@ -10,12 +10,16 @@ const initiatives = [
   { year: 2023, title: "RAMBO 500 POLYTANK DONATION TO NYINASI", info: "Provided safe water storage for the Nyinasi community.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
   { year: 2023, title: "FOOD SUPPORT FOR MUSLIM COMMUNITY", info: "Donated bags of rice and cooking oil during the fasting season.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
   { year: 2023, title: "SECURITY GEAR FOR AMAMOMA VOLUNTEERS", info: "Donated reflector vests and torch lights to beef up community security.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2023, title: "RENOVATION OF ANKAFUL CHPS COMPOUND", info: "Structural renovation to restore the community health post.", image: "https://i.imgur.com/XmWnKbH.jpeg" }
+  { year: 2023, title: "RENOVATION OF ANKAFUL CHPS COMPOUND", info: "Structural renovation to restore the community health post.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  // 2021
+  { year: 2021, title: "RESOURCES FOR SOCIAL WELFARE VOCATIONAL CENTRE", info: "Donated 20 mattresses and financial aid following a fire outbreak.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2021, title: "FASTING PERIOD SUPPORT FOR MUSLIM CHIEFS", info: "Provided essential items and support for the Muslim community during Ramadan.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2021, title: "PHOTOTHERAPY MACHINE FOR CCTH", info: "Raised funds and supported the purchase of medical equipment for the Cape Coast Teaching Hospital.", image: "https://i.imgur.com/XmWnKbH.jpeg" }
 ];
 
 export function Health() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
-  const years = [2025, 2024, 2023];
+  const years = [2025, 2024, 2023, 2021];
 
   const filteredInitiatives = activeYear === 'all' ? initiatives : initiatives.filter(i => i.year === activeYear);
 
@@ -29,8 +33,8 @@ export function Health() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <AnimatePresence mode="popLayout">
-          {filteredInitiatives.map((item) => (
-            <motion.div key={item.title} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-md flex flex-col hover:shadow-lg transition-shadow">
+          {filteredInitiatives.map((item, index) => (
+            <motion.div key={item.title + index} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-md flex flex-col hover:shadow-lg transition-shadow">
               <div className="relative h-40 overflow-hidden shrink-0">
                 <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                 <div className="absolute top-3 left-3 bg-green-600 text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">{item.year}</div>
