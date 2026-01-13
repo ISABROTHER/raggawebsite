@@ -14,46 +14,11 @@ import { Agriculture } from './achievements/Agriculture';
 type PolicyKey = 'education' | 'health' | 'employment' | 'infrastructure' | 'agriculture';
 
 const categories = [
-  { 
-    id: 'education' as PolicyKey, 
-    title: 'Educational Support', 
-    count: 30, // Updated to 30 as requested (including 2021 data)
-    desc: 'School renovations, institutional funding, and massive sports development.', 
-    image: 'https://i.imgur.com/Ozjnrli.jpeg', 
-    component: <Education /> 
-  },
-  { 
-    id: 'health' as PolicyKey, 
-    title: 'Health & Social Welfare', 
-    count: 10, // Updated with 2021 data
-    desc: 'CHPS compound renovations, medical supplies, and community relief.', 
-    image: 'https://i.imgur.com/XmWnKbH.jpeg', 
-    component: <Health /> 
-  },
-  { 
-    id: 'employment' as PolicyKey, 
-    title: 'Jobs & Economic Empowerment', 
-    count: 16, // Updated with 2021 data
-    desc: 'Job placements, logistics support, and small business capital.', 
-    image: 'https://i.imgur.com/saQoFLV.png', 
-    component: <Employment /> 
-  },
-  { 
-    id: 'infrastructure' as PolicyKey, 
-    title: 'Infrastructure & Community', 
-    count: 24, // Updated with 2021 data
-    desc: 'Community centers, bridge construction, and road networks.', 
-    image: 'https://i.imgur.com/AZqDymE.jpeg', 
-    component: <Infrastructure /> 
-  },
-  { 
-    id: 'agriculture' as PolicyKey, 
-    title: 'Agri-Development', 
-    count: 3, 
-    desc: 'Fertilizer distribution and support for farming cooperatives.', 
-    image: 'https://i.imgur.com/TZ4jIJA.jpeg', 
-    component: <Agriculture /> 
-  }
+  { id: 'education' as PolicyKey, title: 'Educational Support', count: 30, desc: 'School renovations, institutional funding, and massive sports development.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
+  { id: 'health' as PolicyKey, title: 'Health & Social Welfare', count: 10, desc: 'CHPS compound renovations, medical supplies, and community relief.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
+  { id: 'employment' as PolicyKey, title: 'Jobs & Economic Empowerment', count: 16, desc: 'Job placements, logistics support, and small business capital.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
+  { id: 'infrastructure' as PolicyKey, title: 'Infrastructure & Community', count: 24, desc: 'Community centers, bridge construction, and road networks.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
+  { id: 'agriculture' as PolicyKey, title: 'Agri-Development', count: 3, desc: 'Fertilizer distribution and support for farming cooperatives.', image: 'https://i.imgur.com/TZ4jIJA.jpeg', component: <Agriculture /> }
 ];
 
 export function Achievements() {
@@ -95,14 +60,11 @@ export function Achievements() {
                       <div className="p-6 flex-1 flex flex-col">
                         <h3 className="text-xl font-black text-slate-900 leading-tight mb-2">{policy.title}</h3>
                         <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6">{policy.desc}</p>
-                        <div className="mt-auto pt-4 border-t border-slate-50 flex flex-col items-start gap-4">
-                          {/* Updated badge text to "PROJECTS AND INITIATIVES LISTED" */}
-                          <div className="bg-green-50 text-green-700 text-[10px] font-black px-2 py-1 rounded-lg border border-green-100 uppercase tracking-widest w-full text-center">
+                        <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between gap-4">
+                          <div className="bg-green-50 text-green-700 text-[10px] font-black px-2 py-1 rounded-lg border border-green-100 uppercase tracking-widest">
                             {policy.count} PROJECTS AND INITIATIVES LISTED
                           </div>
-                          
-                          {/* Updated button text to "VIEW DETAILS" */}
-                          <div className="flex items-center gap-1 text-green-600 font-black text-xs uppercase group-hover:gap-2 transition-all ml-auto">
+                          <div className="flex items-center gap-1 text-green-600 font-black text-xs uppercase group-hover:gap-2 transition-all">
                             <span>VIEW DETAILS</span>
                             <ChevronRight className="w-4 h-4" />
                           </div>
@@ -120,7 +82,7 @@ export function Achievements() {
                 className="flex items-center gap-2 text-slate-600 hover:text-green-700 mb-8 font-black transition-colors group"
               >
                 <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" /> 
-                <span className="font-black uppercase text-xs tracking-widest">Back to Overview</span>
+                <span className="font-black">Back to Overview</span>
               </button>
 
               <div className="relative h-48 md:h-64 rounded-[2rem] overflow-hidden mb-12 shadow-xl">
