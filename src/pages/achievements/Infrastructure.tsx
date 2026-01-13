@@ -16,12 +16,24 @@ const initiatives = [
   { year: 2023, title: "SUPPORT FOR EFUTU COMMUNITY CENTRE CONSTRUCTION", info: "Donated 100 bags of cement and construction stones.", image: "https://i.imgur.com/AZqDymE.jpeg" },
   { year: 2023, title: "AKOTOKYIR COMMUNITY PLAZA MATERIALS", info: "Donated 50 bags of cement and sand for the plaza expansion.", image: "https://i.imgur.com/AZqDymE.jpeg" },
   { year: 2023, title: "EKOO COMMUNITY PALACE CONSTRUCTION", info: "Donated 100 bags of cement to support the palace building.", image: "https://i.imgur.com/AZqDymE.jpeg" },
-  { year: 2023, title: "CONSTRUCTION OF DUAKOR COMMUNITY FOOTBRIDGE", info: "Built a footbridge to enhance connectivity and safety in Duakor.", image: "https://i.imgur.com/AZqDymE.jpeg" }
+  { year: 2023, title: "CONSTRUCTION OF DUAKOR COMMUNITY FOOTBRIDGE", info: "Built a footbridge to enhance connectivity and safety in Duakor.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  // 2021
+  { year: 2021, title: "280+ STREETLIGHTS DISTRIBUTION", info: "Distributed to Assemblymen, schools, hospitals, and communities.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2021, title: "BEACH CLEAN-UP & CONSERVATION SUPPORT", info: "Donated Wellington boots and funds to Care for Nature for serene beaches.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2021, title: "ABURA COMMUNITY DUMPSITE & CLEAN-UP", info: "Supported construction of dumpsite and coordinated community cleaning.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2021, title: "CEMENT DONATION TO REGIONAL FIRE SERVICE", info: "Donated 20 bags of cement for station maintenance and infrastructure.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2021, title: "ABURA PALACE CONSTRUCTION SUPPORT", info: "Donated 22 bags of cement towards the palace building project.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2021, title: "REPAIR OF 6 BOREHOLES IN 4 COMMUNITIES", info: "Restored water access in Akaikrom, Mempeasem, Efutu Kokwado, and Ansepatu.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2021, title: "BESSAKROM FOOTBRIDGE CONSTRUCTION", info: "Donated 15 bags of cement and iron rods for community connectivity.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2021, title: "ROUND PALACE BRIDGE & ROAD IMPROVEMENTS", info: "Ongoing construction work to improve mobility and infrastructure.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2021, title: "PPEs & LOGISTICS FOR FIRE STATIONS", info: "Supported Pedu, UCC, and Elmina stations with equipment and funds.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2021, title: "COMMISSIONING OF ABURA POLICE STATION", info: "Operationalized the station to enhance security in the Abura enclave.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2021, title: "ABURA MARKET SHED CONSTRUCTION", info: "Built a new shed facility for traders and shoppers at Abura Market.", image: "https://i.imgur.com/AZqDymE.jpeg" }
 ];
 
 export function Infrastructure() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
-  const years = [2025, 2024, 2023];
+  const years = [2025, 2024, 2023, 2021];
 
   const filteredInitiatives = activeYear === 'all' ? initiatives : initiatives.filter(i => i.year === activeYear);
 
@@ -35,8 +47,8 @@ export function Infrastructure() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <AnimatePresence mode="popLayout">
-          {filteredInitiatives.map((item) => (
-            <motion.div key={item.title} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-md flex flex-col hover:shadow-lg transition-shadow">
+          {filteredInitiatives.map((item, index) => (
+            <motion.div key={item.title + index} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-md flex flex-col hover:shadow-lg transition-shadow">
               <div className="relative h-40 overflow-hidden shrink-0">
                 <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                 <div className="absolute top-3 left-3 bg-green-600 text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">{item.year}</div>
