@@ -5,11 +5,11 @@ export interface LocationData {
   assemblyman: string;
   phone: string;
   communities: string[];
-  photoUrl: string; // Added photo field
+  photoUrl: string;
 }
 
-// Updated with a reliable high-quality professional portrait
-const ASSEMBLYMAN_PIC = "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400";
+// Reverted to Ghana Flag as requested
+const GHANA_FLAG = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Flag_of_Ghana.svg/640px-Flag_of_Ghana.svg.png";
 
 export const LOCATIONS: LocationData[] = [
   {
@@ -25,7 +25,7 @@ export const LOCATIONS: LocationData[] = [
       "Nkafoa Nkamadze",
       "Nkafoa Beseadze"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Pedu Nguabado",
@@ -39,7 +39,7 @@ export const LOCATIONS: LocationData[] = [
       "Mintsiminim (Nurses Flats)",
       "Buwano"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Pedu Abakadze",
@@ -56,7 +56,7 @@ export const LOCATIONS: LocationData[] = [
       "Nkwantado",
       "Assim"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Abakam / Aheneboboi",
@@ -67,7 +67,7 @@ export const LOCATIONS: LocationData[] = [
       "Ahenboboe",
       "Kokwaado (nearby cluster)"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "University Old Site / Apewosika",
@@ -81,7 +81,7 @@ export const LOCATIONS: LocationData[] = [
       "Ahenboboe boundary",
       "Amamoma (shared with New Site)"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "University New Site / Kwaprow",
@@ -94,7 +94,7 @@ export const LOCATIONS: LocationData[] = [
       "Amamoma",
       "Kokwaado edges"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Nkwantado / Assim",
@@ -108,7 +108,7 @@ export const LOCATIONS: LocationData[] = [
       "Roman Hill area",
       "Abota Yie"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Etsifi / Eyifua",
@@ -121,7 +121,7 @@ export const LOCATIONS: LocationData[] = [
       "Abura Estate (shared boundary)",
       "Aba Anwonakrom"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Kakomdo",
@@ -134,7 +134,7 @@ export const LOCATIONS: LocationData[] = [
       "C-Poly (CCTU area)",
       "Zongo (shared boundary)"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Ebubonko / Amissano",
@@ -146,7 +146,7 @@ export const LOCATIONS: LocationData[] = [
       "Dehia",
       "Kramotawia"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Essuekyir",
@@ -160,7 +160,7 @@ export const LOCATIONS: LocationData[] = [
       "Amoyaw",
       "Nyinasin edges"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Ankaful",
@@ -174,7 +174,7 @@ export const LOCATIONS: LocationData[] = [
       "Fadur",
       "Dankwaakrom"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Mpeasem / Brimso",
@@ -194,7 +194,7 @@ export const LOCATIONS: LocationData[] = [
       "Akweikrom",
       "Besakrom"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Koforidua / Nyinasin",
@@ -207,7 +207,7 @@ export const LOCATIONS: LocationData[] = [
       "Esuekyir Community 1",
       "Esuekyir Estates"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   },
   {
     zone: "Efutu / Mampong",
@@ -223,6 +223,6 @@ export const LOCATIONS: LocationData[] = [
       "Ansapetu",
       "Nkokosa"
     ],
-    photoUrl: ASSEMBLYMAN_PIC
+    photoUrl: GHANA_FLAG
   }
 ];
