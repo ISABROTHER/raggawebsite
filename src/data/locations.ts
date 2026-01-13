@@ -13,9 +13,159 @@ const GHANA_FLAG = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Fl
 
 export const LOCATIONS: LocationData[] = [
   {
+    zone: "3rd Ridge / Nkanfoa",
+    assemblyman: "Benjamin Benyah",
+    phone: "0243043906",
+    communities: [
+      "1st Ridge",
+      "2nd Ridge",
+      "3rd Ridge",
+      "4th Ridge",
+      "Nkafoa",
+      "Nkafoa Nkamadze",
+      "Nkafoa Beseadze"
+    ],
+    photoUrl: GHANA_FLAG
+  },
+  {
+    zone: "Pedu Nguabado",
+    assemblyman: "Isaac Kobina Mensah",
+    phone: "0549902118",
+    communities: [
+      "Pedu",
+      "Pedu Junction",
+      "Nguabado",
+      "Adaaso",
+      "Mintsiminim (Nurses Flats)",
+      "Buwano"
+    ],
+    photoUrl: GHANA_FLAG
+  },
+  {
+    zone: "Pedu Abakadze",
+    assemblyman: "James Arthur",
+    phone: "0248483321",
+    communities: [
+      "Abakaadze",
+      "Roman Hill",
+      "Abota Yie",
+      "Adeebikrom",
+      "The Boy",
+      "Tankokrom",
+      "Ba Awar",
+      "Nkwantado",
+      "Assim"
+    ],
+    photoUrl: GHANA_FLAG
+  },
+  {
+    zone: "Abakam / Aheneboboi",
+    assemblyman: "Wisdom Suka",
+    phone: "0242532998",
+    communities: [
+      "Abakam",
+      "Ahenboboe",
+      "Kokwaado (nearby cluster)"
+    ],
+    photoUrl: GHANA_FLAG
+  },
+  {
+    zone: "University Old Site / Apewosika",
+    assemblyman: "Jacob Kakra Ewusie",
+    phone: "0243563349",
+    communities: [
+      "University Old Site",
+      "Apewosika",
+      "Akotokyir",
+      "Duakor",
+      "Ahenboboe boundary",
+      "Amamoma (shared with New Site)"
+    ],
+    photoUrl: GHANA_FLAG
+  },
+  {
+    zone: "University New Site / Kwaprow",
+    assemblyman: "John Kilson Mensah",
+    phone: "0548214411",
+    communities: [
+      "University New Site",
+      "Kwaprow",
+      "Kwesipra",
+      "Amamoma",
+      "Kokwaado edges"
+    ],
+    photoUrl: GHANA_FLAG
+  },
+  {
+    zone: "Nkwantado / Assim",
+    assemblyman: "Moses Arthur",
+    phone: "0246505955",
+    communities: [
+      "Nkwantado",
+      "Assim",
+      "Ba Awar",
+      "Adeebikrom",
+      "Roman Hill area",
+      "Abota Yie"
+    ],
+    photoUrl: GHANA_FLAG
+  },
+  {
+    zone: "Etsifi / Eyifua",
+    assemblyman: "Abdul Malik",
+    phone: "0244031098",
+    communities: [
+      "Eyifua",
+      "Eyifua Estates",
+      "Etsifi",
+      "Abura Estate (shared boundary)",
+      "Aba Anwonakrom"
+    ],
+    photoUrl: GHANA_FLAG
+  },
+  {
+    zone: "Kakomdo",
+    assemblyman: "Vitus Rosevare Kobina Danquah",
+    phone: "0244082362",
+    communities: [
+      "Kakomdo",
+      "Amisano",
+      "Ebubonko",
+      "C-Poly (CCTU area)",
+      "Zongo (shared boundary)"
+    ],
+    photoUrl: GHANA_FLAG
+  },
+  {
+    zone: "Ebubonko / Amissano",
+    assemblyman: "Ibrahim Dawda Mohammed",
+    phone: "0548047421",
+    communities: [
+      "Ebubonko",
+      "Amissano",
+      "Dehia",
+      "Kramotawia"
+    ],
+    photoUrl: GHANA_FLAG
+  },
+  {
+    zone: "Essuekyir",
+    assemblyman: "Eric Kofi Boateng",
+    phone: "0595528417",
+    communities: [
+      "Esuekyir",
+      "Anto Esuekyir",
+      "Esuekyir Estates",
+      "Esuekyir Community 1",
+      "Amoyaw",
+      "Nyinasin edges"
+    ],
+    photoUrl: GHANA_FLAG
+  },
+  {
     zone: "Ankaful",
-    assemblyman: "George Anafo",
-    phone: "+233 54 648 8474",
+    assemblyman: "Robert Mensah",
+    phone: "0243344026",
     communities: [
       "Ankaful",
       "Ankaful Camp",
@@ -29,7 +179,7 @@ export const LOCATIONS: LocationData[] = [
   {
     zone: "Mpeasem / Brimso",
     assemblyman: "David Owu",
-    phone: "+233 27 805 5284",
+    phone: "0593098860",
     communities: [
       "Mpeasem",
       "Brimso",
@@ -49,7 +199,7 @@ export const LOCATIONS: LocationData[] = [
   {
     zone: "Koforidua / Nyinasin",
     assemblyman: "Paul Nat Amissah",
-    phone: "+233 24 393 0021",
+    phone: "0243930021",
     communities: [
       "Koforidua",
       "Nyinasin",
@@ -61,8 +211,8 @@ export const LOCATIONS: LocationData[] = [
   },
   {
     zone: "Efutu / Mampong",
-    assemblyman: "Alhaji M. Abdullha",
-    phone: "+233 24 470 7883",
+    assemblyman: "Alhaji Mustapha Abdullah",
+    phone: "0244707883",
     communities: [
       "Efutu",
       "Efutu Ekutuadze",
@@ -72,218 +222,6 @@ export const LOCATIONS: LocationData[] = [
       "Ewusikrom",
       "Ansapetu",
       "Nkokosa"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Adisadel",
-    assemblyman: "Muntala Mohammed",
-    phone: "+233 24 327 8820",
-    communities: [
-      "Adisadel Village",
-      "Adisadel College",
-      "Adisadel Staff Quarters",
-      "West Adisadel",
-      "Zongo (Adisadel Zongo)",
-      "Tsibu Darko (Adisadel edge)",
-      "Estates",
-      "Tankoferdo"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Tsibi Darko",
-    assemblyman: "Husseni Shaibu",
-    phone: "+233 24 346 2446",
-    communities: [
-      "Tsibu Darko",
-      "Estate extensions around Adisadel",
-      "Ridge fringe areas"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Blackstar",
-    assemblyman: "Isaac Winful",
-    phone: "+233 24 944 7006",
-    communities: [
-      "Black Star (MOH) Bungalows",
-      "Augusto Bungalows",
-      "SSNIT Flats",
-      "Ola University Area (extensions)"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Ola Low Cost",
-    assemblyman: "Tsibu-Darko Prince",
-    phone: "+233 24 427 4461",
-    communities: [
-      "Ola Low Cost",
-      "Ola Medina (overlap area)",
-      "North Ola",
-      "Ola Market area"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Ola Madina",
-    assemblyman: "Samuel E. Krah",
-    phone: "+233 24 326 8939",
-    communities: [
-      "Ola Madina",
-      "Ola Central Community",
-      "University enclave transition zones"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "3rd Ridge / Nkanfoa",
-    assemblyman: "Frederick J.T. Mensah",
-    phone: "+233 24 661 6651",
-    communities: [
-      "1st Ridge",
-      "2nd Ridge",
-      "3rd Ridge",
-      "4th Ridge",
-      "Nkafoa",
-      "Nkafoa Nkamadze",
-      "Nkafoa Beseadze"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Pedu Nguabado",
-    assemblyman: "Isaac Kobina Mensah",
-    phone: "+233 54 990 2118",
-    communities: [
-      "Pedu",
-      "Pedu Junction",
-      "Nguabado",
-      "Adaaso",
-      "Mintsiminim (Nurses Flats)",
-      "Buwano"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Pedu Abakadze",
-    assemblyman: "James Arthur",
-    phone: "+233 24 848 3321",
-    communities: [
-      "Abakaadze",
-      "Roman Hill",
-      "Abota Yie",
-      "Adeebikrom",
-      "The Boy",
-      "Tankokrom",
-      "Ba Awar",
-      "Nkwantado",
-      "Assim"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Abakam / Aheneboboi",
-    assemblyman: "Wisdom Suka",
-    phone: "+233 24 253 2998",
-    communities: [
-      "Abakam",
-      "Ahenboboe",
-      "Kokwaado (nearby cluster)"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "University Old Site / Apewosika",
-    assemblyman: "Francis Mensah Egyir",
-    phone: "+233 20 033 8167",
-    communities: [
-      "University Old Site",
-      "Apewosika",
-      "Akotokyir",
-      "Duakor",
-      "Ahenboboe boundary",
-      "Amamoma (shared with New Site)"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "University New Site / Kwaprow",
-    assemblyman: "John Kilson Mensah",
-    phone: "+233 54 821 4411",
-    communities: [
-      "University New Site",
-      "Kwaprow",
-      "Kwesipra",
-      "Amamoma",
-      "Kokwaado edges"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Nkwantado / Assim",
-    assemblyman: "Moses Arthur",
-    phone: "+233 24 650 5955",
-    communities: [
-      "Nkwantado",
-      "Assim",
-      "Ba Awar",
-      "Adeebikrom",
-      "Roman Hill area",
-      "Abota Yie"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Etsifi / Eyifua",
-    assemblyman: "Abdul Malik Adjei",
-    phone: "+233 24 403 1098",
-    communities: [
-      "Eyifua",
-      "Eyifua Estates",
-      "Etsifi",
-      "Abura Estate (shared boundary)",
-      "Aba Anwonakrom"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Kakomdo",
-    assemblyman: "Usman Egyin Abbam",
-    phone: "+233 24 451 8779",
-    communities: [
-      "Kakomdo",
-      "Amisano",
-      "Ebubonko",
-      "C-Poly (CCTU area)",
-      "Zongo (shared boundary)"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Ebubonko / Amissano",
-    assemblyman: "Kobina Issah",
-    phone: "+233 24 569 4631",
-    communities: [
-      "Ebubonko",
-      "Amissano",
-      "Dehia",
-      "Kramotawia"
-    ],
-    photoUrl: GHANA_FLAG
-  },
-  {
-    zone: "Essuekyir",
-    assemblyman: "Benjamin Manso",
-    phone: "+233 55 510 6104",
-    communities: [
-      "Esuekyir",
-      "Anto Esuekyir",
-      "Esuekyir Estates",
-      "Esuekyir Community 1",
-      "Amoyaw",
-      "Nyinasin edges"
     ],
     photoUrl: GHANA_FLAG
   }
