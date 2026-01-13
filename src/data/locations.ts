@@ -8,8 +8,8 @@ export interface LocationData {
   photoUrl: string; // Added photo field
 }
 
-// Updated placeholder image from user request
-const ASSEMBLYMAN_PIC = "https://img.freepik.com/free-photo/business-woman-banner-concept-with-copy-space_23-2149601457.jpg?semt=ais_hybrid&w=740&q=80";
+// Updated with a reliable high-quality professional portrait
+const ASSEMBLYMAN_PIC = "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400";
 
 export const LOCATIONS: LocationData[] = [
   {
