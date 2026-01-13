@@ -31,12 +31,20 @@ const initiatives = [
   { year: 2023, title: "FOOTBALL & HOSES DONATION TO ANKAFUL COMMUNITY", info: "Provided essential football gear including hoses and jerseys to the youth.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
   { year: 2023, title: "AFRICAN SOFTBALL CONFEDERATION SUPPORT", info: "Provided logistical and financial backing for the confederation's initiatives.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
   { year: 2023, title: "BRIMSU COMMUNITY SPORTS EQUIPMENT", info: "Donated jerseys, football hoses, and footballs to the community.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
-  { year: 2023, title: "ESSUERKYIR COMMUNITY YOUTH SPORTS SUPPORT", info: "Donated full football kits to empower local youth athletes.", image: "https://i.imgur.com/Ozjnrli.jpeg" }
+  { year: 2023, title: "ESSUERKYIR COMMUNITY YOUTH SPORTS SUPPORT", info: "Donated full football kits to empower local youth athletes.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+
+  // 2021
+  { year: 2021, title: "ICT CENTRE CONSTRUCTION FOR ESSUEKYIR M/A BASIC", info: "Supported the construction and donated 70 bags of cement for the school and library block.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2021, title: "ROOFING MATERIALS FOR KUROWFOFORDO SCHOOL", info: "Donated 2 bundles of roofing sheets to support the ongoing school project.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2021, title: "285 DESKS FOR 18 BASIC SCHOOLS", info: "Donated dual and mono desks to address furniture deficits across the constituency.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2021, title: "GHS 25,000 FINANCIAL SUPPORT FOR BECE EXCEL CANDIDATES", info: "Supported 50 top-performing BECE students with individual funds for SHS admission.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2021, title: "SUPPORT FOR EBUSUSUA DWARFS & VENOMOUS VIPERS", info: "Provided strategic financial support to Cape Coast's premier football clubs.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2021, title: "SPORTS FESTIVAL SUPPORT FOR NKANFOA, DUAKOR & EBUBUBONKO", info: "Donated cash and footballs for community sports festivals.", image: "https://i.imgur.com/Ozjnrli.jpeg" }
 ];
 
 export function Education() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
-  const years = [2025, 2024, 2023];
+  const years = [2025, 2024, 2023, 2021];
 
   const filteredInitiatives = activeYear === 'all' 
     ? initiatives 
@@ -52,8 +60,8 @@ export function Education() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <AnimatePresence mode="popLayout">
-          {filteredInitiatives.map((item) => (
-            <motion.div key={item.title} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-md flex flex-col hover:shadow-lg transition-shadow">
+          {filteredInitiatives.map((item, index) => (
+            <motion.div key={item.title + index} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-md flex flex-col hover:shadow-lg transition-shadow">
               <div className="relative h-40 overflow-hidden shrink-0">
                 <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                 <div className="absolute top-3 left-3 bg-green-600 text-white text-[10px] font-black px-2 py-1 rounded shadow-lg">{item.year}</div>
