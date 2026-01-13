@@ -149,8 +149,8 @@ export function Assemblymen() {
                 </div>
                 
                 <div className="w-full flex flex-col flex-1">
-                  {/* Assemblyman name as small secondary text */}
-                  <p className="text-[9px] font-black tracking-widest text-green-700 uppercase mb-1">
+                  {/* Assemblyman name - increased font size by approx 30% (from 9px to 12px) */}
+                  <p className="text-[12px] font-black tracking-widest text-green-700 uppercase mb-1">
                     {member.assemblyman}
                   </p>
                   
