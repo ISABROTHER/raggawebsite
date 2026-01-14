@@ -1,10 +1,10 @@
-// src/pages/Achievements.tsx
-import { useState } from 'react';
-import { ArrowLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowLeft, ChevronRight, BarChart3 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedSection } from '../components/AnimatedSection';
+import { AchievementStats } from '../components/AchievementStats';
+import { getCategoryCount } from '../lib/achievementsApi';
 
-// Import the sub-components from the achievements folder
 import { Education } from './achievements/Education';
 import { Health } from './achievements/Health';
 import { Employment } from './achievements/Employment';
@@ -13,16 +13,31 @@ import { Agriculture } from './achievements/Agriculture';
 
 type PolicyKey = 'education' | 'health' | 'employment' | 'infrastructure' | 'agriculture';
 
-const categories = [
-  { id: 'education' as PolicyKey, title: 'Educational Support', count: 40, desc: 'School renovations, institutional funding, and massive sports development.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
-  { id: 'health' as PolicyKey, title: 'Health & Social Welfare', count: 15, desc: 'CHPS compound renovations, medical supplies, and community relief.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
-  { id: 'employment' as PolicyKey, title: 'Jobs & Economic Empowerment', count: 19, desc: 'Job placements, logistics support, and small business capital.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
-  { id: 'infrastructure' as PolicyKey, title: 'Infrastructure & Community', count: 30, desc: 'Community centers, bridge construction, and road networks.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
-  { id: 'agriculture' as PolicyKey, title: 'Agri-Development', count: 3, desc: 'Fertilizer distribution and support for farming cooperatives.', image: 'https://i.imgur.com/TZ4jIJA.jpeg', component: <Agriculture /> }
+const categoriesBase = [
+  { id: 'education' as PolicyKey, title: 'Educational Support', desc: 'School renovations, institutional funding, and massive sports development.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
+  { id: 'health' as PolicyKey, title: 'Health & Social Welfare', desc: 'CHPS compound renovations, medical supplies, and community relief.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
+  { id: 'employment' as PolicyKey, title: 'Jobs & Economic Empowerment', desc: 'Job placements, logistics support, and small business capital.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
+  { id: 'infrastructure' as PolicyKey, title: 'Infrastructure & Community', desc: 'Community centers, bridge construction, and road networks.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
+  { id: 'agriculture' as PolicyKey, title: 'Agri-Development', desc: 'Fertilizer distribution and support for farming cooperatives.', image: 'https://i.imgur.com/TZ4jIJA.jpeg', component: <Agriculture /> }
 ];
 
 export function Achievements() {
   const [selectedId, setSelectedId] = useState<PolicyKey | null>(null);
+  const [categories, setCategories] = useState(categoriesBase.map(c => ({ ...c, count: 0 })));
+  const [showStats, setShowStats] = useState(false);
+
+  useEffect(() => {
+    async function loadCounts() {
+      const countsPromises = categoriesBase.map(async (cat) => {
+        const count = await getCategoryCount(cat.id);
+        return { ...cat, count };
+      });
+      const categoriesWithCounts = await Promise.all(countsPromises);
+      setCategories(categoriesWithCounts);
+    }
+    loadCounts();
+  }, []);
+
   const selectedPolicy = categories.find(c => c.id === selectedId);
 
   return (
@@ -31,7 +46,7 @@ export function Achievements() {
         <AnimatePresence mode="wait">
           {!selectedPolicy ? (
             <motion.div key="grid" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              
+
               <div className="text-center mb-12 md:mb-16">
                 <div className="flex flex-col items-center justify-center group">
                   <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-center bg-gradient-to-r from-slate-900 via-green-700 to-slate-900 bg-clip-text text-transparent uppercase">
@@ -44,7 +59,21 @@ export function Achievements() {
 
                   <span className="mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 transition-all group-hover:w-32" />
                 </div>
+
+                <button
+                  onClick={() => setShowStats(!showStats)}
+                  className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl"
+                >
+                  <BarChart3 className="w-5 h-5" />
+                  {showStats ? 'Hide' : 'View'} Impact Dashboard
+                </button>
               </div>
+
+              {showStats && (
+                <div className="mb-12">
+                  <AchievementStats />
+                </div>
+              )}
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {categories.map((policy, idx) => (
