@@ -1,4 +1,4 @@
-// src/pages/achievements/Education.tsx
+// src/pages/achievements/Employment.tsx
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -54,7 +54,7 @@ const initiatives = [
   { year: 2021, title: "SPORTS FESTIVAL SUPPORT FOR NKANFOA, DUAKOR & EBUBUBONKO", info: "Donated cash and footballs for community sports festivals.", image: "https://i.imgur.com/Ozjnrli.jpeg" }
 ];
 
-export function Education() {
+export function Employment() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
   const years = [2025, 2024, 2023, 2022, 2021];
 
