@@ -14,6 +14,10 @@ const initiatives = [
   { year: 2024, title: "TECHNICAL SKILLS WORKSHOPS", info: "Modern vocational training for constituency youth.", image: "https://i.imgur.com/saQoFLV.png" },
   // 2023
   { year: 2023, title: "ABOBOYA DONATION & CLEAN-UP SUPPORT", info: "Donated an aboboya to the youth wing and supported Abura sanitation.", image: "https://i.imgur.com/saQoFLV.png" },
+  // 2022
+  { year: 2022, title: "50 SEWING MACHINES DISTRIBUTION", info: "Distributed professional sewing machines to fashion designers and entrepreneurs across the constituency.", image: "https://i.imgur.com/saQoFLV.png" },
+  { year: 2022, title: "BIO-DIGESTER & SOAP PRODUCTION TRAINING", info: "Entrepreneurship initiative that trained over 350 constituents in practical, high-demand technical skills.", image: "https://i.imgur.com/saQoFLV.png" },
+  { year: 2022, title: "EQUIPMENT FOR HAIRDRESSERS GRADUATION", info: "Donated 16 hairdryers and GHS 1,000 cash at the Abura Chapter Hairdressers graduation ceremony.", image: "https://i.imgur.com/saQoFLV.png" },
   // 2021
   { year: 2021, title: "600+ CONSTITUENTS TRAINED IN VOCATIONAL SKILLS", info: "Training in bio-digesters, soap, body cream, mushroom, and epoxy production.", image: "https://i.imgur.com/saQoFLV.png" },
   { year: 2021, title: "T-SHIRT PRODUCTION ENTREPRENEURSHIP INITIATIVE", info: "Launched local production to promote Cape Coast and create jobs.", image: "https://i.imgur.com/saQoFLV.png" },
@@ -25,7 +29,7 @@ const initiatives = [
 
 export function Employment() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
-  const years = [2025, 2024, 2023, 2021];
+  const years = [2025, 2024, 2023, 2022, 2021];
 
   const filteredInitiatives = activeYear === 'all' ? initiatives : initiatives.filter(i => i.year === activeYear);
 
