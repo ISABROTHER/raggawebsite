@@ -33,6 +33,18 @@ const initiatives = [
   { year: 2023, title: "BRIMSU COMMUNITY SPORTS EQUIPMENT", info: "Donated jerseys, football hoses, and footballs to the community.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
   { year: 2023, title: "ESSUERKYIR COMMUNITY YOUTH SPORTS SUPPORT", info: "Donated full football kits to empower local youth athletes.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
 
+  // 2022
+  { year: 2022, title: "DONATION TO APEWOSIKA BASIC SCHOOL", info: "Donated 50 bags of cement, sand, stones, and streetlights to support school infrastructure.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "100 DUAL DESKS FOR 10 SELECTED SCHOOLS", info: "Donated desks to improve the learning environment for students across the constituency.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "GHC 25,000 BECE SUPPORT FUND", info: "Payment for the first batch of the fund to assist candidates with educational needs.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "STAFF ROOM CREATION AT PEDUDU PRIMARY 'A'", info: "Donated plywood to facilitate the creation of a dedicated staff room for teachers.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "BASKETBALL SNEAKERS FOR CAPE COAST YOUTH", info: "Donated high-quality sneakers to foster a love for basketball among young talents.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "GHC 10,000 SUPPORT FOR METRO EDUCATION DIRECTORATE", info: "Financial donation to support the administrative and developmental activities of the directorate.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "RENOVATION OF ENGLISH-ARABIC BASIC SCHOOL", info: "Undertook structural renovations to provide a brighter and safer learning space.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "SUPPORT FOR CENTRAL REGION MARATHON TEAM", info: "Provided logistical and financial backing to encourage athletics in the region.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "ROOFING MATERIALS FOR EFUTU KOKWADO PRIMARY", info: "Supplied roofing sheets, wood, and nails to repair school buildings.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "PETITION SUPPORT FOR DWARF SUPPORTERS", info: "Donated GHS 8,000 and hired a bus to assist supporters in presenting a petition to Parliament.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+
   // 2021
   { year: 2021, title: "ICT CENTRE CONSTRUCTION FOR ESSUEKYIR M/A BASIC", info: "Supported the construction and donated 70 bags of cement for the school and library block.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
   { year: 2021, title: "ROOFING MATERIALS FOR KUROWFOFORDO SCHOOL", info: "Donated 2 bundles of roofing sheets to support the ongoing school project.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
@@ -44,7 +56,7 @@ const initiatives = [
 
 export function Education() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
-  const years = [2025, 2024, 2023, 2021];
+  const years = [2025, 2024, 2023, 2022, 2021];
 
   const filteredInitiatives = activeYear === 'all' 
     ? initiatives 
