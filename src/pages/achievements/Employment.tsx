@@ -1,37 +1,66 @@
-// src/pages/achievements/Employment.tsx
+// src/pages/achievements/Education.tsx
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const initiatives = [
-  { year: 2025, title: "PUBLIC SECTOR JOB RECRUITMENTS", info: "Secured slots for GES, EPA, NADMO, and Ghana Armed Forces.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2025, title: "YEA COMMUNITY SLOTS SECURED", info: "Secured 40+ positions in Prisons, Fire, and Ambulance services.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2025, title: "PROFESSIONAL COORDINATOR APPOINTMENTS", info: "Secured roles for Health, Education, and DRIP coordinators.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2025, title: "TRANSPORT SECTOR CASH & FUEL SUPPORT", info: "Provided coupons and cash to Abura Taxi drivers.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2025, title: "MARKET WOMEN BUSINESS CAPITAL", info: "Direct cash donations to empower women in Abura Market.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2025, title: "NATIONAL APPRENTICESHIP ENROLLMENT", info: "Secured 25 slots for the apprenticeship program.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2025, title: "GH₵10,000 CAMERA FOR K2PHILMS", info: "Empowered local creatives with high-end video equipment.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2025, title: "NDC SERIAL CALLER SUPPORT", info: "Logistical support for community communicators.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2024, title: "TECHNICAL SKILLS WORKSHOPS", info: "Modern vocational training for constituency youth.", image: "https://i.imgur.com/saQoFLV.png" },
+  // 2025
+  { year: 2025, title: "GH₵20,000 DONATION TOWARDS THE CASFORD SPORTS COMPLEX", info: "Direct financial support for the construction of the Casford Hall Sports facility.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2025, title: "RENOVATION OF DUAKOR BASIC SCHOOL", info: "Fixed leaking roofs, partitions, broken doors, windows, and full painting.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2025, title: "INFIRMARY SUPPORT FOR OLA TRAINING COLLEGE", info: "Donated 100 bags of cement, sand, and stones for the new infirmary construction.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2025, title: "GH₵50,000 FINANCIAL SUPPORT FOR SCHOOLS", info: "Provided monetary aid to various educational institutions across the constituency.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2025, title: "500 LED BULBS FOR ADISADEL COLLEGE", info: "Addressed chronic lighting issues to improve student safety.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2025, title: "COMPUTERS & RESOURCES FOR 5 SENIOR HIGH SCHOOLS", info: "Donated 5 computers, 1500 LED bulbs, and 1000 mosquito repellents.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2025, title: "180 CHOPBOXES FOR FIRST-YEAR STUDENTS", info: "Welfare support for newly admitted SHS students.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2025, title: "CANTEEN CONSTRUCTION FOR ABAKAM BASIC SCHOOL", info: "Built a dedicated canteen facility for students and the community.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2025, title: "SPORTS KITS FOR ASENADZE YOUTH", info: "Donated jerseys and footballs to the local youth team.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2025, title: "LOGISTICAL SUPPORT FOR TERTIARY PROJECTS", info: "Backed student-led developmental projects in higher institutions.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  
+  // 2024
+  { year: 2024, title: "BECE & WASSCE CANDIDATE SUPPORT", info: "Mentorship and material provision for exam preparation.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2024, title: "CLASSROOM INFRASTRUCTURE REHABILITATION", info: "Structural repairs for dilapidated basic school buildings.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  
   // 2023
-  { year: 2023, title: "ABOBOYA DONATION & CLEAN-UP SUPPORT", info: "Donated an aboboya to the youth wing and supported Abura sanitation.", image: "https://i.imgur.com/saQoFLV.png" },
+  { year: 2023, title: "EDUCATIONAL SUPPORT FOR 100 BECE TO SHS STUDENTS", info: "Beneficiaries received strategic educational materials and enrollment support.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2023, title: "DONATION OF 100 DUAL DESKS TO 10 BASIC SCHOOLS", info: "Addressed furniture deficits in critical basic educational facilities.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2023, title: "SPORTS KITS DONATION TO NYINASI COMMUNITY", info: "Provided a set of jersey and football to encourage community youth sports.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2023, title: "JERSEY & FOOTBALL DONATION FOR UCC STAFF GAMES", info: "Supported staff recreation and health at the University of Cape Coast.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2023, title: "SPORTS SUPPORT FOR AKOTOKYIR YOUTH TEAM", info: "Donated a set of jersey and a football to the community youth football team.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2023, title: "FUNDING FOR REGIONAL RUGBY TEAMS", info: "Financial support for the Central and Western regional rugby teams.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2023, title: "ABURA AHOBAA FESTIVAL FOOTBALL GALA SUPPORT", info: "Donated 2 sets of jerseys, 2 footballs, 3 trophies, and cash prizes.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2023, title: "NKANFOA COMMUNITY TEAM SPORTS GEAR", info: "Supported the local team with quality footballs and jerseys.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2023, title: "FOOTBALL & HOSES DONATION TO ANKAFUL COMMUNITY", info: "Provided essential football gear including hoses and jerseys to the youth.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2023, title: "AFRICAN SOFTBALL CONFEDERATION SUPPORT", info: "Provided logistical and financial backing for the confederation's initiatives.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2023, title: "BRIMSU COMMUNITY SPORTS EQUIPMENT", info: "Donated jerseys, football hoses, and footballs to the community.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2023, title: "ESSUERKYIR COMMUNITY YOUTH SPORTS SUPPORT", info: "Donated full football kits to empower local youth athletes.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+
   // 2022
-  { year: 2022, title: "50 SEWING MACHINES DISTRIBUTION", info: "Distributed professional sewing machines to fashion designers and entrepreneurs across the constituency.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2022, title: "BIO-DIGESTER & SOAP PRODUCTION TRAINING", info: "Entrepreneurship initiative that trained over 350 constituents in practical, high-demand technical skills.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2022, title: "EQUIPMENT FOR HAIRDRESSERS GRADUATION", info: "Donated 16 hairdryers and GHS 1,000 cash at the Abura Chapter Hairdressers graduation ceremony.", image: "https://i.imgur.com/saQoFLV.png" },
+  { year: 2022, title: "DONATION TO APEWOSIKA BASIC SCHOOL", info: "Donated 50 bags of cement, sand, stones, and streetlights to support school infrastructure.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "100 DUAL DESKS FOR 10 SELECTED SCHOOLS", info: "Donated desks to improve the learning environment for students across the constituency.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "GHC 25,000 BECE SUPPORT FUND", info: "Payment for the first batch of the fund to assist candidates with educational needs.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "STAFF ROOM CREATION AT PEDUDU PRIMARY 'A'", info: "Donated plywood to facilitate the creation of a dedicated staff room for teachers.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "BASKETBALL SNEAKERS FOR CAPE COAST YOUTH", info: "Donated high-quality sneakers to foster a love for basketball among young talents.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "GHC 10,000 SUPPORT FOR METRO EDUCATION DIRECTORATE", info: "Financial donation to support the administrative and developmental activities of the directorate.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "RENOVATION OF ENGLISH-ARABIC BASIC SCHOOL", info: "Undertook structural renovations to provide a brighter and safer learning space.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "SUPPORT FOR CENTRAL REGION MARATHON TEAM", info: "Provided logistical and financial backing to encourage athletics in the region.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "ROOFING MATERIALS FOR EFUTU KOKWADO PRIMARY", info: "Supplied roofing sheets, wood, and nails to repair school buildings.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2022, title: "PETITION SUPPORT FOR DWARF SUPPORTERS", info: "Donated GHS 8,000 and hired a bus to assist supporters in presenting a petition to Parliament.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+
   // 2021
-  { year: 2021, title: "600+ CONSTITUENTS TRAINED IN VOCATIONAL SKILLS", info: "Training in bio-digesters, soap, body cream, mushroom, and epoxy production.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2021, title: "T-SHIRT PRODUCTION ENTREPRENEURSHIP INITIATIVE", info: "Launched local production to promote Cape Coast and create jobs.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2021, title: "LOGISTICS FOR SKILLS ACQUISITION PROGRAMME", info: "Donated a motorcycle to the chief trainer to enhance mobile training.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2021, title: "SUPPORT FOR TAILORS & DRESSMAKERS ASSOCIATION", info: "Financial support and pledge of 40 sewing machines across 4 zones.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2021, title: "CREATIVE ARTS & MUSICIAN SUPPORT", info: "Provided financial backing for local artists and creative entrepreneurs.", image: "https://i.imgur.com/saQoFLV.png" },
-  { year: 2021, title: "SPOTLIGHT AWARDS AFRICA RECOGNITION", info: "Honoured as Most Outstanding Politician in Entrepreneurship and Capacity Building.", image: "https://i.imgur.com/saQoFLV.png" }
+  { year: 2021, title: "ICT CENTRE CONSTRUCTION FOR ESSUEKYIR M/A BASIC", info: "Supported the construction and donated 70 bags of cement for the school and library block.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2021, title: "ROOFING MATERIALS FOR KUROWFOFORDO SCHOOL", info: "Donated 2 bundles of roofing sheets to support the ongoing school project.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2021, title: "285 DESKS FOR 18 BASIC SCHOOLS", info: "Donated dual and mono desks to address furniture deficits across the constituency.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2021, title: "GHS 25,000 FINANCIAL SUPPORT FOR BECE EXCEL CANDIDATES", info: "Supported 50 top-performing BECE students with individual funds for SHS admission.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2021, title: "SUPPORT FOR EBUSUSUA DWARFS & VENOMOUS VIPERS", info: "Provided strategic financial support to Cape Coast's premier football clubs.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
+  { year: 2021, title: "SPORTS FESTIVAL SUPPORT FOR NKANFOA, DUAKOR & EBUBUBONKO", info: "Donated cash and footballs for community sports festivals.", image: "https://i.imgur.com/Ozjnrli.jpeg" }
 ];
 
-export function Employment() {
+export function Education() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
   const years = [2025, 2024, 2023, 2022, 2021];
 
-  const filteredInitiatives = activeYear === 'all' ? initiatives : initiatives.filter(i => i.year === activeYear);
+  const filteredInitiatives = activeYear === 'all' 
+    ? initiatives 
+    : initiatives.filter(i => i.year === activeYear);
 
   return (
     <div className="space-y-8">
