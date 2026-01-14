@@ -17,6 +17,13 @@ const initiatives = [
   { year: 2023, title: "AKOTOKYIR COMMUNITY PLAZA MATERIALS", info: "Donated 50 bags of cement and sand for the plaza expansion.", image: "https://i.imgur.com/AZqDymE.jpeg" },
   { year: 2023, title: "EKOO COMMUNITY PALACE CONSTRUCTION", info: "Donated 100 bags of cement to support the palace building.", image: "https://i.imgur.com/AZqDymE.jpeg" },
   { year: 2023, title: "CONSTRUCTION OF DUAKOR COMMUNITY FOOTBRIDGE", info: "Built a footbridge to enhance connectivity and safety in Duakor.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  // 2022
+  { year: 2022, title: "400+ STREETLIGHTS CONSTITUENCY-WIDE", info: "Extensive provision of streetlights to enhance security and nightlife in all communities.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2022, title: "ABURA AHOBAA FESTIVAL SUPPORT", info: "Donated 20 streetlights and 50 Wellington boots to support the community's major festival.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2022, title: "TILES FOR SENANAWIN MOSQUE", info: "Donated 70 boxes of tiles to support the mosque's development project.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2022, title: "ROOFING FOR TRUCK DRIVERS' STATION", info: "Donated high-quality roofing sheets to provide shelter and improve station facilities.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2022, title: "SUPPORT FOR NKANFOA AFAHYE", info: "Donated 10 streetlights and 32 Wellington boots to facilitate the community festival.", image: "https://i.imgur.com/AZqDymE.jpeg" },
+  { year: 2022, title: "OGUAA FETU AFAHYE FESTIVAL SUPPORT", info: "Strategic logistical and financial backing for Cape Coast's premier traditional festival.", image: "https://i.imgur.com/AZqDymE.jpeg" },
   // 2021
   { year: 2021, title: "280+ STREETLIGHTS DISTRIBUTION", info: "Distributed to Assemblymen, schools, hospitals, and communities.", image: "https://i.imgur.com/AZqDymE.jpeg" },
   { year: 2021, title: "BEACH CLEAN-UP & CONSERVATION SUPPORT", info: "Donated Wellington boots and funds to Care for Nature for serene beaches.", image: "https://i.imgur.com/AZqDymE.jpeg" },
@@ -33,7 +40,7 @@ const initiatives = [
 
 export function Infrastructure() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
-  const years = [2025, 2024, 2023, 2021];
+  const years = [2025, 2024, 2023, 2022, 2021];
 
   const filteredInitiatives = activeYear === 'all' ? initiatives : initiatives.filter(i => i.year === activeYear);
 
