@@ -11,6 +11,12 @@ const initiatives = [
   { year: 2023, title: "FOOD SUPPORT FOR MUSLIM COMMUNITY", info: "Donated bags of rice and cooking oil during the fasting season.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
   { year: 2023, title: "SECURITY GEAR FOR AMAMOMA VOLUNTEERS", info: "Donated reflector vests and torch lights to beef up community security.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
   { year: 2023, title: "RENOVATION OF ANKAFUL CHPS COMPOUND", info: "Structural renovation to restore the community health post.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  // 2022
+  { year: 2022, title: "450 RAMBO POLYTANK DISTRIBUTION", info: "Donated high-capacity water storage tanks to Brabedze, Dehia, and Apepewosika communities.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2022, title: "WELFARE SUPPORT FOR THE MUSLIM COMMUNITY", info: "Distributed bags of rice, cooking oil, and mackerel during the festive period.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2022, title: "DONATION TO GHANA SOCIETY FOR PHYSICALLY DISABLED", info: "Provided financial and material aid to the Cape Coast branch of the society.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2022, title: "RACING BICYCLES FOR THE PHYSICALLY CHALLENGED", info: "Provided specialized support to enable individuals to purchase racing bicycles.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2022, title: "400+ WELLINGTON BOOTS DISTRIBUTION", info: "Massive distribution of protective boots across the constituency to aid community workers.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
   // 2021
   { year: 2021, title: "RESOURCES FOR SOCIAL WELFARE VOCATIONAL CENTRE", info: "Donated 20 mattresses and financial aid following a fire outbreak.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
   { year: 2021, title: "FASTING PERIOD SUPPORT FOR MUSLIM CHIEFS", info: "Provided essential items and support for the Muslim community during Ramadan.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
@@ -19,7 +25,7 @@ const initiatives = [
 
 export function Health() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
-  const years = [2025, 2024, 2023, 2021];
+  const years = [2025, 2024, 2023, 2022, 2021];
 
   const filteredInitiatives = activeYear === 'all' ? initiatives : initiatives.filter(i => i.year === activeYear);
 
