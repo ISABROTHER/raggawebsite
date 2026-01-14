@@ -14,11 +14,7 @@ const initiatives = [
   { year: 2025, title: "CANTEEN CONSTRUCTION FOR ABAKAM BASIC SCHOOL", info: "Built a dedicated canteen facility for students and the community.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
   { year: 2025, title: "SPORTS KITS FOR ASENADZE YOUTH", info: "Donated jerseys and footballs to the local youth team.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
   { year: 2025, title: "LOGISTICAL SUPPORT FOR TERTIARY PROJECTS", info: "Backed student-led developmental projects in higher institutions.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
-  
-  // 2024
-  { year: 2024, title: "BECE & WASSCE CANDIDATE SUPPORT", info: "Mentorship and material provision for exam preparation.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
-  { year: 2024, title: "CLASSROOM INFRASTRUCTURE REHABILITATION", info: "Structural repairs for dilapidated basic school buildings.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
-  
+
   // 2023
   { year: 2023, title: "EDUCATIONAL SUPPORT FOR 100 BECE TO SHS STUDENTS", info: "Beneficiaries received strategic educational materials and enrollment support.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
   { year: 2023, title: "DONATION OF 100 DUAL DESKS TO 10 BASIC SCHOOLS", info: "Addressed furniture deficits in critical basic educational facilities.", image: "https://i.imgur.com/Ozjnrli.jpeg" },
@@ -56,7 +52,7 @@ const initiatives = [
 
 export function Education() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
-  const years = [2025, 2024, 2023, 2022, 2021];
+  const years = [2025, 2023, 2022, 2021];
 
   const filteredInitiatives = activeYear === 'all' 
     ? initiatives 

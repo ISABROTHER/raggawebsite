@@ -9,7 +9,6 @@ const initiatives = [
   { year: 2025, title: "OBIARA KA HO SOCCER CENTRE", info: "Ongoing construction of a sports facility at Pedu.", image: "https://i.imgur.com/AZqDymE.jpeg" },
   { year: 2025, title: "COMMUNITY CENTRE MATERIALS DONATION", info: "Cement and roofing for Brabedze and Apewosika centres.", image: "https://i.imgur.com/AZqDymE.jpeg" },
   { year: 2025, title: "GH₵30,000 FOR CULTURAL FESTIVALS", info: "Support for Oguaa Fetu Afahye and other celebrations.", image: "https://i.imgur.com/AZqDymE.jpeg" },
-  { year: 2024, title: "2,500+ STREETLIGHT INSTALLATIONS", info: "Constituency-wide lighting for safety and commerce.", image: "https://i.imgur.com/AZqDymE.jpeg" },
   // 2023
   { year: 2023, title: "RENOVATION OF AMAMOMA COMMUNITY CENTRE", info: "Full renovation of the central gathering hub for Amamoma.", image: "https://i.imgur.com/AZqDymE.jpeg" },
   { year: 2023, title: "CONSTRUCTION SUPPORT FOR ANKAFUL COMMUNITY CENTRE", info: "Donated 200 bags of cement, stones, and sand for construction.", image: "https://i.imgur.com/AZqDymE.jpeg" },
@@ -40,7 +39,7 @@ const initiatives = [
 
 export function Infrastructure() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
-  const years = [2025, 2024, 2023, 2022, 2021];
+  const years = [2025, 2023, 2022, 2021];
 
   const filteredInitiatives = activeYear === 'all' ? initiatives : initiatives.filter(i => i.year === activeYear);
 

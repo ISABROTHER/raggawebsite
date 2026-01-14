@@ -4,8 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const initiatives = [
   { year: 2025, title: "1,500L OIL & 1,500 BAGS RICE DISTRIBUTION", info: "Relief exercise supporting the aged and persons with disabilities.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2024, title: "MEDICAL SUPPLIES FOR KWAPROW", info: "Infrastructure upgrades to health centers in Kwaprow.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2024, title: "PUBLIC SANITATION FACILITIES", info: "Built modern hygiene facilities in high-density areas.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
   // 2023
   { year: 2023, title: "RAMBO 500 POLYTANK DONATION TO NYINASI", info: "Provided safe water storage for the Nyinasi community.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
   { year: 2023, title: "FOOD SUPPORT FOR MUSLIM COMMUNITY", info: "Donated bags of rice and cooking oil during the fasting season.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
@@ -25,7 +23,7 @@ const initiatives = [
 
 export function Health() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
-  const years = [2025, 2024, 2023, 2022, 2021];
+  const years = [2025, 2023, 2022, 2021];
 
   const filteredInitiatives = activeYear === 'all' ? initiatives : initiatives.filter(i => i.year === activeYear);
 

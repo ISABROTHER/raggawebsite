@@ -3,14 +3,12 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const initiatives = [
-  { year: 2025, title: "1,500 BAGS FERTILIZER DISTRIBUTION", info: "Massive support for farmers across all farming communities.", image: "https://i.imgur.com/TZ4jIJA.jpeg" },
-  { year: 2024, title: "FARM-TO-MARKET SUPPLY CHAINS", info: "Created direct wholesale links for rural farmers.", image: "https://i.imgur.com/TZ4jIJA.jpeg" },
-  { year: 2024, title: "MODERN FARMING TOOLS LOGISTICS", info: "Distributed improved seeds and tools to cooperatives.", image: "https://i.imgur.com/TZ4jIJA.jpeg" }
+  { year: 2025, title: "1,500 BAGS FERTILIZER DISTRIBUTION", info: "Massive support for farmers across all farming communities.", image: "https://i.imgur.com/TZ4jIJA.jpeg" }
 ];
 
 export function Agriculture() {
   const [activeYear, setActiveYear] = useState<number | 'all'>('all');
-  const years = [2025, 2024];
+  const years = [2025];
 
   const filteredInitiatives = activeYear === 'all' ? initiatives : initiatives.filter(i => i.year === activeYear);
 
