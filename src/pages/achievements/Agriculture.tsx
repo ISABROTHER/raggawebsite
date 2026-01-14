@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const initiatives = [
-  { year: 2025, title: "1,500 BAGS FERTILIZER DISTRIBUTION", info: "Massive support for farmers across all farming communities.", image: "https://i.imgur.com/TZ4jIJA.jpeg" }
+  { year: 2025, title: "1,500 BAGS FERTILIZER DISTRIBUTED TO FARMERS", info: "Massive support for farmers across all farming communities.", image: "https://i.imgur.com/TZ4jIJA.jpeg" }
 ];
 
 export function Agriculture() {
