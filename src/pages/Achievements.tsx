@@ -11,13 +11,13 @@ import { Employment } from './achievements/Employment';
 import { Infrastructure } from './achievements/Infrastructure';
 import { Agriculture } from './achievements/Agriculture';
 
-type PolicyKey = 'education' | 'health' | 'employment' | 'infrastructure' | 'agriculture'; 
+type PolicyKey = 'education' | 'health' | 'employment' | 'infrastructure' | 'agriculture';
 
 const categories = [
-  { id: 'education' as PolicyKey, title: 'Educational Support', count: 30, desc: 'School renovations, institutional funding, and massive sports development.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
-  { id: 'health' as PolicyKey, title: 'Health & Social Welfare', count: 10, desc: 'CHPS compound renovations, medical supplies, and community relief.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
-  { id: 'employment' as PolicyKey, title: 'Jobs & Economic Empowerment', count: 16, desc: 'Job placements, logistics support, and small business capital.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
-  { id: 'infrastructure' as PolicyKey, title: 'Infrastructure & Community', count: 24, desc: 'Community centers, bridge construction, and road networks.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
+  { id: 'education' as PolicyKey, title: 'Educational Support', count: 40, desc: 'School renovations, institutional funding, and massive sports development.', image: 'https://i.imgur.com/Ozjnrli.jpeg', component: <Education /> },
+  { id: 'health' as PolicyKey, title: 'Health & Social Welfare', count: 15, desc: 'CHPS compound renovations, medical supplies, and community relief.', image: 'https://i.imgur.com/XmWnKbH.jpeg', component: <Health /> },
+  { id: 'employment' as PolicyKey, title: 'Jobs & Economic Empowerment', count: 19, desc: 'Job placements, logistics support, and small business capital.', image: 'https://i.imgur.com/saQoFLV.png', component: <Employment /> },
+  { id: 'infrastructure' as PolicyKey, title: 'Infrastructure & Community', count: 30, desc: 'Community centers, bridge construction, and road networks.', image: 'https://i.imgur.com/AZqDymE.jpeg', component: <Infrastructure /> },
   { id: 'agriculture' as PolicyKey, title: 'Agri-Development', count: 3, desc: 'Fertilizer distribution and support for farming cooperatives.', image: 'https://i.imgur.com/TZ4jIJA.jpeg', component: <Agriculture /> }
 ];
 
