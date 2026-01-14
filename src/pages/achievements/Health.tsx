@@ -3,22 +3,22 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const initiatives = [
-  { year: 2025, title: "1,500L OIL & 1,500 BAGS RICE DISTRIBUTION", info: "Relief exercise supporting the aged and persons with disabilities.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2025, title: "1,500L COOKING OIL + 1,500 BAGS RICE FOR AGED & PWD", info: "Relief exercise supporting the aged and persons with disabilities.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
   // 2023
-  { year: 2023, title: "RAMBO 500 POLYTANK DONATION TO NYINASI", info: "Provided safe water storage for the Nyinasi community.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2023, title: "FOOD SUPPORT FOR MUSLIM COMMUNITY", info: "Donated bags of rice and cooking oil during the fasting season.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2023, title: "SECURITY GEAR FOR AMAMOMA VOLUNTEERS", info: "Donated reflector vests and torch lights to beef up community security.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2023, title: "RENOVATION OF ANKAFUL CHPS COMPOUND", info: "Structural renovation to restore the community health post.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2023, title: "RAMBO 500 POLYTANK FOR NYINASI COMMUNITY", info: "Provided safe water storage for the Nyinasi community.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2023, title: "RICE BAGS + COOKING OIL FOR MUSLIM COMMUNITY", info: "Donated food items during the fasting season.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2023, title: "REFLECTOR VESTS + TORCH LIGHTS FOR AMAMOMA VOLUNTEERS", info: "Donated security gear to beef up community security.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2023, title: "RENOVATION MATERIALS FOR ANKAFUL CHPS COMPOUND", info: "Structural renovation to restore the community health post.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
   // 2022
-  { year: 2022, title: "450 RAMBO POLYTANK DISTRIBUTION", info: "Donated high-capacity water storage tanks to Brabedze, Dehia, and Apepewosika communities.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2022, title: "WELFARE SUPPORT FOR THE MUSLIM COMMUNITY", info: "Distributed bags of rice, cooking oil, and mackerel during the festive period.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2022, title: "DONATION TO GHANA SOCIETY FOR PHYSICALLY DISABLED", info: "Provided financial and material aid to the Cape Coast branch of the society.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2022, title: "RACING BICYCLES FOR THE PHYSICALLY CHALLENGED", info: "Provided specialized support to enable individuals to purchase racing bicycles.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2022, title: "400+ WELLINGTON BOOTS DISTRIBUTION", info: "Massive distribution of protective boots across the constituency to aid community workers.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2022, title: "450 RAMBO POLYTANKS FOR BRABEDZE, DEHIA & APEPEWOSIKA", info: "Donated high-capacity water storage tanks to three communities.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2022, title: "RICE BAGS + COOKING OIL + MACKEREL FOR MUSLIM COMMUNITY", info: "Distributed food items during the festive period.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2022, title: "FINANCIAL + MATERIAL AID FOR GHANA SOCIETY FOR PHYSICALLY DISABLED", info: "Provided support to the Cape Coast branch of the society.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2022, title: "RACING BICYCLES FOR PHYSICALLY CHALLENGED PERSONS", info: "Provided specialized support to enable individuals to purchase racing bicycles.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2022, title: "400+ WELLINGTON BOOTS CONSTITUENCY-WIDE", info: "Massive distribution of protective boots across the constituency to aid community workers.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
   // 2021
-  { year: 2021, title: "RESOURCES FOR SOCIAL WELFARE VOCATIONAL CENTRE", info: "Donated 20 mattresses and financial aid following a fire outbreak.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2021, title: "FASTING PERIOD SUPPORT FOR MUSLIM CHIEFS", info: "Provided essential items and support for the Muslim community during Ramadan.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
-  { year: 2021, title: "PHOTOTHERAPY MACHINE FOR CCTH", info: "Raised funds and supported the purchase of medical equipment for the Cape Coast Teaching Hospital.", image: "https://i.imgur.com/XmWnKbH.jpeg" }
+  { year: 2021, title: "20 MATTRESSES + FINANCIAL AID FOR SOCIAL WELFARE VOCATIONAL CENTRE", info: "Donated resources following a fire outbreak.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2021, title: "ESSENTIAL ITEMS FOR MUSLIM CHIEFS DURING RAMADAN", info: "Provided support for the Muslim community during the fasting period.", image: "https://i.imgur.com/XmWnKbH.jpeg" },
+  { year: 2021, title: "PHOTOTHERAPY MACHINE FUNDING FOR CCTH", info: "Raised funds and supported the purchase of medical equipment for the Cape Coast Teaching Hospital.", image: "https://i.imgur.com/XmWnKbH.jpeg" }
 ];
 
 export function Health() {
